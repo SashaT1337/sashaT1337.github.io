@@ -3,11 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Простая страница</title>
+    <title>Тест на шизофрению</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .buttons {
+            margin-top: 10px;
+        }
+        button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        #submit {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 25px;
+            font-size: 18px;
+            background-color: #2ecc71;
+        }
+        #submit:hover {
+            background-color: #27ae60;
+        }
+        .selected {
+            background-color: #16a085 !important;
+        }
+    </style>
 </head>
-<body> 
-    <h1>Sasha's web site</h1>
-    <img src="peter1.jpg">
-    <p>gbdnnnn</p>
+<body>
+    <h1>Тест на шизофрению</h1>
+    <p>Ответьте на все вопросы, выбирая "Да" или "Нет". В конце теста вы получите предварительную оценку вашего состояния.</p>
+    <form id="schizophreniaTest">
+        <div class="question" id="q1">
+            <p>1. Часто ли вам кажется, что ваши мысли звучат так громко, что их могут слышать окружающие?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(1, true)">Да</button>
+                <button type="button" onclick="selectAnswer(1, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q2">
+            <p>2. Чувствовали ли вы, что кто-то может читать ваши мысли?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(2, true)">Да</button>
+                <button type="button" onclick="selectAnswer(2, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q3">
+            <p>3. Верите ли вы, что некоторые люди или организации следят за вами?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(3, true)">Да</button>
+                <button type="button" onclick="selectAnswer(3, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q4">
+            <p>4. Бывало ли, что вы слышали голоса, когда рядом никого не было?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(4, true)">Да</button>
+                <button type="button" onclick="selectAnswer(4, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q5">
+            <p>5. Кажется ли вам, что некоторые случайные события или предметы имеют особый, скрытый смысл?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(5, true)">Да</button>
+                <button type="button" onclick="selectAnswer(5, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q6">
+            <p>6. Испытывали ли вы ощущение, что вами управляют извне (например, с помощью технологий, гипноза, магии)?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(6, true)">Да</button>
+                <button type="button" onclick="selectAnswer(6, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q7">
+            <p>7. Верите ли вы в то, что обладаете особыми способностями или миссией?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(7, true)">Да</button>
+                <button type="button" onclick="selectAnswer(7, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q8">
+            <p>8. Бывало ли, что вы видели то, чего не видели другие?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(8, true)">Да</button>
+                <button type="button" onclick="selectAnswer(8, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q9">
+            <p>9. Чувствуете ли вы, что ваши эмоции стали менее выраженными?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(9, true)">Да</button>
+                <button type="button" onclick="selectAnswer(9, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q10">
+            <p>10. Трудно ли вам выражать свои чувства?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(10, true)">Да</button>
+                <button type="button" onclick="selectAnswer(10, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q11">
+            <p>11. Стало ли вам сложнее общаться с людьми?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(11, true)">Да</button>
+                <button type="button" onclick="selectAnswer(11, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q12">
+            <p>12. Замечали ли вы, что ваша речь стала бессвязной или сбивчивой?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(12, true)">Да</button>
+                <button type="button" onclick="selectAnswer(12, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q13">
+            <p>13. Теряли ли вы интерес к вещам, которые раньше приносили радость?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(13, true)">Да</button>
+                <button type="button" onclick="selectAnswer(13, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q14">
+            <p>14. Чувствуете ли вы, что ваши движения стали замедленными или неуклюжими?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(14, true)">Да</button>
+                <button type="button" onclick="selectAnswer(14, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q15">
+            <p>15. Бывает ли у вас ощущение, что ваше тело вам не принадлежит?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(15, true)">Да</button>
+                <button type="button" onclick="selectAnswer(15, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q16">
+            <p>16. Испытываете ли вы трудности с концентрацией внимания?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(16, true)">Да</button>
+                <button type="button" onclick="selectAnswer(16, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q17">
+            <p>17. Чувствуете ли вы, что ваши воспоминания искажены или ненастоящие?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(17, true)">Да</button>
+                <button type="button" onclick="selectAnswer(17, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q18">
+            <p>18. Бывало ли у вас ощущение, что мир вокруг вас ненастоящий?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(18, true)">Да</button>
+                <button type="button" onclick="selectAnswer(18, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q19">
+            <p>19. Чувствуете ли вы, что ваша личность изменилась или разделилась?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(19, true)">Да</button>
+                <button type="button" onclick="selectAnswer(19, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q20">
+            <p>20. Были ли у вас периоды, когда вы не могли отличить сон от реальности?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(20, true)">Да</button>
+                <button type="button" onclick="selectAnswer(20, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q21">
+            <p>21. Случалось ли, что вы действовали автоматически, без контроля над собой?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(21, true)">Да</button>
+                <button type="button" onclick="selectAnswer(21, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q22">
+            <p>22. Бывает ли у вас чувство, что вы находитесь в другом времени или измерении?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(22, true)">Да</button>
+                <button type="button" onclick="selectAnswer(22, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q23">
+            <p>23. Чувствуете ли вы, что ваши мысли путаются или накладываются друг на друга?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(23, true)">Да</button>
+                <button type="button" onclick="selectAnswer(23, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q24">
+            <p>24. Бывало ли, что вы не могли понять, реальны ли ваши воспоминания или это фантазии?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(24, true)">Да</button>
+                <button type="button" onclick="selectAnswer(24, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q25">
+            <p>25. Испытываете ли вы страх перед потерей контроля над своими мыслями?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(25, true)">Да</button>
+                <button type="button" onclick="selectAnswer(25, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q26">
+            <p>26. Кажется ли вам, что ваши мысли исчезают или их кто-то забирает?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(26, true)">Да</button>
+                <button type="button" onclick="selectAnswer(26, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q27">
+            <p>27. Чувствовали ли вы, что ваши действия совершаются против вашей воли?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(27, true)">Да</button>
+                <button type="button" onclick="selectAnswer(27, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q28">
+            <p>28. Верите ли вы, что кто-то может влиять на ваши сны?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(28, true)">Да</button>
+                <button type="button" onclick="selectAnswer(28, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q29">
+            <p>29. Бывало ли, что вы долго смотрели в одну точку, не осознавая времени?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(29, true)">Да</button>
+                <button type="button" onclick="selectAnswer(29, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q30">
+            <p>30. Чувствуете ли вы, что ваше тело или разум контролируются кем-то другим?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(30, true)">Да</button>
+                <button type="button" onclick="selectAnswer(30, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q31">
+            <p>31. Были ли у вас видения или голоса, которые давали вам указания?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(31, true)">Да</button>
+                <button type="button" onclick="selectAnswer(31, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q32">
+            <p>32. Чувствуете ли вы, что некоторые части вашего тела вам не принадлежат?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(32, true)">Да</button>
+                <button type="button" onclick="selectAnswer(32, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q33">
+            <p>33. Испытываете ли вы необычные телесные ощущения без явной причины?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(33, true)">Да</button>
+                <button type="button" onclick="selectAnswer(33, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q34">
+            <p>34. Бывает ли у вас ощущение, что вы умерли или не существуете?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(34, true)">Да</button>
+                <button type="button" onclick="selectAnswer(34, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q35">
+            <p>35. Чувствуете ли вы, что ваши эмоции не соответствуют ситуации?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(35, true)">Да</button>
+                <button type="button" onclick="selectAnswer(35, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q36">
+            <p>36. Бывало ли, что вы смеялись или плакали без причины?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(36, true)">Да</button>
+                <button type="button" onclick="selectAnswer(36, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q37">
+            <p>37. Чувствуете ли вы, что ваше сознание разделено на несколько частей?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(37, true)">Да</button>
+                <button type="button" onclick="selectAnswer(37, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q38">
+            <p>38. Считаете ли вы, что окружающие не понимают вашего истинного «Я»?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(38, true)">Да</button>
+                <button type="button" onclick="selectAnswer(38, false)">Нет</button>
+            </div>
+        </div>
+        <button type="button" id="submit" onclick="calculateResult()">Получить результат</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        const answers = new Array(39).fill(false);
+        function selectAnswer(questionNumber, answer) {
+            answers[questionNumber] = answer;
+            // Удаляем класс selected со всех кнопок этого вопроса
+            const questionDiv = document.getElementById(`q${questionNumber}`);
+            const buttons = questionDiv.querySelectorAll('button');
+            buttons.forEach(button => button.classList.remove('selected'));
+            // Добавляем класс selected к выбранной кнопке
+            if (answer) {
+                buttons[0].classList.add('selected');
+            } else {
+                buttons[1].classList.add('selected');
+            }
+        }
+        function calculateResult() {
+            let score = 0;
+            for (let i = 1; i <= 38; i++) {
+                if (answers[i]) {
+                    score++;
+                }
+            }
+            let resultText = `<h2>Ваш результат: ${score} баллов</h2>`;
+            if (score >= 0 && score <= 8) {
+                resultText += `<p><strong>Нет признаков шизофрении.</strong></p>`;
+            } else if (score >= 9 && score <= 18) {
+                resultText += `<p><strong>Умеренная выраженность симптомов</strong>, возможны тревожные расстройства или пограничные состояния. Рекомендуется консультация специалиста.</p>`;
+            } else if (score >= 19 && score <= 28) {
+                resultText += `<p><strong>Выраженные шизофренические тенденции.</strong> Рекомендуется обследование у психиатра.</p>`;
+            } else if (score >= 29 && score <= 38) {
+                resultText += `<p><strong>Высокий риск шизофрении или психотического расстройства.</strong> Необходима срочная консультация врача.</p>`;
+            }
+            resultText += `<p>Помните, что этот тест не является диагностическим инструментом и не заменяет консультацию специалиста. Если у вас есть сомнения относительно своего психического здоровья, обратитесь к врачу.</p>`;
+            document.getElementById('result').innerHTML = resultText;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').style.backgroundColor = score <= 8 ? '#d5f5e3' : 
+                                                                      score <= 18 ? '#fef9e7' : 
+                                                                      score <= 28 ? '#fdebd0' : '#fadbd8';
+            // Прокрутка к результату
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
