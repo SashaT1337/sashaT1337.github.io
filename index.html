@@ -3,736 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сюрреализм: Мир за гранью реальности</title>
+    <title>Тест на шизофрению</title>
     <style>
-        :root {
-            --primary: #FF5722;
-            --secondary: #673AB7;
-            --dark: #212121;
-            --light: #f5f5f5;
-            --accent: #FFC107;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            overflow-x: hidden;
-        }
-        header {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Q50,80 0,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: 100% 100%;
-            opacity: 0.3;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
         }
         h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            position: relative;
-            animation: float 6s ease-in-out infinite;
+            color: #2c3e50;
+            text-align: center;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
         }
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            font-weight: 300;
-            position: relative;
+        .buttons {
+            margin-top: 10px;
         }
-        nav {
-            background-color: rgba(0,0,0,0.2);
-            padding: 1rem;
-            border-radius: 50px;
-            display: inline-block;
-            position: relative;
-            backdrop-filter: blur(5px);
-        }
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-        }
-        nav a {
+        button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+            background-color: #3498db;
             color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            transition: all 0.3s ease;
+            border: none;
+            border-radius: 3px;
         }
-        nav a:hover {
-            background-color: rgba(255,255,255,0.2);
-            transform: scale(1.05);
+        button:hover {
+            background-color: #2980b9;
         }
-        .welcome-section {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .welcome-section::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, var(--accent), transparent 70%);
-            opacity: 0.3;
-            z-index: 0;
-        }
-        .welcome-content {
-            position: relative;
-            z-index: 1;
-        }
-        h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            border-bottom: 3px solid var(--accent);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-        p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-        .surreal-definition {
-            background: linear-gradient(135deg, rgba(103,58,183,0.1), rgba(255,87,34,0.1));
-            padding: 2rem;
-            border-radius: 10px;
-            border-left: 5px solid var(--secondary);
-            margin: 2rem 0;
-        }
-        .surreal-definition h3 {
-            color: var(--secondary);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 3rem auto;
-        }
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-            border-radius: 10px;
-        }
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            top: 15px;
-            z-index: 1;
-        }
-        .left {
-            left: 0;
-        }
-        .right {
-            left: 50%;
-        }
-        .left::after {
-            right: -12px;
-        }
-        .right::after {
-            left: -12px;
-        }
-        .timeline-content {
+        #result {
+            margin-top: 30px;
             padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .timeline-content h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        .gallery-section {
-            max-width: 1400px;
-            margin: 4rem auto;
-            padding: 2rem;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .art-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .art-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-        .art-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .art-card:hover img {
-            transform: scale(1.05);
-        }
-        .art-info {
-            padding: 1.5rem;
-        }
-        .art-info h3 {
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-        .art-info p {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-        .art-info .artist {
-            font-weight: bold;
-            color: var(--secondary);
-        }
-        .interactive-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 3rem 0;
-            flex-wrap: wrap;
-        }
-        .fun-btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        .fun-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        }
-        .fun-btn:active {
-            transform: translateY(1px);
-        }
-        .fun-btn::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-        .fun-btn:hover::after {
-            transform: translateX(0);
-        }
-        footer {
-            background: linear-gradient(135deg, var(--dark), #000);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            text-align: left;
-        }
-        .footer-column h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
-        }
-        .footer-column ul {
-            list-style: none;
-        }
-        .footer-column ul li {
-            margin-bottom: 0.8rem;
-        }
-        .footer-column a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .footer-column a:hover {
-            color: var(--accent);
-        }
-        .copyright {
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-        .surprise-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            z-index: 100;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
+            border-radius: 5px;
             display: none;
         }
-        .surprise-box h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-        .surprise-box p {
-            margin-bottom: 2rem;
-        }
-        .close-surprise {
-            padding: 0.8rem 1.5rem;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .close-surprise:hover {
-            background: var(--primary);
-        }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 99;
-            display: none;
-        }
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            nav ul {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            .timeline::after {
-                left: 31px;
-            }
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            .timeline-item::after {
-                left: 18px;
-            }
-            .left::after, .right::after {
-                left: 18px;
-            }
-            .right {
-                left: 0;
-            }
-        }
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in {
-            animation: fadeIn 1s ease forwards;
-        }
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-        /* Эффект параллакса */
-        .parallax {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            height: 500px;
-            position: relative;
-            margin: 3rem 0;
-        }
-        .parallax-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: white;
-            width: 80%;
-            background-color: rgba(0,0,0,0.5);
-            padding: 2rem;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-        }
-        /* Карусель фактов */
-        .facts-carousel {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            margin: 3rem 0;
-            text-align: center;
-        }
-        .fact {
-            display: none;
-            animation: fadeIn 1s ease;
-        }
-        .fact.active {
+        #submit {
             display: block;
+            margin: 30px auto;
+            padding: 10px 25px;
+            font-size: 18px;
+            background-color: #2ecc71;
         }
-        .fact h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+        #submit:hover {
+            background-color: #27ae60;
         }
-        .carousel-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        .carousel-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .carousel-dot.active {
-            background-color: white;
-            transform: scale(1.2);
+        .selected {
+            background-color: #16a085 !important;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1 class="fade-in">Выставка сюрреализма</h1>
-        <p class="subtitle fade-in delay-1">Исследуйте мир за гранью реальности</p>
-        <nav class="fade-in delay-2">
-            <ul>
-                <li><a href="#about">О сюрреализме</a></li>
-                <li><a href="#history">История</a></li>
-                <li><a href="#gallery">Галерея</a></li>
-                <li><a href="#artists">Художники</a></li>
-                <li><a href="#visit">Посетить выставку</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section id="about" class="welcome-section fade-in delay-3">
-        <div class="welcome-content">
-            <h2>Добро пожаловать в мир сюрреализма</h2>
-            <p>Сюрреализм — это направление в искусстве, которое стремится освободить творческий потенциал подсознания, объединяя реальность и сон, логику и абсурд. Это мир, где время течёт нелинейно, предметы обретают новые формы, а привычные вещи предстают в неожиданных сочетаниях.</p>
-            <div class="surreal-definition">
-                <h3>Что такое сюрреализм?</h3>
-                <p>Сюрреализм (от французского "surréalisme" — "сверхреализм") — это авангардистское движение в искусстве и литературе, возникшее в 1920-х годах. Основоположником считается французский писатель Андре Бретон, опубликовавший в 1924 году "Манифест сюрреализма".</p>
-                <p>Сюрреалисты стремились разрушить границы между реальностью и воображением, создавая произведения, которые шокировали, удивляли и заставляли зрителя задуматься о природе восприятия.</p>
-            </div>
-            <p>На этой выставке вы увидите самые знаменитые произведения сюрреализма, узнаете о художниках, которые создавали эти шедевры, и сможете погрузиться в удивительный мир, где возможно всё.</p>
-        </div>
-    </section>
-    <div class="parallax" style="background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-        <div class="parallax-content">
-            <h2>"Красота будет конвульсивной, или её не будет вовсе"</h2>
-            <p>— Андре Бретон, основатель сюрреализма</p>
-        </div>
-    </div>
-    <section id="history" class="timeline">
-        <h2 style="text-align: center; margin-bottom: 3rem;">История сюрреализма</h2>
-        <div class="timeline-item left fade-in">
-            <div class="timeline-content">
-                <h3>1917-1924: Истоки</h3>
-                <p>Сюрреализм зародился как литературное движение, выросшее из дадаизма. Первые сюрреалистические произведения создавались с использованием техники "автоматического письма" — спонтанного изложения мыслей без контроля сознания.</p>
+    <h1>Тест на шизофрению</h1>
+    <p>Ответьте на все вопросы, выбирая "Да" или "Нет". В конце теста вы получите предварительную оценку вашего состояния.</p>
+    <form id="schizophreniaTest">
+        <div class="question" id="q1">
+            <p>1. Часто ли вам кажется, что ваши мысли звучат так громко, что их могут слышать окружающие?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(1, true)">Да</button>
+                <button type="button" onclick="selectAnswer(1, false)">Нет</button>
             </div>
         </div>
-        <div class="timeline-item right fade-in delay-1">
-            <div class="timeline-content">
-                <h3>1924: Манифест сюрреализма</h3>
-                <p>Андре Бретон публикует "Манифест сюрреализма", в котором определяет сюрреализм как "чистый психический автоматизм". В этом же году создаётся Бюро сюрреалистических исследований в Париже.</p>
+        <div class="question" id="q2">
+            <p>2. Чувствовали ли вы, что кто-то может читать ваши мысли?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(2, true)">Да</button>
+                <button type="button" onclick="selectAnswer(2, false)">Нет</button>
             </div>
         </div>
-        <div class="timeline-item left fade-in delay-2">
-            <div class="timeline-content">
-                <h3>1925: Первая выставка</h3>
-                <p>В Париже проходит первая выставка сюрреалистической живописи с участием Хуана Миро, Макса Эрнста, Пабло Пикассо, Ман Рея и других. Картины шокируют публику неожиданными образами и сочетаниями.</p>
+        <div class="question" id="q3">
+            <p>3. Верите ли вы, что некоторые люди или организации следят за вами?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(3, true)">Да</button>
+                <button type="button" onclick="selectAnswer(3, false)">Нет</button>
             </div>
         </div>
-        <div class="timeline-item right fade-in delay-3">
-            <div class="timeline-content">
-                <h3>1930-е: Расцвет</h3>
-                <p>Сальвадор Дали создаёт свои самые известные работы, включая "Постоянство памяти". Рене Магритт развивает философский сюрреализм. Движение распространяется по Европе и Америке.</p>
+        <div class="question" id="q4">
+            <p>4. Бывало ли, что вы слышали голоса, когда рядом никого не было?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(4, true)">Да</button>
+                <button type="button" onclick="selectAnswer(4, false)">Нет</button>
             </div>
         </div>
-        <div class="timeline-item left fade-in delay-4">
-            <div class="timeline-content">
-                <h3>1940-е: Война и эмиграция</h3>
-                <p>Многие сюрреалисты эмигрируют в США, спасаясь от войны. Их идеи влияют на развитие американского абстрактного экспрессионизма. В 1942 в Нью-Йорке проходит выставка "Artists in Exile".</p>
+        <div class="question" id="q5">
+            <p>5. Кажется ли вам, что некоторые случайные события или предметы имеют особый, скрытый смысл?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(5, true)">Да</button>
+                <button type="button" onclick="selectAnswer(5, false)">Нет</button>
             </div>
         </div>
-        <div class="timeline-item right">
-            <div class="timeline-content">
-                <h3>1950-е — настоящее время: Наследие</h3>
-                <p>Хотя как организованное движение сюрреализм прекратил существование после Второй мировой войны, его влияние ощущается в современном искусстве, кино, рекламе и поп-культуре.</p>
+        <div class="question" id="q6">
+            <p>6. Испытывали ли вы ощущение, что вами управляют извне (например, с помощью технологий, гипноза, магии)?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(6, true)">Да</button>
+                <button type="button" onclick="selectAnswer(6, false)">Нет</button>
             </div>
         </div>
-    </section>
-    <div class="facts-carousel fade-in">
-        <div class="fact active">
-            <h3>Знаете ли вы?</h3>
-            <p>Сальвадор Дали однажды прочитал лекцию в водолазном костюме и чуть не задохнулся, когда не смог снять шлем без помощи.</p>
-        </div>
-        <div class="fact">
-            <h3>Интересный факт</h3>
-            <p>Метод "паранойяльно-критический", разработанный Дали, позволял художнику создавать иллюзии, которые каждый зритель интерпретировал по-своему.</p>
-        </div>
-        <div class="fact">
-            <h3>Любопытно</h3>
-            <p>Рене Магритт часто изображал мужчину в котелке — это был его автопортрет, символ обычного человека, скрывающего тайны.</p>
-        </div>
-        <div class="carousel-nav">
-            <div class="carousel-dot active" onclick="showFact(0)"></div>
-            <div class="carousel-dot" onclick="showFact(1)"></div>
-            <div class="carousel-dot" onclick="showFact(2)"></div>
-        </div>
-    </div>
-    <section id="gallery" class="gallery-section">
-        <h2>20 шедевров сюрреализма</h2>
-        <p>Познакомьтесь с самыми известными картинами в стиле сюрреализма, которые изменили представление об искусстве.</p>
-        <div class="interactive-buttons">
-            <button class="fun-btn" onclick="showRandomArtFact()">Случайный факт</button>
-            <button class="fun-btn" onclick="changeGalleryTheme()">Сменить тему</button>
-            <button class="fun-btn" onclick="startSurrealGame()">Игра в сюрреализм</button>
-        </div>
-        <div class="gallery-grid">
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/d/dd/The_Persistence_of_Memory.jpg/800px-The_Persistence_of_Memory.jpg" alt="Постоянство памяти">
-                <div class="art-info">
-                    <h3>Постоянство памяти</h3>
-                    <p class="artist">Сальвадор Дали, 1931</p>
-                    <p>Знаменитые "мягкие часы" стали символом относительности времени. Дали вдохновился, наблюдая, как плавится сыр камамбер на солнце.</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/0/05/The_Son_of_Man.jpg/800px-The_Son_of_Man.jpg" alt="Сын человеческий">
-                <div class="art-info">
-                    <h3>Сын человеческий</h3>
-                    <p class="artist">Рене Магритт, 1964</p>
-                    <p>Зелёное яблоко, закрывающее лицо мужчины — символ скрытой истины. Магритт говорил: "Всё, что мы видим, скрывает другую реальность".</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/8/8e/The_Treachery_of_Images.jpg/800px-The_Treachery_of_Images.jpg" alt="Вероломство образов">
-                <div class="art-info">
-                    <h3>Вероломство образов</h3>
-                    <p class="artist">Рене Магритт, 1929</p>
-                    <p>Надпись "Это не трубка" под изображением трубки подчёркивает разницу между объектом и его изображением — ключевая идея сюрреализма.</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/5/5c/The_Elephant_Celebes.jpg/800px-The_Elephant_Celebes.jpg" alt="Слон Celebes">
-                <div class="art-info">
-                    <h3>Слон Celebes</h3>
-                    <p class="artist">Макс Эрнст, 1921</p>
-                    <p>Один из первых сюрреалистических шедевров, созданный с использованием техники коллажа. Эрнст соединил образы из научного журнала и африканской скульптуры.</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/e/e5/The_Harvesters.jpg/800px-The_Harvesters.jpg" alt="Урожай">
-                <div class="art-info">
-                    <h3>Урожай</h3>
-                    <p class="artist">Хуан Миро, 1933</p>
-                    <p>Яркий пример "биоморфного" сюрреализма Миро, где абстрактные формы напоминают живые организмы. Художник называл это "убийством живописи".</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/9/9f/The_Lovers_II.jpg/800px-The_Lovers_II.jpg" alt="Влюблённые II">
-                <div class="art-info">
-                    <h3>Влюблённые II</h3>
-                    <p class="artist">Рене Магритт, 1928</p>
-                    <p>Лица влюблённых, закрытые тканью — символ невозможности полного познания другого человека. Одна из самых загадочных работ Магритта.</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/6/6a/The_Great_Masturbator.jpg/800px-The_Great_Masturbator.jpg" alt="Великий мастурбатор">
-                <div class="art-info">
-                    <h3>Великий мастурбатор</h3>
-                    <p class="artist">Сальвадор Дали, 1929</p>
-                    <p>Автобиографичная работа, отражающая страхи и сексуальные фантазии Дали. Каменное лицо напоминает скалы у мыса Креус, где вырос художник.</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/3/3e/The_Red_Tower.jpg/800px-The_Red_Tower.jpg" alt="Красная башня">
-                <div class="art-info">
-                    <h3>Красная башня</h3>
-                    <p class="artist">Джорджо де Кирико, 1913</p>
-                    <p>Хотя де Кирико позже отверг сюрреализм, его "метафизическая живопись" оказала огромное влияние на движение. Дали называл его "своим отцом".</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/4/4a/The_Barbarians.jpg/800px-The_Barbarians.jpg" alt="Варвары">
-                <div class="art-info">
-                    <h3>Варвары</h3>
-                    <p class="artist">Макс Эрнст, 1937</p>
-                    <p>Создано в предчувствии Второй мировой войны. Эрнст использовал технику "граттаж" — процарапывание краски для создания тревожных образов.</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/1/1a/The_Persistence_of_Memory.jpg/800px-The_Persistence_of_Memory.jpg" alt="Сон, вызванный полётом пчелы">
-                <div class="art-info">
-                    <h3>Сон, вызванный полётом пчелы</h3>
-                    <p class="artist">Сальвадор Дали, 1944</p>
-                    <p>Изображает момент перед пробуждением. Тигр символизирует пчелиное жало, а рыба — звук будильника. Пример "паранойяльно-критического метода" Дали.</p>
-                </div>
-            </div>
-            <!-- Остальные картины можно добавить аналогично -->
-        </div>
-    </section>
-    <div class="interactive-buttons" style="margin-top: 0;">
-        <button class="fun-btn" onclick="showSurprise()">Нажми меня!</button>
-        <button class="fun-btn" onclick="animateGallery()">Оживить галерею</button>
-        <button class="fun-btn" onclick="changeTextColors()">Сменить цвета текста</button>
-    </div>
-    <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>О выставке</h3>
-                <ul>
-                    <li><a href="#">Концепция</a></li>
-                    <li><a href="#">Кураторы</a></li>
-                    <li><a href="#">Партнёры</a></li>
-                    <li><a href="#">Пресса</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Посетителям</h3>
-                <ul>
-                    <li><a href="#">Расписание</a></li>
-                    <li><a href="#">Билеты</a></li>
-                    <li><a href="#">Экскурсии</a></li>
-                    <li><a href="#">Доступность</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Контакты</h3>
-                <ul>
-                    <li><a href="#">Адрес: г. Москва, ул. Сюрреалистов, 20</a></li>
-                    <li><a href="tel:+74951234567">Тел.: +7 (495) 123-45-67</a></li>
-                    <li><a href="mailto:info@surrealism-expo.ru">Email: info@surrealism-expo.ru</a></li>
-                </ul>
+        <div class="question" id="q7">
+            <p>7. Верите ли вы в то, что обладаете особыми способностями или миссией?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(7, true)">Да</button>
+                <button type="button" onclick="selectAnswer(7, false)">Нет</button>
             </div>
         </div>
-        <div class="copyright">
-            <p>© 2023 Выставка сюрреализма. Все права защищены.</p>
-            <p>Сайт создан в образовательных целях и не является коммерческим проектом.</p>
+        <div class="question" id="q8">
+            <p>8. Бывало ли, что вы видели то, чего не видели другие?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(8, true)">Да</button>
+                <button type="button" onclick="selectAnswer(8, false)">Нет</button>
+            </div>
         </div>
-    </footer>
-    <div class="overlay" id="overlay"></div>
-    <div class="surprise-box" id="surpriseBox">
-        <h3>Сюрприз от сюрреалистов!</h3>
-        <p id="surpriseText">Здесь могла быть ваша реклама... но мы предпочли цитату Дали: "Единственное различие между мной и сумасшедшим в том, что я не сумасшедший."</p>
-        <button class="close-surprise" onclick="closeSurprise()">Закрыть</button>
-    </div>
+        <div class="question" id="q9">
+            <p>9. Чувствуете ли вы, что ваши эмоции стали менее выраженными?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(9, true)">Да</button>
+                <button type="button" onclick="selectAnswer(9, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q10">
+            <p>10. Трудно ли вам выражать свои чувства?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(10, true)">Да</button>
+                <button type="button" onclick="selectAnswer(10, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q11">
+            <p>11. Стало ли вам сложнее общаться с людьми?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(11, true)">Да</button>
+                <button type="button" onclick="selectAnswer(11, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q12">
+            <p>12. Замечали ли вы, что ваша речь стала бессвязной или сбивчивой?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(12, true)">Да</button>
+                <button type="button" onclick="selectAnswer(12, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q13">
+            <p>13. Теряли ли вы интерес к вещам, которые раньше приносили радость?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(13, true)">Да</button>
+                <button type="button" onclick="selectAnswer(13, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q14">
+            <p>14. Чувствуете ли вы, что ваши движения стали замедленными или неуклюжими?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(14, true)">Да</button>
+                <button type="button" onclick="selectAnswer(14, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q15">
+            <p>15. Бывает ли у вас ощущение, что ваше тело вам не принадлежит?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(15, true)">Да</button>
+                <button type="button" onclick="selectAnswer(15, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q16">
+            <p>16. Испытываете ли вы трудности с концентрацией внимания?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(16, true)">Да</button>
+                <button type="button" onclick="selectAnswer(16, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q17">
+            <p>17. Чувствуете ли вы, что ваши воспоминания искажены или ненастоящие?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(17, true)">Да</button>
+                <button type="button" onclick="selectAnswer(17, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q18">
+            <p>18. Бывало ли у вас ощущение, что мир вокруг вас ненастоящий?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(18, true)">Да</button>
+                <button type="button" onclick="selectAnswer(18, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q19">
+            <p>19. Чувствуете ли вы, что ваша личность изменилась или разделилась?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(19, true)">Да</button>
+                <button type="button" onclick="selectAnswer(19, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q20">
+            <p>20. Были ли у вас периоды, когда вы не могли отличить сон от реальности?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(20, true)">Да</button>
+                <button type="button" onclick="selectAnswer(20, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q21">
+            <p>21. Случалось ли, что вы действовали автоматически, без контроля над собой?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(21, true)">Да</button>
+                <button type="button" onclick="selectAnswer(21, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q22">
+            <p>22. Бывает ли у вас чувство, что вы находитесь в другом времени или измерении?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(22, true)">Да</button>
+                <button type="button" onclick="selectAnswer(22, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q23">
+            <p>23. Чувствуете ли вы, что ваши мысли путаются или накладываются друг на друга?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(23, true)">Да</button>
+                <button type="button" onclick="selectAnswer(23, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q24">
+            <p>24. Бывало ли, что вы не могли понять, реальны ли ваши воспоминания или это фантазии?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(24, true)">Да</button>
+                <button type="button" onclick="selectAnswer(24, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q25">
+            <p>25. Испытываете ли вы страх перед потерей контроля над своими мыслями?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(25, true)">Да</button>
+                <button type="button" onclick="selectAnswer(25, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q26">
+            <p>26. Кажется ли вам, что ваши мысли исчезают или их кто-то забирает?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(26, true)">Да</button>
+                <button type="button" onclick="selectAnswer(26, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q27">
+            <p>27. Чувствовали ли вы, что ваши действия совершаются против вашей воли?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(27, true)">Да</button>
+                <button type="button" onclick="selectAnswer(27, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q28">
+            <p>28. Верите ли вы, что кто-то может влиять на ваши сны?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(28, true)">Да</button>
+                <button type="button" onclick="selectAnswer(28, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q29">
+            <p>29. Бывало ли, что вы долго смотрели в одну точку, не осознавая времени?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(29, true)">Да</button>
+                <button type="button" onclick="selectAnswer(29, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q30">
+            <p>30. Чувствуете ли вы, что ваше тело или разум контролируются кем-то другим?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(30, true)">Да</button>
+                <button type="button" onclick="selectAnswer(30, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q31">
+            <p>31. Были ли у вас видения или голоса, которые давали вам указания?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(31, true)">Да</button>
+                <button type="button" onclick="selectAnswer(31, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q32">
+            <p>32. Чувствуете ли вы, что некоторые части вашего тела вам не принадлежат?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(32, true)">Да</button>
+                <button type="button" onclick="selectAnswer(32, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q33">
+            <p>33. Испытываете ли вы необычные телесные ощущения без явной причины?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(33, true)">Да</button>
+                <button type="button" onclick="selectAnswer(33, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q34">
+            <p>34. Бывает ли у вас ощущение, что вы умерли или не существуете?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(34, true)">Да</button>
+                <button type="button" onclick="selectAnswer(34, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q35">
+            <p>35. Чувствуете ли вы, что ваши эмоции не соответствуют ситуации?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(35, true)">Да</button>
+                <button type="button" onclick="selectAnswer(35, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q36">
+            <p>36. Бывало ли, что вы смеялись или плакали без причины?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(36, true)">Да</button>
+                <button type="button" onclick="selectAnswer(36, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q37">
+            <p>37. Чувствуете ли вы, что ваше сознание разделено на несколько частей?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(37, true)">Да</button>
+                <button type="button" onclick="selectAnswer(37, false)">Нет</button>
+            </div>
+        </div>
+        <div class="question" id="q38">
+            <p>38. Считаете ли вы, что окружающие не понимают вашего истинного «Я»?</p>
+            <div class="buttons">
+                <button type="button" onclick="selectAnswer(38, true)">Да</button>
+                <button type="button" onclick="selectAnswer(38, false)">Нет</button>
+            </div>
+        </div>
+        <button type="button" id="submit" onclick="calculateResult()">Получить результат</button>
+    </form>
+    <div id="result"></div>
     <script>
-        // Показываем факты в карусели
-        let currentFact = 0;
-        const facts = document.querySelectorAll('.fact');
-        const dots = document.querySelectorAll('.carousel-dot');
-        function showFact(index) {
-            facts[currentFact].classList.remove('active');
-            dots[currentFact].classList.remove('active');
-            currentFact = index;
-            facts[currentFact].classList.add('active');
-            dots[currentFact].classList.add('active');
+        const answers = new Array(39).fill(false);
+        function selectAnswer(questionNumber, answer) {
+            answers[questionNumber] = answer;
+            // Удаляем класс selected со всех кнопок этого вопроса
+            const questionDiv = document.getElementById(`q${questionNumber}`);
+            const buttons = questionDiv.querySelectorAll('button');
+            buttons.forEach(button => button.classList.remove('selected'));
+            // Добавляем класс selected к выбранной кнопке
+            if (answer) {
+                buttons[0].classList.add('selected');
+            } else {
+                buttons[1].classList.add('selected');
+            }
         }
-        // Автоматическая смена фактов
-        setInterval(() => {
-            let nextFact = (currentFact + 1) % facts.length;
-            showFact(nextFact);
-        }, 5000);
-        // Анимация при загрузке
-        document.addEventListener('DOMContentLoaded', () => {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach(el => {
-                el.style.opacity = '0';
-            });
-            setTimeout(() => {
-                elements.forEach(el => {
-                    el.style.opacity = '1';
-                });
-            }, 100);
-        });
-        // Интерактивные кнопки
-        const surpriseTexts = [
-            "Знаете ли вы, что Дали однажды привёл на лекцию муравьеда?",
-            "Магритт говорил: 'Искусство пробуждает тайну, без которой мир не существовал бы'.",
-            "Сюрреалисты любили играть в 'изысканный труп' — коллективную игру в рисование.",
-            "Дали создал диван в форме губ Мэй Уэст, который стал иконой дизайна.",
-            "Миро говорил, что его картины — это 'убийство живописи' традиционными методами."
-        ];
-        function showSurprise() {
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('surpriseBox').style.display = 'block';
+        function calculateResult() {
+            let score = 0;
+            for (let i = 1; i <= 38; i++) {
+                if (answers[i]) {
+                    score++;
+                }
+            }
+            let resultText = `<h2>Ваш результат: ${score} баллов</h2>`;
+            if (score >= 0 && score <= 8) {
+                resultText += `<p><strong>Нет признаков шизофрении.</strong></p>`;
+            } else if (score >= 9 && score <= 18) {
+                resultText += `<p><strong>Умеренная выраженность симптомов</strong>, возможны тревожные расстройства или пограничные состояния. Рекомендуется консультация специалиста.</p>`;
+            } else if (score >= 19 && score <= 28) {
+                resultText += `<p><strong>Выраженные шизофренические тенденции.</strong> Рекомендуется обследование у психиатра.</p>`;
+            } else if (score >= 29 && score <= 38) {
+                resultText += `<p><strong>Высокий риск шизофрении или психотического расстройства.</strong> Необходима срочная консультация врача.</p>`;
+            }
+            resultText += `<p>Помните, что этот тест не является диагностическим инструментом и не заменяет консультацию специалиста. Если у вас есть сомнения относительно своего психического здоровья, обратитесь к врачу.</p>`;
+            document.getElementById('result').innerHTML = resultText;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').style.backgroundColor = score <= 8 ? '#d5f5e3' : 
+                                                                      score <= 18 ? '#fef9e7' : 
+                                                                      score <= 28 ? '#fdebd0' : '#fadbd8';
+            // Прокрутка к результату
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
