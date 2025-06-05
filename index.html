@@ -2,9 +2,14 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Симулятор психиатра</title>
     <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         body {
             margin: 0;
             padding: 0;
@@ -12,14 +17,16 @@
             background-color: #f0f0f0;
             touch-action: manipulation;
             overflow: hidden;
+            height: 100vh;
+            width: 100vw;
         }
         
         #game-container {
             position: relative;
-            width: 100vw;
-            height: 100vh;
-            max-width: 800px;
-            max-height: 600px;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
             margin: 0 auto;
             background-color: #e6e6e6;
             overflow: hidden;
@@ -29,7 +36,7 @@
             position: relative;
             width: 100%;
             height: 100%;
-            background-image: url('https://img.freepik.com/free-vector/psychiatrist-office-interior_107791-1820.jpg');
+            /* Вставьте свой фон больницы здесь */
             background-size: cover;
             background-position: center;
         }
@@ -38,7 +45,7 @@
             position: absolute;
             width: 60px;
             height: 100px;
-            bottom: 50px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
             background-image: url('https://img.icons8.com/plasticine/100/000000/doctor-male.png');
@@ -51,7 +58,7 @@
             position: absolute;
             width: 60px;
             height: 100px;
-            bottom: 50px;
+            bottom: 100px;
             left: 30%;
             transform: translateX(-50%);
             background-image: url('https://img.icons8.com/plasticine/100/000000/user.png');
@@ -63,13 +70,14 @@
         
         #desk {
             position: absolute;
-            width: 200px;
-            height: 100px;
-            bottom: 50px;
+            width: 60%;
+            height: 80px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
             background-color: #8B4513;
             z-index: 5;
+            border-radius: 5px;
         }
         
         #ui-container {
@@ -77,39 +85,50 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 150px;
-            background-color: rgba(0, 0, 0, 0.7);
+            height: 40%;
+            max-height: 250px;
+            background-color: rgba(0, 0, 0, 0.85);
             color: white;
             padding: 10px;
-            box-sizing: border-box;
             z-index: 20;
+            display: flex;
+            flex-direction: column;
         }
         
         #dialogue-box {
-            height: 70px;
-            margin-bottom: 10px;
+            flex: 1;
             overflow-y: auto;
-            font-size: 14px;
+            font-size: 16px;
+            margin-bottom: 5px;
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
         }
         
         #action-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            padding-top: 5px;
         }
         
         .action-btn {
-            padding: 8px 12px;
+            padding: 12px 5px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
+            min-height: 50px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
-        .action-btn:hover {
-            background-color: #45a049;
+        .action-btn:active {
+            background-color: #3e8e41;
+            transform: scale(0.98);
         }
         
         #stats-container {
@@ -122,6 +141,7 @@
             border-radius: 5px;
             z-index: 20;
             font-size: 14px;
+            max-width: 40%;
         }
         
         #patient-info {
@@ -135,47 +155,51 @@
             z-index: 20;
             font-size: 14px;
             display: none;
+            max-width: 55%;
         }
         
         #medication-menu, #therapy-menu {
             position: absolute;
-            bottom: 160px;
+            bottom: calc(40% + 10px);
             left: 50%;
             transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             color: white;
             padding: 10px;
             border-radius: 5px;
             z-index: 30;
             display: none;
-            width: 80%;
-            max-height: 200px;
+            width: 90%;
+            max-height: 40vh;
             overflow-y: auto;
+            border: 2px solid #4CAF50;
         }
         
         .med-option, .therapy-option {
-            padding: 5px;
+            padding: 10px;
             margin: 5px 0;
             background-color: #333;
             cursor: pointer;
+            border-radius: 5px;
         }
         
-        .med-option:hover, .therapy-option:hover {
+        .med-option:active, .therapy-option:active {
             background-color: #555;
         }
         
         #waiting-room {
             position: absolute;
-            right: 20px;
-            bottom: 50px;
-            width: 100px;
-            height: 150px;
-            background-color: #ddd;
+            right: 10px;
+            bottom: 120px;
+            width: 80px;
+            height: 120px;
+            background-color: rgba(221, 221, 221, 0.7);
             z-index: 5;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
+            border-radius: 5px;
         }
         
         .waiting-patient {
@@ -187,19 +211,43 @@
             background-repeat: no-repeat;
         }
         
-        @media (max-width: 600px) {
-            .action-btn {
-                padding: 6px 8px;
-                font-size: 12px;
-            }
-            
-            #dialogue-box {
-                font-size: 12px;
-                height: 60px;
-            }
-            
+        .menu-title {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        /* Адаптация для очень маленьких экранов */
+        @media (max-height: 600px) {
             #ui-container {
-                height: 130px;
+                height: 45%;
+                max-height: none;
+            }
+            
+            #medication-menu, #therapy-menu {
+                bottom: calc(45% + 10px);
+            }
+            
+            .action-btn {
+                padding: 8px 5px;
+                font-size: 14px;
+                min-height: 40px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            #dialogue-box {
+                font-size: 14px;
+            }
+            
+            .action-btn {
+                font-size: 14px;
+            }
+            
+            #stats-container, #patient-info {
+                font-size: 12px;
+                padding: 8px;
             }
         }
     </style>
@@ -217,7 +265,7 @@
             
             <div id="stats-container">
                 <div>День: <span id="day">1</span></div>
-                <div>Пациентов сегодня: <span id="patients-today">0</span>/<span id="max-patients">5</span></div>
+                <div>Пациентов: <span id="patients-today">0</span>/<span id="max-patients">5</span></div>
                 <div>Деньги: $<span id="money">1000</span></div>
                 <div>Репутация: <span id="reputation">50</span>/100</div>
             </div>
@@ -230,15 +278,15 @@
             </div>
             
             <div id="medication-menu">
-                <h3>Выберите лекарство:</h3>
+                <div class="menu-title">Выберите лекарство:</div>
                 <div id="med-options"></div>
-                <button class="action-btn" onclick="hideMedMenu()">Отмена</button>
+                <button class="action-btn" onclick="hideMedMenu()" style="margin-top: 10px;">Отмена</button>
             </div>
             
             <div id="therapy-menu">
-                <h3>Выберите терапию:</h3>
+                <div class="menu-title">Выберите терапию:</div>
                 <div id="therapy-options"></div>
-                <button class="action-btn" onclick="hideTherapyMenu()">Отмена</button>
+                <button class="action-btn" onclick="hideTherapyMenu()" style="margin-top: 10px;">Отмена</button>
             </div>
         </div>
         
@@ -247,9 +295,9 @@
             <div id="action-buttons">
                 <button class="action-btn" onclick="startNewDay()" id="start-day-btn">Начать приём</button>
                 <button class="action-btn" onclick="examinePatient()" id="examine-btn" disabled>Осмотреть</button>
-                <button class="action-btn" onclick="showMedMenu()" id="medicate-btn" disabled>Назначить лекарства</button>
-                <button class="action-btn" onclick="showTherapyMenu()" id="therapy-btn" disabled>Провести терапию</button>
-                <button class="action-btn" onclick="nextPatient()" id="next-btn" disabled>Следующий пациент</button>
+                <button class="action-btn" onclick="showMedMenu()" id="medicate-btn" disabled>Лекарства</button>
+                <button class="action-btn" onclick="showTherapyMenu()" id="therapy-btn" disabled>Терапия</button>
+                <button class="action-btn" onclick="nextPatient()" id="next-btn" disabled>Следующий</button>
                 <button class="action-btn" onclick="endDay()" id="end-btn" disabled>Закончить день</button>
             </div>
         </div>
@@ -277,7 +325,7 @@
         
         // База данных терапий
         const therapies = [
-            { id: 1, name: "Когнитивно-поведенческая терапия", cost: 200, effect: 30, duration: "4 недели" },
+            { id: 1, name: "Когнитивная терапия", cost: 200, effect: 30, duration: "4 недели" },
             { id: 2, name: "Семейная терапия", cost: 150, effect: 20, duration: "6 недель" },
             { id: 3, name: "Арт-терапия", cost: 100, effect: 15, duration: "8 недель" },
             { id: 4, name: "Трудотерапия", cost: 120, effect: 25, duration: "6 недель" },
@@ -300,6 +348,10 @@
         // Инициализация игры
         function initGame() {
             updateStats();
+            // Проверяем, если это мобильное устройство, добавляем сообщение
+            if (/Mobi|Android/i.test(navigator.userAgent)) {
+                addDialogue("Игра оптимизирована для мобильных устройств. Используйте кнопки внизу экрана.");
+            }
         }
         
         // Обновление статистики на экране
@@ -350,10 +402,10 @@
             // Обновляем репутацию
             if (patientsToday / maxPatients < 0.5) {
                 reputation -= 10;
-                addDialogue("Вы приняли слишком мало пациентов. Ваша репутация ухудшилась.");
+                addDialogue("Вы приняли слишком мало пациентов. Репутация ухудшилась.");
             } else if (patientsToday === maxPatients) {
                 reputation += 5;
-                addDialogue("Вы приняли всех пациентов сегодня. Ваша репутация улучшилась!");
+                addDialogue("Вы приняли всех пациентов! Репутация улучшилась.");
             }
             
             reputation = Math.max(0, Math.min(100, reputation));
@@ -411,7 +463,7 @@
             if (!currentPatient) return;
             
             let symptomsText = currentPatient.symptoms.join(", ");
-            addDialogue(`При осмотре выявлены: ${symptomsText}. Тяжесть состояния: ${currentPatient.severity}/100.`);
+            addDialogue(`Симптомы: ${symptomsText}. Тяжесть состояния: ${currentPatient.severity}/100.`);
             
             document.getElementById('medicate-btn').disabled = false;
             document.getElementById('therapy-btn').disabled = false;
@@ -428,9 +480,9 @@
                 medElement.className = 'med-option';
                 medElement.innerHTML = `
                     <strong>${med.name}</strong><br>
-                    Эффект: +${med.effect}%<br>
-                    Побочные эффекты: ${med.sideEffects}<br>
-                    Стоимость: $${med.cost}
+                    <small>+${med.effect}% к лечению</small><br>
+                    <small>Побочка: ${med.sideEffects}</small><br>
+                    <small>Цена: $${med.cost}</small>
                 `;
                 medElement.onclick = () => prescribeMedication(med);
                 document.getElementById('med-options').appendChild(medElement);
@@ -445,7 +497,7 @@
         // Назначить лекарство
         function prescribeMedication(medication) {
             if (!currentPatient || money < medication.cost) {
-                addDialogue("Недостаточно денег для назначения этого лекарства.");
+                addDialogue("Недостаточно денег для этого лекарства.");
                 hideMedMenu();
                 return;
             }
@@ -457,7 +509,7 @@
             currentPatient.severity = effectiveness;
             currentPatient.medication = medication.name;
             
-            addDialogue(`Вы назначили ${medication.name}. Состояние пациента улучшилось на ${improvement}%.`);
+            addDialogue(`Назначен ${medication.name}. Состояние улучшилось на ${improvement}%.`);
             updatePatientInfo();
             updateStats();
             hideMedMenu();
@@ -479,9 +531,9 @@
                 therapyElement.className = 'therapy-option';
                 therapyElement.innerHTML = `
                     <strong>${therapy.name}</strong><br>
-                    Эффект: +${therapy.effect}%<br>
-                    Длительность: ${therapy.duration}<br>
-                    Стоимость: $${therapy.cost}
+                    <small>+${therapy.effect}% к лечению</small><br>
+                    <small>Длительность: ${therapy.duration}</small><br>
+                    <small>Цена: $${therapy.cost}</small>
                 `;
                 therapyElement.onclick = () => prescribeTherapy(therapy);
                 document.getElementById('therapy-options').appendChild(therapyElement);
@@ -496,7 +548,7 @@
         // Назначить терапию
         function prescribeTherapy(therapy) {
             if (!currentPatient || money < therapy.cost) {
-                addDialogue("Недостаточно денег для назначения этой терапии.");
+                addDialogue("Недостаточно денег для этой терапии.");
                 hideTherapyMenu();
                 return;
             }
@@ -508,7 +560,7 @@
             currentPatient.severity = effectiveness;
             currentPatient.therapy = therapy.name;
             
-            addDialogue(`Вы назначили ${therapy.name}. Состояние пациента улучшилось на ${improvement}%.`);
+            addDialogue(`Назначена ${therapy.name}. Состояние улучшилось на ${improvement}%.`);
             updatePatientInfo();
             updateStats();
             hideTherapyMenu();
@@ -555,7 +607,7 @@
         // Добавить текст в диалоговое окно
         function addDialogue(text) {
             let dialogueBox = document.getElementById('dialogue-box');
-            dialogueBox.innerHTML += `<p>${text}</p>`;
+            dialogueBox.innerHTML += `<div>${text}</div>`;
             dialogueBox.scrollTop = dialogueBox.scrollHeight;
         }
         
