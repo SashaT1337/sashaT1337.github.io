@@ -1,378 +1,915 @@
+<rosieArtifact title="3D Psychiatrist Simulator">
+<rosieCreate file="index.html">
+<![CDATA[
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест на шизофрению</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Psychiatrist Simulator</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://esm.sh/three@0.160.0?dev",
+          "three/": "https://esm.sh/three@0.160.0&dev/"
         }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-        }
-        .question {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-        .buttons {
-            margin-top: 10px;
-        }
-        button {
-            padding: 8px 15px;
-            margin-right: 10px;
-            cursor: pointer;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 3px;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        #result {
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 5px;
-            display: none;
-        }
-        #submit {
-            display: block;
-            margin: 30px auto;
-            padding: 10px 25px;
-            font-size: 18px;
-            background-color: #2ecc71;
-        }
-        #submit:hover {
-            background-color: #27ae60;
-        }
-        .selected {
-            background-color: #16a085 !important;
-        }
-    </style>
-</head>
-<body>
-    <h1>Тест на шизофрению</h1>
-    <p>Ответьте на все вопросы, выбирая "Да" или "Нет". В конце теста вы получите предварительную оценку вашего состояния.</p>
-    <form id="schizophreniaTest">
-        <div class="question" id="q1">
-            <p>1. Часто ли вам кажется, что ваши мысли звучат так громко, что их могут слышать окружающие?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(1, true)">Да</button>
-                <button type="button" onclick="selectAnswer(1, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q2">
-            <p>2. Чувствовали ли вы, что кто-то может читать ваши мысли?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(2, true)">Да</button>
-                <button type="button" onclick="selectAnswer(2, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q3">
-            <p>3. Верите ли вы, что некоторые люди или организации следят за вами?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(3, true)">Да</button>
-                <button type="button" onclick="selectAnswer(3, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q4">
-            <p>4. Бывало ли, что вы слышали голоса, когда рядом никого не было?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(4, true)">Да</button>
-                <button type="button" onclick="selectAnswer(4, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q5">
-            <p>5. Кажется ли вам, что некоторые случайные события или предметы имеют особый, скрытый смысл?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(5, true)">Да</button>
-                <button type="button" onclick="selectAnswer(5, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q6">
-            <p>6. Испытывали ли вы ощущение, что вами управляют извне (например, с помощью технологий, гипноза, магии)?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(6, true)">Да</button>
-                <button type="button" onclick="selectAnswer(6, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q7">
-            <p>7. Верите ли вы в то, что обладаете особыми способностями или миссией?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(7, true)">Да</button>
-                <button type="button" onclick="selectAnswer(7, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q8">
-            <p>8. Бывало ли, что вы видели то, чего не видели другие?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(8, true)">Да</button>
-                <button type="button" onclick="selectAnswer(8, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q9">
-            <p>9. Чувствуете ли вы, что ваши эмоции стали менее выраженными?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(9, true)">Да</button>
-                <button type="button" onclick="selectAnswer(9, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q10">
-            <p>10. Трудно ли вам выражать свои чувства?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(10, true)">Да</button>
-                <button type="button" onclick="selectAnswer(10, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q11">
-            <p>11. Стало ли вам сложнее общаться с людьми?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(11, true)">Да</button>
-                <button type="button" onclick="selectAnswer(11, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q12">
-            <p>12. Замечали ли вы, что ваша речь стала бессвязной или сбивчивой?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(12, true)">Да</button>
-                <button type="button" onclick="selectAnswer(12, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q13">
-            <p>13. Теряли ли вы интерес к вещам, которые раньше приносили радость?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(13, true)">Да</button>
-                <button type="button" onclick="selectAnswer(13, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q14">
-            <p>14. Чувствуете ли вы, что ваши движения стали замедленными или неуклюжими?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(14, true)">Да</button>
-                <button type="button" onclick="selectAnswer(14, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q15">
-            <p>15. Бывает ли у вас ощущение, что ваше тело вам не принадлежит?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(15, true)">Да</button>
-                <button type="button" onclick="selectAnswer(15, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q16">
-            <p>16. Испытываете ли вы трудности с концентрацией внимания?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(16, true)">Да</button>
-                <button type="button" onclick="selectAnswer(16, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q17">
-            <p>17. Чувствуете ли вы, что ваши воспоминания искажены или ненастоящие?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(17, true)">Да</button>
-                <button type="button" onclick="selectAnswer(17, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q18">
-            <p>18. Бывало ли у вас ощущение, что мир вокруг вас ненастоящий?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(18, true)">Да</button>
-                <button type="button" onclick="selectAnswer(18, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q19">
-            <p>19. Чувствуете ли вы, что ваша личность изменилась или разделилась?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(19, true)">Да</button>
-                <button type="button" onclick="selectAnswer(19, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q20">
-            <p>20. Были ли у вас периоды, когда вы не могли отличить сон от реальности?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(20, true)">Да</button>
-                <button type="button" onclick="selectAnswer(20, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q21">
-            <p>21. Случалось ли, что вы действовали автоматически, без контроля над собой?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(21, true)">Да</button>
-                <button type="button" onclick="selectAnswer(21, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q22">
-            <p>22. Бывает ли у вас чувство, что вы находитесь в другом времени или измерении?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(22, true)">Да</button>
-                <button type="button" onclick="selectAnswer(22, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q23">
-            <p>23. Чувствуете ли вы, что ваши мысли путаются или накладываются друг на друга?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(23, true)">Да</button>
-                <button type="button" onclick="selectAnswer(23, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q24">
-            <p>24. Бывало ли, что вы не могли понять, реальны ли ваши воспоминания или это фантазии?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(24, true)">Да</button>
-                <button type="button" onclick="selectAnswer(24, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q25">
-            <p>25. Испытываете ли вы страх перед потерей контроля над своими мыслями?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(25, true)">Да</button>
-                <button type="button" onclick="selectAnswer(25, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q26">
-            <p>26. Кажется ли вам, что ваши мысли исчезают или их кто-то забирает?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(26, true)">Да</button>
-                <button type="button" onclick="selectAnswer(26, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q27">
-            <p>27. Чувствовали ли вы, что ваши действия совершаются против вашей воли?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(27, true)">Да</button>
-                <button type="button" onclick="selectAnswer(27, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q28">
-            <p>28. Верите ли вы, что кто-то может влиять на ваши сны?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(28, true)">Да</button>
-                <button type="button" onclick="selectAnswer(28, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q29">
-            <p>29. Бывало ли, что вы долго смотрели в одну точку, не осознавая времени?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(29, true)">Да</button>
-                <button type="button" onclick="selectAnswer(29, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q30">
-            <p>30. Чувствуете ли вы, что ваше тело или разум контролируются кем-то другим?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(30, true)">Да</button>
-                <button type="button" onclick="selectAnswer(30, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q31">
-            <p>31. Были ли у вас видения или голоса, которые давали вам указания?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(31, true)">Да</button>
-                <button type="button" onclick="selectAnswer(31, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q32">
-            <p>32. Чувствуете ли вы, что некоторые части вашего тела вам не принадлежат?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(32, true)">Да</button>
-                <button type="button" onclick="selectAnswer(32, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q33">
-            <p>33. Испытываете ли вы необычные телесные ощущения без явной причины?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(33, true)">Да</button>
-                <button type="button" onclick="selectAnswer(33, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q34">
-            <p>34. Бывает ли у вас ощущение, что вы умерли или не существуете?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(34, true)">Да</button>
-                <button type="button" onclick="selectAnswer(34, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q35">
-            <p>35. Чувствуете ли вы, что ваши эмоции не соответствуют ситуации?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(35, true)">Да</button>
-                <button type="button" onclick="selectAnswer(35, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q36">
-            <p>36. Бывало ли, что вы смеялись или плакали без причины?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(36, true)">Да</button>
-                <button type="button" onclick="selectAnswer(36, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q37">
-            <p>37. Чувствуете ли вы, что ваше сознание разделено на несколько частей?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(37, true)">Да</button>
-                <button type="button" onclick="selectAnswer(37, false)">Нет</button>
-            </div>
-        </div>
-        <div class="question" id="q38">
-            <p>38. Считаете ли вы, что окружающие не понимают вашего истинного «Я»?</p>
-            <div class="buttons">
-                <button type="button" onclick="selectAnswer(38, true)">Да</button>
-                <button type="button" onclick="selectAnswer(38, false)">Нет</button>
-            </div>
-        </div>
-        <button type="button" id="submit" onclick="calculateResult()">Получить результат</button>
-    </form>
-    <div id="result"></div>
-    <script>
-        const answers = new Array(39).fill(false);
-        function selectAnswer(questionNumber, answer) {
-            answers[questionNumber] = answer;
-            // Удаляем класс selected со всех кнопок этого вопроса
-            const questionDiv = document.getElementById(`q${questionNumber}`);
-            const buttons = questionDiv.querySelectorAll('button');
-            buttons.forEach(button => button.classList.remove('selected'));
-            // Добавляем класс selected к выбранной кнопке
-            if (answer) {
-                buttons[0].classList.add('selected');
-            } else {
-                buttons[1].classList.add('selected');
-            }
-        }
-        function calculateResult() {
-            let score = 0;
-            for (let i = 1; i <= 38; i++) {
-                if (answers[i]) {
-                    score++;
-                }
-            }
-            let resultText = `<h2>Ваш результат: ${score} баллов</h2>`;
-            if (score >= 0 && score <= 8) {
-                resultText += `<p><strong>Нет признаков шизофрении.</strong></p>`;
-            } else if (score >= 9 && score <= 18) {
-                resultText += `<p><strong>Умеренная выраженность симптомов</strong>, возможны тревожные расстройства или пограничные состояния. Рекомендуется консультация специалиста.</p>`;
-            } else if (score >= 19 && score <= 28) {
-                resultText += `<p><strong>Выраженные шизофренические тенденции.</strong> Рекомендуется обследование у психиатра.</p>`;
-            } else if (score >= 29 && score <= 38) {
-                resultText += `<p><strong>Высокий риск шизофрении или психотического расстройства.</strong> Необходима срочная консультация врача.</p>`;
-            }
-            resultText += `<p>Помните, что этот тест не является диагностическим инструментом и не заменяет консультацию специалиста. Если у вас есть сомнения относительно своего психического здоровья, обратитесь к врачу.</p>`;
-            document.getElementById('result').innerHTML = resultText;
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('result').style.backgroundColor = score <= 8 ? '#d5f5e3' : 
-                                                                      score <= 18 ? '#fef9e7' : 
-                                                                      score <= 28 ? '#fdebd0' : '#fadbd8';
-            // Прокрутка к результату
-            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
-        }
+      }
     </script>
-</body>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #2c3e50;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        cursor: default;
+      }
+      
+      #gameContainer {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+      }
+      
+      #ui {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 100;
+      }
+      
+      .ui-panel {
+        position: absolute;
+        background: rgba(52, 152, 219, 0.9);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        padding: 15px;
+        color: white;
+        pointer-events: auto;
+        backdrop-filter: blur(5px);
+        font-size: 14px;
+      }
+      
+      #patientList {
+        top: 20px;
+        left: 20px;
+        width: 280px;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+      
+      #currentPatient {
+        top: 20px;
+        right: 20px;
+        width: 300px;
+        background: rgba(231, 76, 60, 0.9);
+      }
+      
+      #treatmentPanel {
+        bottom: 20px;
+        left: 20px;
+        width: 350px;
+        background: rgba(155, 89, 182, 0.9);
+      }
+      
+      #statusPanel {
+        bottom: 20px;
+        right: 20px;
+        width: 200px;
+        background: rgba(39, 174, 96, 0.9);
+      }
+      
+      .patient-item {
+        background: rgba(255, 255, 255, 0.1);
+        margin: 8px 0;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-left: 4px solid #3498db;
+      }
+      
+      .patient-item:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateX(5px);
+      }
+      
+      .patient-item.active {
+        background: rgba(255, 255, 255, 0.3);
+        border-left-color: #f39c12;
+      }
+      
+      .patient-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      
+      .patient-condition {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+      
+      .treatment-btn {
+        background: #27ae60;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        margin: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .treatment-btn:hover {
+        background: #2ecc71;
+        transform: scale(1.05);
+      }
+      
+      .treatment-btn:disabled {
+        background: #7f8c8d;
+        cursor: not-allowed;
+        transform: none;
+      }
+      
+      .medication-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-top: 10px;
+      }
+      
+      .medication-btn {
+        background: #e67e22;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.3s ease;
+      }
+      
+      .medication-btn:hover {
+        background: #f39c12;
+        transform: scale(1.05);
+      }
+      
+      .progress-bar {
+        width: 100%;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 10px 0;
+      }
+      
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #f39c12, #e67e22);
+        transition: width 0.5s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gameContainer">
+      <div id="ui">
+        <div id="patientList" class="ui-panel">
+          <h3>📋 Patient Appointments</h3>
+          <div id="patientListContent"></div>
+        </div>
+        
+        <div id="currentPatient" class="ui-panel" style="display: none;">
+          <h3>👤 Current Patient</h3>
+          <div id="patientDetails"></div>
+          <div class="progress-bar">
+            <div id="consultationProgress" class="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+        
+        <div id="treatmentPanel" class="ui-panel">
+          <h3>💊 Treatment Options</h3>
+          <button id="examineBtn" class="treatment-btn" disabled>Examine Patient</button>
+          <button id="consultBtn" class="treatment-btn" disabled>Consultation</button>
+          <button id="prescribeBtn" class="treatment-btn" disabled>Prescribe Medication</button>
+          <div id="medicationOptions" style="display: none;">
+            <h4>Select Medication:</h4>
+            <div class="medication-grid">
+              <button class="medication-btn" data-med="antidepressant">Antidepressant</button>
+              <button class="medication-btn" data-med="anxiolytic">Anxiolytic</button>
+              <button class="medication-btn" data-med="antipsychotic">Antipsychotic</button>
+              <button class="medication-btn" data-med="mood-stabilizer">Mood Stabilizer</button>
+              <button class="medication-btn" data-med="stimulant">Stimulant</button>
+              <button class="medication-btn" data-med="sleep-aid">Sleep Aid</button>
+            </div>
+          </div>
+        </div>
+        
+        <div id="statusPanel" class="ui-panel">
+          <h3>📊 Daily Stats</h3>
+          <div id="dailyStats">
+            <p>Patients Seen: <span id="patientsSeen">0</span></p>
+            <p>Treatments Given: <span id="treatmentsGiven">0</span></p>
+            <p>Success Rate: <span id="successRate">0%</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script type="module" src="main.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ScriptsLoader-Universal.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ChatManager.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ImageGenerator.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ProgressLogger.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/OGP.js"></script>
+  </body>
 </html>
+]]>
+</rosieCreate>
+
+<rosieCreate file="main.js">
+<![CDATA[
+import { PsychiatristGame } from './game.js';
+
+class GameManager {
+  constructor() {
+    this.game = null;
+    this.init();
+  }
+
+  async init() {
+    try {
+      this.game = new PsychiatristGame();
+      await this.game.init();
+      this.game.start();
+    } catch (error) {
+      console.error('Failed to initialize game:', error);
+    }
+  }
+}
+
+// Start the application
+window.addEventListener('DOMContentLoaded', () => {
+  new GameManager();
+});
+]]>
+</rosieCreate>
+
+<rosieCreate file="game.js">
+<![CDATA[
+import * as THREE from 'three';
+import { OfficeScene } from './officeScene.js';
+import { PatientManager } from './patientManager.js';
+import { UIManager } from './uiManager.js';
+
+export class PsychiatristGame {
+  constructor() {
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.officeScene = null;
+    this.patientManager = null;
+    this.uiManager = null;
+    
+    this.clock = new THREE.Clock();
+    this.isRunning = false;
+    
+    // Game state
+    this.currentPatient = null;
+    this.gameStats = {
+      patientsSeen: 0,
+      treatmentsGiven: 0,
+      successfulTreatments: 0
+    };
+  }
+
+  async init() {
+    // Initialize Three.js components
+    this.initRenderer();
+    this.initScene();
+    this.initCamera();
+    this.initLights();
+    
+    // Initialize game systems
+    this.officeScene = new OfficeScene(this.scene);
+    this.officeScene.create();
+    
+    this.patientManager = new PatientManager();
+    this.uiManager = new UIManager(this);
+    
+    // Setup event listeners
+    this.setupEventListeners();
+    
+    // Generate initial patients
+    this.patientManager.generateInitialPatients();
+    this.uiManager.updatePatientList(this.patientManager.waitingPatients);
+  }
+
+  initRenderer() {
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.renderer.setClearColor(0xf0f8ff, 1);
+    document.getElementById('gameContainer').appendChild(this.renderer.domElement);
+  }
+
+  initScene() {
+    this.scene = new THREE.Scene();
+    this.scene.fog = new THREE.Fog(0xf0f8ff, 10, 50);
+  }
+
+  initCamera() {
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.camera.position.set(0, 3, 8);
+    this.camera.lookAt(0, 0, 0);
+  }
+
+  initLights() {
+    // Ambient light for overall illumination
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    this.scene.add(ambientLight);
+
+    // Main directional light
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(5, 10, 5);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.mapSize.width = 2048;
+    directionalLight.shadow.mapSize.height = 2048;
+    this.scene.add(directionalLight);
+
+    // Warm desk lamp
+    const deskLight = new THREE.PointLight(0xfff8dc, 0.6, 10);
+    deskLight.position.set(-2, 2, 0);
+    this.scene.add(deskLight);
+  }
+
+  setupEventListeners() {
+    window.addEventListener('resize', this.onWindowResize.bind(this));
+    
+    // Click detection for 3D objects
+    this.renderer.domElement.addEventListener('click', this.onMouseClick.bind(this));
+  }
+
+  onWindowResize() {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  onMouseClick(event) {
+    if (this.currentPatient) return;
+    
+    const mouse = new THREE.Vector2();
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, this.camera);
+    
+    const intersects = raycaster.intersectObjects(this.scene.children, true);
+    
+    if (intersects.length > 0) {
+      const object = intersects[0].object;
+      if (object.userData.type === 'patient-chair') {
+        this.handlePatientChairClick();
+      }
+    }
+  }
+
+  handlePatientChairClick() {
+    if (this.patientManager.waitingPatients.length > 0) {
+      this.currentPatient = this.patientManager.getNextPatient();
+      this.uiManager.setCurrentPatient(this.currentPatient);
+      this.uiManager.updatePatientList(this.patientManager.waitingPatients);
+      
+      // Add new patient to maintain queue
+      setTimeout(() => {
+        this.patientManager.addRandomPatient();
+        this.uiManager.updatePatientList(this.patientManager.waitingPatients);
+      }, 2000);
+    }
+  }
+
+  completePatientTreatment(success = true) {
+    if (!this.currentPatient) return;
+    
+    this.gameStats.patientsSeen++;
+    this.gameStats.treatmentsGiven++;
+    if (success) {
+      this.gameStats.successfulTreatments++;
+    }
+    
+    this.currentPatient = null;
+    this.uiManager.clearCurrentPatient();
+    this.uiManager.updateStats(this.gameStats);
+  }
+
+  start() {
+    this.isRunning = true;
+    this.animate();
+  }
+
+  animate() {
+    if (!this.isRunning) return;
+    
+    requestAnimationFrame(this.animate.bind(this));
+    
+    const deltaTime = this.clock.getDelta();
+    
+    // Update office scene animations
+    if (this.officeScene) {
+      this.officeScene.update(deltaTime);
+    }
+    
+    // Render
+    this.renderer.render(this.scene, this.camera);
+  }
+}
+]]>
+</rosieCreate>
+
+<rosieCreate file="officeScene.js">
+<![CDATA[
+import * as THREE from 'three';
+
+export class OfficeScene {
+  constructor(scene) {
+    this.scene = scene;
+    this.animatedObjects = [];
+  }
+
+  create() {
+    this.createFloor();
+    this.createWalls();
+    this.createDesk();
+    this.createChairs();
+    this.createFilingCabinet();
+    this.createDecorations();
+    this.createLighting();
+  }
+
+  createFloor() {
+    const floorGeometry = new THREE.PlaneGeometry(20, 20);
+    const floorMaterial = new THREE.MeshLambertMaterial({ 
+      color: 0x8B7355,
+      transparent: true,
+      opacity: 0.8
+    });
+    const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+    floor.rotation.x = -Math.PI / 2;
+    floor.receiveShadow = true;
+    this.scene.add(floor);
+  }
+
+  createWalls() {
+    const wallMaterial = new THREE.MeshLambertMaterial({ color: 0xF5F5DC });
+    
+    // Back wall
+    const backWallGeometry = new THREE.PlaneGeometry(20, 10);
+    const backWall = new THREE.Mesh(backWallGeometry, wallMaterial);
+    backWall.position.set(0, 5, -10);
+    this.scene.add(backWall);
+    
+    // Side walls
+    const sideWallGeometry = new THREE.PlaneGeometry(20, 10);
+    const leftWall = new THREE.Mesh(sideWallGeometry, wallMaterial);
+    leftWall.position.set(-10, 5, 0);
+    leftWall.rotation.y = Math.PI / 2;
+    this.scene.add(leftWall);
+    
+    const rightWall = new THREE.Mesh(sideWallGeometry, wallMaterial);
+    rightWall.position.set(10, 5, 0);
+    rightWall.rotation.y = -Math.PI / 2;
+    this.scene.add(rightWall);
+  }
+
+  createDesk() {
+    // Desk surface
+    const deskGeometry = new THREE.BoxGeometry(4, 0.1, 2);
+    const deskMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+    const desk = new THREE.Mesh(deskGeometry, deskMaterial);
+    desk.position.set(-2, 1, 0);
+    desk.castShadow = true;
+    this.scene.add(desk);
+    
+    // Desk legs
+    const legGeometry = new THREE.BoxGeometry(0.1, 1, 0.1);
+    const legMaterial = new THREE.MeshLambertMaterial({ color: 0x654321 });
+    
+    const positions = [[-1.8, 0.5, -0.8], [-1.8, 0.5, 0.8], [-4.2, 0.5, -0.8], [-4.2, 0.5, 0.8]];
+    positions.forEach(pos => {
+      const leg = new THREE.Mesh(legGeometry, legMaterial);
+      leg.position.set(...pos);
+      leg.castShadow = true;
+      this.scene.add(leg);
+    });
+    
+    // Computer monitor
+    const monitorGeometry = new THREE.BoxGeometry(1.2, 0.8, 0.1);
+    const monitorMaterial = new THREE.MeshLambertMaterial({ color: 0x2C3E50 });
+    const monitor = new THREE.Mesh(monitorGeometry, monitorMaterial);
+    monitor.position.set(-2, 1.5, -0.5);
+    monitor.castShadow = true;
+    this.scene.add(monitor);
+    
+    // Monitor screen
+    const screenGeometry = new THREE.PlaneGeometry(1, 0.6);
+    const screenMaterial = new THREE.MeshBasicMaterial({ color: 0x3498DB });
+    const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+    screen.position.set(-2, 1.5, -0.45);
+    this.scene.add(screen);
+  }
+
+  createChairs() {
+    // Doctor's chair
+    const chairGeometry = new THREE.BoxGeometry(0.8, 0.1, 0.8);
+    const chairMaterial = new THREE.MeshLambertMaterial({ color: 0x8B0000 });
+    const doctorChair = new THREE.Mesh(chairGeometry, chairMaterial);
+    doctorChair.position.set(-2, 0.6, 1.5);
+    doctorChair.castShadow = true;
+    this.scene.add(doctorChair);
+    
+    // Chair back
+    const backGeometry = new THREE.BoxGeometry(0.8, 1.2, 0.1);
+    const chairBack = new THREE.Mesh(backGeometry, chairMaterial);
+    chairBack.position.set(-2, 1.2, 1.1);
+    chairBack.castShadow = true;
+    this.scene.add(chairBack);
+    
+    // Patient chairs
+    const patientChairMaterial = new THREE.MeshLambertMaterial({ color: 0x4169E1 });
+    for (let i = 0; i < 2; i++) {
+      const patientChair = new THREE.Mesh(chairGeometry, patientChairMaterial);
+      patientChair.position.set(1 + i * 1.2, 0.6, -2);
+      patientChair.castShadow = true;
+      patientChair.userData.type = 'patient-chair';
+      this.scene.add(patientChair);
+      
+      const patientBack = new THREE.Mesh(backGeometry, patientChairMaterial);
+      patientBack.position.set(1 + i * 1.2, 1.2, -2.4);
+      patientBack.castShadow = true;
+      this.scene.add(patientBack);
+    }
+  }
+
+  createFilingCabinet() {
+    const cabinetGeometry = new THREE.BoxGeometry(1, 1.5, 0.6);
+    const cabinetMaterial = new THREE.MeshLambertMaterial({ color: 0x696969 });
+    const cabinet = new THREE.Mesh(cabinetGeometry, cabinetMaterial);
+    cabinet.position.set(-6, 0.75, -2);
+    cabinet.castShadow = true;
+    this.scene.add(cabinet);
+    
+    // Drawers
+    const drawerGeometry = new THREE.BoxGeometry(0.8, 0.3, 0.05);
+    const drawerMaterial = new THREE.MeshLambertMaterial({ color: 0x808080 });
+    for (let i = 0; i < 4; i++) {
+      const drawer = new THREE.Mesh(drawerGeometry, drawerMaterial);
+      drawer.position.set(-6, 0.2 + i * 0.35, -1.65);
+      this.scene.add(drawer);
+    }
+  }
+
+  createDecorations() {
+    // Diploma on wall
+    const diplomaGeometry = new THREE.PlaneGeometry(1, 0.7);
+    const diplomaMaterial = new THREE.MeshLambertMaterial({ color: 0xFFFFF0 });
+    const diploma = new THREE.Mesh(diplomaGeometry, diplomaMaterial);
+    diploma.position.set(-3, 3, -9.9);
+    this.scene.add(diploma);
+    
+    // Books on desk
+    const bookGeometry = new THREE.BoxGeometry(0.3, 0.05, 0.2);
+    const bookColors = [0xFF6B6B, 0x4ECDC4, 0x45B7D1, 0x96CEB4];
+    for (let i = 0; i < 4; i++) {
+      const bookMaterial = new THREE.MeshLambertMaterial({ color: bookColors[i] });
+      const book = new THREE.Mesh(bookGeometry, bookMaterial);
+      book.position.set(-1.5 + i * 0.35, 1.1, 0.7);
+      book.rotation.y = (Math.random() - 0.5) * 0.2;
+      book.castShadow = true;
+      this.scene.add(book);
+    }
+    
+    // Plant
+    const potGeometry = new THREE.CylinderGeometry(0.2, 0.25, 0.3, 8);
+    const potMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+    const pot = new THREE.Mesh(potGeometry, potMaterial);
+    pot.position.set(3, 0.15, 3);
+    pot.castShadow = true;
+    this.scene.add(pot);
+    
+    const stemGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.8);
+    const stemMaterial = new THREE.MeshLambertMaterial({ color: 0x228B22 });
+    const stem = new THREE.Mesh(stemGeometry, stemMaterial);
+    stem.position.set(3, 0.7, 3);
+    this.scene.add(stem);
+    
+    const leafGeometry = new THREE.SphereGeometry(0.3, 6, 4);
+    const leafMaterial = new THREE.MeshLambertMaterial({ color: 0x32CD32 });
+    const leaves = new THREE.Mesh(leafGeometry, leafMaterial);
+    leaves.position.set(3, 1.1, 3);
+    leaves.scale.set(1, 0.6, 1);
+    this.animatedObjects.push({ object: leaves, type: 'sway' });
+    this.scene.add(leaves);
+  }
+
+  createLighting() {
+    // Ceiling light fixture
+    const fixtureGeometry = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 8);
+    const fixtureMaterial = new THREE.MeshLambertMaterial({ color: 0xFFFFFE });
+    const fixture = new THREE.Mesh(fixtureGeometry, fixtureMaterial);
+    fixture.position.set(0, 4.5, 0);
+    this.scene.add(fixture);
+  }
+
+  update(deltaTime) {
+    // Animate objects
+    this.animatedObjects.forEach(item => {
+      if (item.type === 'sway') {
+        item.object.rotation.z = Math.sin(Date.now() * 0.001) * 0.1;
+      }
+    });
+  }
+}
+]]>
+</rosieCreate>
+
+<rosieCreate file="patientManager.js">
+<![CDATA[
+export class PatientManager {
+  constructor() {
+    this.waitingPatients = [];
+    this.patientId = 1;
+    
+    this.conditions = [
+      { name: 'Anxiety Disorder', severity: 'moderate', treatment: 'anxiolytic' },
+      { name: 'Depression', severity: 'mild', treatment: 'antidepressant' },
+      { name: 'Bipolar Disorder', severity: 'severe', treatment: 'mood-stabilizer' },
+      { name: 'ADHD', severity: 'moderate', treatment: 'stimulant' },
+      { name: 'Insomnia', severity: 'mild', treatment: 'sleep-aid' },
+      { name: 'Schizophrenia', severity: 'severe', treatment: 'antipsychotic' },
+      { name: 'PTSD', severity: 'moderate', treatment: 'antidepressant' },
+      { name: 'OCD', severity: 'moderate', treatment: 'antidepressant' },
+      { name: 'Social Anxiety', severity: 'mild', treatment: 'anxiolytic' },
+      { name: 'Panic Disorder', severity: 'severe', treatment: 'anxiolytic' }
+    ];
+    
+    this.firstNames = [
+      'Alexander', 'Maria', 'Ivan', 'Elena', 'Dmitri', 'Anastasia', 'Sergei', 'Natasha',
+      'Mikhail', 'Olga', 'Vladimir', 'Irina', 'Alexei', 'Svetlana', 'Nikolai', 'Tatiana',
+      'Pavel', 'Vera', 'Andrei', 'Oksana', 'Boris', 'Galina', 'Viktor', 'Lyudmila'
+    ];
+    
+    this.lastNames = [
+      'Petrov', 'Ivanov', 'Smirnov', 'Kuznetsov', 'Popov', 'Volkov', 'Sokolov', 'Mikhailov',
+      'Fedorov', 'Morozov', 'Volkov', 'Alekseev', 'Lebedev', 'Semenov', 'Egorov', 'Pavlov',
+      'Kozlov', 'Stepanov', 'Nikolaev', 'Orlov', 'Andreev', 'Makarov', 'Nikitin', 'Zaitsev'
+    ];
+  }
+  
+  generateRandomPatient() {
+    const firstName = this.firstNames[Math.floor(Math.random() * this.firstNames.length)];
+    const lastName = this.lastNames[Math.floor(Math.random() * this.lastNames.length)];
+    const condition = this.conditions[Math.floor(Math.random() * this.conditions.length)];
+    
+    return {
+      id: this.patientId++,
+      name: `${firstName} ${lastName}`,
+      condition: condition.name,
+      severity: condition.severity,
+      recommendedTreatment: condition.treatment,
+      timeWaited: 0,
+      consultationProgress: 0,
+      examined: false,
+      consulted: false,
+      prescribed: false
+    };
+  }
+  
+  generateInitialPatients() {
+    for (let i = 0; i < 6; i++) {
+      this.waitingPatients.push(this.generateRandomPatient());
+    }
+  }
+  
+  addRandomPatient() {
+    this.waitingPatients.push(this.generateRandomPatient());
+  }
+  
+  getNextPatient() {
+    return this.waitingPatients.shift();
+  }
+  
+  getPatientById(id) {
+    return this.waitingPatients.find(patient => patient.id === id);
+  }
+  
+  removePatient(id) {
+    this.waitingPatients = this.waitingPatients.filter(patient => patient.id !== id);
+  }
+}
+]]>
+</rosieCreate>
+
+<rosieCreate file="uiManager.js">
+<![CDATA[
+export class UIManager {
+  constructor(game) {
+    this.game = game;
+    this.currentPatient = null;
+    this.consultationTimer = null;
+    
+    this.initializeEventListeners();
+  }
+  
+  initializeEventListeners() {
+    // Treatment buttons
+    document.getElementById('examineBtn').addEventListener('click', () => this.examinePatient());
+    document.getElementById('consultBtn').addEventListener('click', () => this.consultPatient());
+    document.getElementById('prescribeBtn').addEventListener('click', () => this.showMedicationOptions());
+    
+    // Medication buttons
+    document.querySelectorAll('.medication-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => this.prescribeMedication(e.target.dataset.med));
+    });
+    
+    // Patient list clicks
+    document.getElementById('patientListContent').addEventListener('click', (e) => {
+      if (e.target.classList.contains('patient-item')) {
+        const patientId = parseInt(e.target.dataset.patientId);
+        this.selectPatientFromList(patientId);
+      }
+    });
+  }
+  
+  updatePatientList(patients) {
+    const listContent = document.getElementById('patientListContent');
+    listContent.innerHTML = '';
+    
+    patients.forEach(patient => {
+      const patientElement = document.createElement('div');
+      patientElement.className = 'patient-item';
+      patientElement.dataset.patientId = patient.id;
+      
+      const severityColor = {
+        'mild': '#27ae60',
+        'moderate': '#f39c12', 
+        'severe': '#e74c3c'
+      }[patient.severity];
+      
+      patientElement.innerHTML = `
+        <div class="patient-name">${patient.name}</div>
+        <div class="patient-condition" style="color: ${severityColor}">
+          ${patient.condition} (${patient.severity})
+        </div>
+      `;
+      
+      listContent.appendChild(patientElement);
+    });
+  }
+  
+  selectPatientFromList(patientId) {
+    if (this.currentPatient) return; // Already has a patient
+    
+    const patient = this.game.patientManager.getPatientById(patientId);
+    if (patient) {
+      this.game.patientManager.removePatient(patientId);
+      this.currentPatient = patient;
+      this.setCurrentPatient(patient);
+      this.updatePatientList(this.game.patientManager.waitingPatients);
+      
+      // Add new patient to maintain queue
+      setTimeout(() => {
+        this.game.patientManager.addRandomPatient();
+        this.updatePatientList(this.game.patientManager.waitingPatients);
+      }, 1000);
+    }
+  }
+  
+  setCurrentPatient(patient) {
+    this.currentPatient = patient;
+    const panel = document.getElementById('currentPatient');
+    const details = document.getElementById('patientDetails');
+    
+    panel.style.display = 'block';
+    details.innerHTML = `
+      <h4>${patient.name}</h4>
+      <p><strong>Condition:</strong> ${patient.condition}</p>
+      <p><strong>Severity:</strong> ${patient.severity}</p>
+      <p><strong>Status:</strong> Waiting for examination</p>
+    `;
+    
+    this.updateTreatmentButtons();
+  }
+  
+  updateTreatmentButtons() {
+    const examineBtn = document.getElementById('examineBtn');
+    const consultBtn = document.getElementById('consultBtn');
+    const prescribeBtn = document.getElementById('prescribeBtn');
+    
+    if (!this.currentPatient) {
+      examineBtn.disabled = true;
+      consultBtn.disabled = true;
+      prescribeBtn.disabled = true;
+      return;
+    }
+    
+    examineBtn.disabled = this.currentPatient.examined;
+    consultBtn.disabled = !this.currentPatient.examined || this.currentPatient.consulted;
+    prescribeBtn.disabled = !this.currentPatient.consulted || this.currentPatient.prescribed;
+  }
+  
+  examinePatient() {
+    if (!this.currentPatient || this.currentPatient.examined) return;
+    
+    this.currentPatient.examined = true;
+    this.updatePatientStatus('Examined - Ready for consultation');
+    this.updateTreatmentButtons();
+    this.startConsultationProgress();
+  }
+  
+  consultPatient() {
+    if (!this.currentPatient || !this.currentPatient.examined || this.currentPatient.consulted) return;
+    
+    this.currentPatient.consulted = true;
+    this.updatePatientStatus('Consultation complete - Ready for prescription');
+    this.updateTreatmentButtons();
+  }
+  
+  showMedicationOptions() {
+    if (!this.currentPatient || !this.currentPatient.consulted) return;
+    
+    const medicationOptions = document.getElementById('medicationOptions');
+    medicationOptions.style.display = 'block';
+  }
+  
+  prescribeMedication(medication) {
+    if (!this.currentPatient || this.currentPatient.prescribed) return;
+    
+    this.currentPatient.prescribed = true;
+    const isCorrect = medication === this.currentPatient.recommendedTreatment;
+    
+    this.updatePatientStatus(`Prescribed: ${medication.replace('-', ' ')} ${isCorrect ? '✅' : '❌'}`);
+    
+    // Hide medication options
+    document.getElementById('medicationOptions').style.display = 'none';
+    
+    // Complete treatment after delay
+    setTimeout(() => {
+      this.completeCurrentPatient(isCorrect);
+    }, 2000);
+  }
+  
+  updatePatientStatus(status) {
+    if (!this.currentPatient) return;
+    
+    const details = document.getElementById('patientDetails');
+    const currentContent = details.innerHTML;
+    const statusRegex = /<p><strong>Status:<\/strong>.*?<\/p>/;
+    const newContent = currentContent.replace(statusRegex, `<p><strong>Status:</strong> ${status}</p>`);
+    details.innerHTML = newContent;
+  }
+  
+  startConsultationProgress() {
+    const progressBar = document.getElementById('consultationProgress');
+    let progress = 0;
+    
+    const interval = setInterval(() => {
+      progress += 2;
+      progressBar.style.width = `${progress}%`;
+      
+      if (progress >= 100) {
+        clearInterval(interval);
+      }
+    }, 50);
+  }
+  
+  completeCurrentPatient(success) {
+    this.game.completePatientTreatment(success);
+  }
+  
+  clearCurrentPatient() {
+    this.currentPatient = null;
+    document.getElementById('currentPatient').style.display = 'none';
+    document.getElementById('medicationOptions').style.display = 'none';
+    document.getElementById('consultationProgress').style.width = '0%';
+    this.updateTreatmentButtons();
+  }
+  
+  updateStats(stats) {
+    document.getElementById('patientsSeen').textContent = stats.patientsSeen;
+    document.getElementById('treatmentsGiven').textContent = stats.treatmentsGiven;
+    
+    const successRate = stats.treatmentsGiven > 0 
+      ? Math.round((stats.successfulTreatments / stats.treatmentsGiven) * 100)
+      : 0;
+    document.getElementById('successRate').textContent = `${successRate}%`;
+  }
+}
+]]>
+</rosieCreate>
+    </rosieArtifact>
