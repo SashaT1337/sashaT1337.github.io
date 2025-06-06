@@ -290,7 +290,7 @@
             <div id="dialogue-box">Добро пожаловать в клинику психического здоровья. Сегодня у вас приём пациентов с шизофренией. Ваша задача - правильно диагностировать и лечить их.</div>
             <div id="action-buttons">
                 <button class="action-btn" onclick="startNewDay()" id="start-day-btn">Начать приём</button>
-                <button class="action-btn" onclick="examinePatient()" id="examine-btn" disabled>Осмотреть</button>
+                <button class="action-btn" onclick="examinePatient()" id="examine-btn" disabled>Осмотреть(обязательно)</button>
                 <button class="action-btn" onclick="showXrayMenu()" id="xray-btn" disabled>Рентген</button>
                 <button class="action-btn" onclick="showMedMenu()" id="medicate-btn" disabled>Лекарства</button>
                 <button class="action-btn" onclick="showTherapyMenu()" id="therapy-btn" disabled>Терапия</button>
@@ -303,7 +303,7 @@
     <script>
         // Игровые переменные
         let day = 1;
-        let money = 1000;
+        let money = 10000;
         let reputation = 50;
         let patientsToday = 0;
         let maxPatients = 5;
@@ -320,10 +320,10 @@
         ];
         // База данных терапий
         const therapies = [
-            { id: 1, name: "Когнитивная терапия", cost: 200, effect: 30, duration: "4 недели" },
-            { id: 2, name: "Семейная терапия", cost: 150, effect: 20, duration: "6 недель" },
-            { id: 3, name: "Арт-терапия", cost: 100, effect: 15, duration: "8 недель" },
-            { id: 4, name: "Трудотерапия", cost: 120, effect: 25, duration: "6 недель" },
+            { id: 1, name: "Магнитотерапия", cost: 200, effect: 30, duration: "4 недели" },
+            { id: 2, name: "Электротерапия", cost: 150, effect: 20, duration: "6 недель" },
+            { id: 3, name: "Госпитализация на 15 суток", cost: 100, effect: 15, duration: "2,5 недели" },
+            { id: 4, name: "Госпитализация на 30 суток", cost: 120, effect: 25, duration: "4,2 недели" },
             { id: 5, name: "Психообразование", cost: 80, effect: 10, duration: "2 недели" }
         ];
         // База данных симптомов
