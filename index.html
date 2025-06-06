@@ -1,661 +1,247 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Симулятор психиатра</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            touch-action: manipulation;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
-        
-        #game-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            max-height: 100%;
-            margin: 0 auto;
-            background-color: #e6e6e6;
-            overflow: hidden;
-        }
-        
-        #office {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            /* Вставьте свой фон больницы здесь */
-            background-size: cover;
-            background-position: center;
-        }
-        
-        #player {
-            position: absolute;
-            width: 60px;
-            height: 100px;
-            bottom: 200px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-image: url('https://img.icons8.com/plasticine/100/000000/doctor-male.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 10;
-        }
-        
-        #patient {
-            position: absolute;
-            width: 60px;
-            height: 100px;
-            bottom: 200px;
-            left: 30%;
-            transform: translateX(-50%);
-            background-image: url('https://img.icons8.com/plasticine/100/000000/user.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 10;
-            display: none;
-        }
-        
-        #desk {
-            position: absolute;
-            width: 60%;
-            height: 80px;
-            bottom: 180px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #8B4513;
-            z-index: 5;
-            border-radius: 5px;
-        }
-        
-        #ui-container {
-            position: absolute;
-            bottom: 25%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            height: auto;
-            background-color: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 10px;
-            z-index: 20;
-            display: flex;
-            flex-direction: column;
-            border-radius: 15px;
-        }
-        
-        #dialogue-box {
-            flex: 1;
-            overflow-y: auto;
-            font-size: 16px;
-            margin-bottom: 10px;
-            padding: 5px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            max-height: 100px;
-        }
-        
-        #action-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-        
-        .action-btn {
-            padding: 12px 5px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            min-height: 60px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .action-btn:active {
-            background-color: #3e8e41;
-            transform: scale(0.98);
-        }
-        
-        #stats-container {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 20;
-            font-size: 14px;
-            max-width: 40%;
-        }
-        
-        #patient-info {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 20;
-            font-size: 14px;
-            display: none;
-            max-width: 55%;
-        }
-        
-        #medication-menu, #therapy-menu {
-            position: absolute;
-            bottom: 30%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.95);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 30;
-            display: none;
-            width: 90%;
-            max-height: 50vh;
-            overflow-y: auto;
-            border: 2px solid #4CAF50;
-        }
-        
-        .med-option, .therapy-option {
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #333;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        
-        .med-option:active, .therapy-option:active {
-            background-color: #555;
-        }
-        
-        #waiting-room {
-            position: absolute;
-            right: 10px;
-            bottom: 230px;
-            width: 80px;
-            height: 120px;
-            background-color: rgba(221, 221, 221, 0.7);
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            border-radius: 5px;
-        }
-        
-        .waiting-patient {
-            width: 30px;
-            height: 50px;
-            margin-bottom: 5px;
-            background-image: url('https://img.icons8.com/plasticine/100/000000/user.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-        
-        .menu-title {
-            text-align: center;
-            margin-bottom: 10px;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        
-        /* Адаптация для очень маленьких экранов */
-        @media (max-height: 700px) {
-            #ui-container {
-                bottom: 20%;
-            }
-            
-            #medication-menu, #therapy-menu {
-                bottom: 25%;
-            }
-            
-            .action-btn {
-                min-height: 50px;
-                font-size: 14px;
-            }
-            
-            #player, #patient {
-                bottom: 150px;
-            }
-            
-            #desk {
-                bottom: 130px;
-            }
-            
-            #waiting-room {
-                bottom: 180px;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            #dialogue-box {
-                font-size: 14px;
-                max-height: 80px;
-            }
-            
-            .action-btn {
-                font-size: 14px;
-                min-height: 50px;
-            }
-            
-            #stats-container, #patient-info {
-                font-size: 12px;
-                padding: 8px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div id="game-container">
-        <div id="office">
-            <div id="desk"></div>
-            <div id="player"></div>
-            <div id="patient"></div>
-            
-            <div id="waiting-room">
-                <!-- Пациенты в очереди будут добавляться сюда -->
-            </div>
-            
-            <div id="stats-container">
-                <div>День: <span id="day">1</span></div>
-                <div>Пациентов: <span id="patients-today">0</span>/<span id="max-patients">5</span></div>
-                <div>Деньги: $<span id="money">1000</span></div>
-                <div>Репутация: <span id="reputation">50</span>/100</div>
-            </div>
-            
-            <div id="patient-info">
-                <div>Имя: <span id="patient-name">-</span></div>
-                <div>Возраст: <span id="patient-age">-</span></div>
-                <div>Симптомы: <span id="patient-symptoms">-</span></div>
-                <div>Тяжесть: <span id="patient-severity">-</span>/100</div>
-            </div>
-            
-            <div id="medication-menu">
-                <div class="menu-title">Выберите лекарство:</div>
-                <div id="med-options"></div>
-                <button class="action-btn" onclick="hideMedMenu()" style="margin-top: 10px;">Отмена</button>
-            </div>
-            
-            <div id="therapy-menu">
-                <div class="menu-title">Выберите терапию:</div>
-                <div id="therapy-options"></div>
-                <button class="action-btn" onclick="hideTherapyMenu()" style="margin-top: 10px;">Отмена</button>
-            </div>
-        </div>
-        
-        <div id="ui-container">
-            <div id="dialogue-box">Добро пожаловать в клинику психического здоровья. Сегодня у вас приём пациентов с шизофренией. Ваша задача - правильно диагностировать и лечить их.</div>
-            <div id="action-buttons">
-                <button class="action-btn" onclick="startNewDay()" id="start-day-btn">Начать приём</button>
-                <button class="action-btn" onclick="examinePatient()" id="examine-btn" disabled>Осмотреть</button>
-                <button class="action-btn" onclick="showMedMenu()" id="medicate-btn" disabled>Лекарства</button>
-                <button class="action-btn" onclick="showTherapyMenu()" id="therapy-btn" disabled>Терапия</button>
-                <button class="action-btn" onclick="nextPatient()" id="next-btn" disabled>Следующий</button>
-                <button class="action-btn" onclick="endDay()" id="end-btn" disabled>Закончить день</button>
-            </div>
-        </div>
-    </div>
+import pygame
+import random
+import sys
+from pygame.locals import *
 
-    <script>
-        // Игровые переменные
-        let day = 1;
-        let money = 1000;
-        let reputation = 50;
-        let patientsToday = 0;
-        let maxPatients = 5;
-        let currentPatient = null;
-        let patientsInQueue = [];
-        let isDayActive = false;
-        
-        // База данных лекарств
-        const medications = [
-            { id: 1, name: "Галоперидол", cost: 50, effect: 20, sideEffects: "Тремор, сонливость" },
-            { id: 2, name: "Рисперидон", cost: 80, effect: 30, sideEffects: "Увеличение веса" },
-            { id: 3, name: "Оланзапин", cost: 120, effect: 40, sideEffects: "Сонливость, сухость во рту" },
-            { id: 4, name: "Кветиапин", cost: 100, effect: 35, sideEffects: "Головокружение" },
-            { id: 5, name: "Арипипразол", cost: 150, effect: 45, sideEffects: "Беспокойство" }
-        ];
-        
-        // База данных терапий
-        const therapies = [
-            { id: 1, name: "Когнитивная терапия", cost: 200, effect: 30, duration: "4 недели" },
-            { id: 2, name: "Семейная терапия", cost: 150, effect: 20, duration: "6 недель" },
-            { id: 3, name: "Арт-терапия", cost: 100, effect: 15, duration: "8 недель" },
-            { id: 4, name: "Трудотерапия", cost: 120, effect: 25, duration: "6 недель" },
-            { id: 5, name: "Психообразование", cost: 80, effect: 10, duration: "2 недели" }
-        ];
-        
-        // База данных симптомов
-        const symptomsList = [
-            "Галлюцинации", "Бред", "Дезорганизованная речь", 
-            "Кататония", "Аффективная уплощённость", 
-            "Алогия", "Абулия", "Ангедония",
-            "Паранойя", "Голоса в голове", "Мания преследования",
-            "Дереализация", "Деперсонализация", "Бред величия"
-        ];
-        
-        // Имена пациентов
-        const firstNames = ["Алексей", "Дмитрий", "Иван", "Михаил", "Сергей", "Андрей", "Евгений", "Анна", "Елена", "Ольга", "Наталья", "Ирина", "Мария", "Светлана"];
-        const lastNames = ["Иванов", "Петров", "Сидоров", "Смирнов", "Кузнецов", "Васильев", "Попов", "Новиков", "Фёдоров", "Морозов", "Волков", "Алексеев", "Лебедев", "Семёнов"];
-        
-        // Инициализация игры
-        function initGame() {
-            updateStats();
-            // Проверяем, если это мобильное устройство, добавляем сообщение
-            if (/Mobi|Android/i.test(navigator.userAgent)) {
-                addDialogue("Игра оптимизирована для мобильных устройств. Используйте кнопки в центре экрана.");
-            }
-        }
-        
-        // Обновление статистики на экране
-        function updateStats() {
-            document.getElementById('day').textContent = day;
-            document.getElementById('money').textContent = money;
-            document.getElementById('reputation').textContent = reputation;
-            document.getElementById('patients-today').textContent = patientsToday;
-            document.getElementById('max-patients').textContent = maxPatients;
-        }
-        
-        // Начать новый день
-        function startNewDay() {
-            if (isDayActive) return;
-            
-            isDayActive = true;
-            patientsToday = 0;
-            maxPatients = 5 + Math.floor(Math.random() * 3);
-            
-            // Создаем очередь пациентов
-            patientsInQueue = [];
-            for (let i = 0; i < maxPatients; i++) {
-                patientsInQueue.push(generatePatient());
-            }
-            
-            updateStats();
-            updateWaitingRoom();
-            
-            document.getElementById('start-day-btn').disabled = true;
-            document.getElementById('end-btn').disabled = false;
-            
-            addDialogue(`Начало дня ${day}. Сегодня у вас ${maxPatients} пациентов.`);
-            
-            // Принимаем первого пациента
-            nextPatient();
-        }
-        
-        // Закончить день
-        function endDay() {
-            if (!isDayActive) return;
-            
-            isDayActive = false;
-            
-            // Рассчитываем доход
-            let dailyIncome = patientsToday * 200;
-            money += dailyIncome;
-            
-            // Обновляем репутацию
-            if (patientsToday / maxPatients < 0.5) {
-                reputation -= 10;
-                addDialogue("Вы приняли слишком мало пациентов. Репутация ухудшилась.");
-            } else if (patientsToday === maxPatients) {
-                reputation += 5;
-                addDialogue("Вы приняли всех пациентов! Репутация улучшилась.");
-            }
-            
-            reputation = Math.max(0, Math.min(100, reputation));
-            
-            // Очищаем очередь
-            patientsInQueue = [];
-            currentPatient = null;
-            updateWaitingRoom();
-            document.getElementById('patient').style.display = 'none';
-            document.getElementById('patient-info').style.display = 'none';
-            
-            document.getElementById('start-day-btn').disabled = false;
-            document.getElementById('examine-btn').disabled = true;
-            document.getElementById('medicate-btn').disabled = true;
-            document.getElementById('therapy-btn').disabled = true;
-            document.getElementById('next-btn').disabled = true;
-            document.getElementById('end-btn').disabled = true;
-            
-            day++;
-            updateStats();
-            
-            addDialogue(`День ${day-1} завершён. Вы заработали $${dailyIncome}.`);
-        }
-        
-        // Следующий пациент
-        function nextPatient() {
-            if (!isDayActive || patientsInQueue.length === 0) {
-                if (patientsToday >= maxPatients) {
-                    addDialogue("Все пациенты на сегодня приняты.");
-                    document.getElementById('next-btn').disabled = true;
-                }
-                return;
-            }
-            
-            currentPatient = patientsInQueue.shift();
-            patientsToday++;
-            
-            document.getElementById('patient').style.display = 'block';
-            document.getElementById('patient-info').style.display = 'block';
-            
-            document.getElementById('examine-btn').disabled = false;
-            document.getElementById('medicate-btn').disabled = true;
-            document.getElementById('therapy-btn').disabled = true;
-            document.getElementById('next-btn').disabled = true;
-            
-            updatePatientInfo();
-            updateWaitingRoom();
-            updateStats();
-            
-            addDialogue(`Пациент ${currentPatient.name}, ${currentPatient.age} лет. На что жалуетесь?`);
-        }
-        
-        // Осмотреть пациента
-        function examinePatient() {
-            if (!currentPatient) return;
-            
-            let symptomsText = currentPatient.symptoms.join(", ");
-            addDialogue(`Симптомы: ${symptomsText}. Тяжесть состояния: ${currentPatient.severity}/100.`);
-            
-            document.getElementById('medicate-btn').disabled = false;
-            document.getElementById('therapy-btn').disabled = false;
-            document.getElementById('next-btn').disabled = false;
-        }
-        
-        // Показать меню лекарств
-        function showMedMenu() {
-            document.getElementById('medication-menu').style.display = 'block';
-            document.getElementById('med-options').innerHTML = '';
-            
-            medications.forEach(med => {
-                let medElement = document.createElement('div');
-                medElement.className = 'med-option';
-                medElement.innerHTML = `
-                    <strong>${med.name}</strong><br>
-                    <small>+${med.effect}% к лечению</small><br>
-                    <small>Побочка: ${med.sideEffects}</small><br>
-                    <small>Цена: $${med.cost}</small>
-                `;
-                medElement.onclick = () => prescribeMedication(med);
-                document.getElementById('med-options').appendChild(medElement);
-            });
-        }
-        
-        // Скрыть меню лекарств
-        function hideMedMenu() {
-            document.getElementById('medication-menu').style.display = 'none';
-        }
-        
-        // Назначить лекарство
-        function prescribeMedication(medication) {
-            if (!currentPatient || money < medication.cost) {
-                addDialogue("Недостаточно денег для этого лекарства.");
-                hideMedMenu();
-                return;
-            }
-            
-            money -= medication.cost;
-            let effectiveness = Math.min(100, currentPatient.severity + medication.effect);
-            let improvement = effectiveness - currentPatient.severity;
-            
-            currentPatient.severity = effectiveness;
-            currentPatient.medication = medication.name;
-            
-            addDialogue(`Назначен ${medication.name}. Состояние улучшилось на ${improvement}%.`);
-            updatePatientInfo();
-            updateStats();
-            hideMedMenu();
-            
-            // Улучшаем репутацию за успешное лечение
-            if (improvement > 20) {
-                reputation += 2;
-                updateStats();
-            }
-        }
-        
-        // Показать меню терапий
-        function showTherapyMenu() {
-            document.getElementById('therapy-menu').style.display = 'block';
-            document.getElementById('therapy-options').innerHTML = '';
-            
-            therapies.forEach(therapy => {
-                let therapyElement = document.createElement('div');
-                therapyElement.className = 'therapy-option';
-                therapyElement.innerHTML = `
-                    <strong>${therapy.name}</strong><br>
-                    <small>+${therapy.effect}% к лечению</small><br>
-                    <small>Длительность: ${therapy.duration}</small><br>
-                    <small>Цена: $${therapy.cost}</small>
-                `;
-                therapyElement.onclick = () => prescribeTherapy(therapy);
-                document.getElementById('therapy-options').appendChild(therapyElement);
-            });
-        }
-        
-        // Скрыть меню терапий
-        function hideTherapyMenu() {
-            document.getElementById('therapy-menu').style.display = 'none';
-        }
-        
-        // Назначить терапию
-        function prescribeTherapy(therapy) {
-            if (!currentPatient || money < therapy.cost) {
-                addDialogue("Недостаточно денег для этой терапии.");
-                hideTherapyMenu();
-                return;
-            }
-            
-            money -= therapy.cost;
-            let effectiveness = Math.min(100, currentPatient.severity + therapy.effect);
-            let improvement = effectiveness - currentPatient.severity;
-            
-            currentPatient.severity = effectiveness;
-            currentPatient.therapy = therapy.name;
-            
-            addDialogue(`Назначена ${therapy.name}. Состояние улучшилось на ${improvement}%.`);
-            updatePatientInfo();
-            updateStats();
-            hideTherapyMenu();
-            
-            // Улучшаем репутацию за успешное лечение
-            if (improvement > 15) {
-                reputation += 3;
-                updateStats();
-            }
-        }
-        
-        // Обновить информацию о пациенте
-        function updatePatientInfo() {
-            if (!currentPatient) return;
-            
-            document.getElementById('patient-name').textContent = currentPatient.name;
-            document.getElementById('patient-age').textContent = currentPatient.age;
-            document.getElementById('patient-symptoms').textContent = currentPatient.symptoms.join(", ");
-            document.getElementById('patient-severity').textContent = currentPatient.severity;
-        }
-        
-        // Обновить отображение очереди
-        function updateWaitingRoom() {
-            let waitingRoom = document.getElementById('waiting-room');
-            waitingRoom.innerHTML = '';
-            
-            patientsInQueue.forEach((patient, index) => {
-                if (index < 3) { // Показываем только первых 3 пациентов в очереди
-                    let patientElement = document.createElement('div');
-                    patientElement.className = 'waiting-patient';
-                    waitingRoom.appendChild(patientElement);
-                }
-            });
-            
-            if (patientsInQueue.length > 3) {
-                let moreElement = document.createElement('div');
-                moreElement.textContent = `+${patientsInQueue.length - 3}`;
-                moreElement.style.color = 'black';
-                moreElement.style.fontSize = '12px';
-                waitingRoom.appendChild(moreElement);
-            }
-        }
-        
-        // Добавить текст в диалоговое окно
-        function addDialogue(text) {
-            let dialogueBox = document.getElementById('dialogue-box');
-            dialogueBox.innerHTML += `<div>${text}</div>`;
-            dialogueBox.scrollTop = dialogueBox.scrollHeight;
-        }
-        
-        // Генерация случайного пациента
-        function generatePatient() {
-            let firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-            let lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-            let age = 18 + Math.floor(Math.random() * 50);
-            
-            // Генерируем случайные симптомы (3-5 штук)
-            let symptomsCount = 3 + Math.floor(Math.random() * 3);
-            let symptoms = [];
-            let symptomsCopy = [...symptomsList];
-            
-            for (let i = 0; i < symptomsCount; i++) {
-                let randomIndex = Math.floor(Math.random() * symptomsCopy.length);
-                symptoms.push(symptomsCopy[randomIndex]);
-                symptomsCopy.splice(randomIndex, 1);
-            }
-            
-            // Тяжесть состояния (30-90)
-            let severity = 30 + Math.floor(Math.random() * 60);
-            
-            return {
-                name: `${firstName} ${lastName}`,
-                age: age,
-                symptoms: symptoms,
-                severity: severity,
-                medication: null,
-                therapy: null
-            };
-        }
-        
-        // Инициализируем игру при загрузке
-        window.onload = initGame;
-    </script>
-</body>
-</html>
+# Инициализация Pygame
+pygame.init()
+
+# Настройки экрана (адаптивность для ПК и телефона)
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
+pygame.display.set_caption("Симулятор Психиатра")
+
+# Цвета
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GRAY = (200, 200, 200)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
+
+# Шрифты
+font_small = pygame.font.SysFont('Arial', 16)
+font_medium = pygame.font.SysFont('Arial', 24)
+font_large = pygame.font.SysFont('Arial', 32)
+
+# Состояния игры
+STATE_MENU = 0
+STATE_RECEPTION = 1
+STATE_DIAGNOSIS = 2
+STATE_TREATMENT = 3
+STATE_XRAY = 4
+
+current_state = STATE_MENU
+current_patient = None
+money = 0
+day = 1
+patients_treated = 0
+
+# Генерация случайного пациента
+def generate_patient():
+    names = ["Иван", "Алексей", "Мария", "Ольга", "Дмитрий", "Сергей", "Анна"]
+    symptoms = [
+        "Галлюцинации",
+        "Бред",
+        "Дезорганизованная речь",
+        "Кататония",
+        "Негативные симптомы",
+        "Паранойя",
+        "Слуховые голоса"
+    ]
+    treatments = {
+        "Галлюцинации": ["Арипипразол", "Рисперидон"],
+        "Бред": ["Оланзапин", "Кветиапин"],
+        "Дезорганизованная речь": ["Галоперидол", "Зипрасидон"],
+        "Кататония": ["Лоразепам", "ЭСТ"],
+        "Негативные симптомы": ["Амисульприд", "Карпипрамин"],
+        "Паранойя": ["Трифлуоперазин", "Перфеназин"],
+        "Слуховые голоса": ["Клозапин", "Палиперидон"]
+    }
+
+    name = random.choice(names)
+    age = random.randint(18, 70)
+    symptom = random.choice(symptoms)
+    correct_treatment = random.choice(treatments[symptom])
+    severity = random.randint(1, 5)
+
+    return {
+        "name": name,
+        "age": age,
+        "symptom": symptom,
+        "correct_treatment": correct_treatment,
+        "severity": severity,
+        "treated": False
+    }
+
+# Основной игровой цикл
+clock = pygame.time.Clock()
+running = True
+
+while running:
+    screen.fill(WHITE)
+
+    # Обработка событий
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            running = False
+        elif event.type == VIDEORESIZE:
+            WIDTH, HEIGHT = event.size
+            screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
+        elif event.type == MOUSEBUTTONDOWN:
+            mouse_pos = pygame.mouse.get_pos()
+
+            # Обработка кликов в меню
+            if current_state == STATE_MENU:
+                if (WIDTH // 2 - 100 <= mouse_pos[0] <= WIDTH // 2 + 100 and
+                    HEIGHT // 2 - 25 <= mouse_pos[1] <= HEIGHT // 2 + 25):
+                    current_state = STATE_RECEPTION
+                    current_patient = generate_patient()
+
+            # Обработка кликов в приемной
+            elif current_state == STATE_RECEPTION:
+                if (50 <= mouse_pos[0] <= 250 and 500 <= mouse_pos[1] <= 550):
+                    current_state = STATE_DIAGNOSIS
+                elif (550 <= mouse_pos[0] <= 750 and 500 <= mouse_pos[1] <= 550):
+                    current_patient = generate_patient()
+
+            # Обработка кликов в диагностике
+            elif current_state == STATE_DIAGNOSIS:
+                if (50 <= mouse_pos[0] <= 250 and 500 <= mouse_pos[1] <= 550):
+                    current_state = STATE_XRAY
+                elif (300 <= mouse_pos[0] <= 500 and 500 <= mouse_pos[1] <= 550):
+                    current_state = STATE_TREATMENT
+                elif (550 <= mouse_pos[0] <= 750 and 500 <= mouse_pos[1] <= 550):
+                    current_state = STATE_RECEPTION
+
+            # Обработка кликов в лечении
+            elif current_state == STATE_TREATMENT:
+                button_width = 200
+                for i, treatment in enumerate(["Арипипразол", "Рисперидон", "Оланзапин", "Кветиапин", "Галоперидол", "Зипрасидон"]):
+                    x = (i % 3) * (button_width + 20) + 50
+                    y = (i // 3) * 60 + 200
+                    if (x <= mouse_pos[0] <= x + button_width and y <= mouse_pos[1] <= y + 50):
+                        if treatment == current_patient["correct_treatment"]:
+                            money += current_patient["severity"] * 100
+                            patients_treated += 1
+                            current_patient["treated"] = True
+                        else:
+                            money -= 50
+                        current_state = STATE_RECEPTION
+                        current_patient = generate_patient()
+
+            # Обработка кликов в рентгене
+            elif current_state == STATE_XRAY:
+                if (50 <= mouse_pos[0] <= 250 and 500 <= mouse_pos[1] <= 550):
+                    current_state = STATE_DIAGNOSIS
+                elif (550 <= mouse_pos[0] <= 750 and 500 <= mouse_pos[1] <= 550):
+                    current_state = STATE_RECEPTION
+
+    # Отрисовка в зависимости от состояния
+    if current_state == STATE_MENU:
+        title = font_large.render("Симулятор Психиатра", True, BLUE)
+        screen.blit(title, (WIDTH // 2 - title.get_width() // 2, 100))
+
+        pygame.draw.rect(screen, GREEN, (WIDTH // 2 - 100, HEIGHT // 2 - 25, 200, 50))
+        start_text = font_medium.render("Начать игру", True, BLACK)
+        screen.blit(start_text, (WIDTH // 2 - start_text.get_width() // 2, HEIGHT // 2 - start_text.get_height() // 2))
+
+    elif current_state == STATE_RECEPTION:
+        # Отрисовка информации о пациенте
+        patient_info = [
+            f"Пациент: {current_patient['name']}",
+            f"Возраст: {current_patient['age']}",
+            f"Симптом: {current_patient['symptom']}",
+            f"Тяжесть: {'★' * current_patient['severity']}"
+        ]
+
+        for i, line in enumerate(patient_info):
+            text = font_medium.render(line, True, BLUE if i == 2 else BLACK)
+            screen.blit(text, (50, 100 + i * 40))
+
+        # Кнопки действий
+        pygame.draw.rect(screen, GREEN, (50, 500, 200, 50))
+        diagnose_text = font_medium.render("Диагностика", True, BLACK)
+        screen.blit(diagnose_text, (50 + 100 - diagnose_text.get_width() // 2, 525 - diagnose_text.get_height() // 2))
+
+        pygame.draw.rect(screen, YELLOW, (550, 500, 200, 50))
+        next_text = font_medium.render("Следующий", True, BLACK)
+        screen.blit(next_text, (550 + 100 - next_text.get_width() // 2, 525 - next_text.get_height() // 2))
+
+    elif current_state == STATE_DIAGNOSIS:
+        # Отрисовка информации о диагностике
+        diagnosis_info = [
+            f"Диагноз: Шизофрения",
+            f"Тип: {current_patient['symptom']}",
+            f"Рекомендации: {current_patient['correct_treatment']} (но вы не знаете)"
+        ]
+
+        for i, line in enumerate(diagnosis_info):
+            text = font_medium.render(line, True, BLUE if i == 1 else BLACK)
+            screen.blit(text, (50, 100 + i * 40))
+
+        # Кнопки действий
+        pygame.draw.rect(screen, GREEN, (50, 500, 200, 50))
+        xray_text = font_medium.render("Рентген", True, BLACK)
+        screen.blit(xray_text, (50 + 100 - xray_text.get_width() // 2, 525 - xray_text.get_height() // 2))
+
+        pygame.draw.rect(screen, YELLOW, (300, 500, 200, 50))
+        treat_text = font_medium.render("Лечение", True, BLACK)
+        screen.blit(treat_text, (300 + 100 - treat_text.get_width() // 2, 525 - treat_text.get_height() // 2))
+
+        pygame.draw.rect(screen, RED, (550, 500, 200, 50))
+        back_text = font_medium.render("Назад", True, BLACK)
+        screen.blit(back_text, (550 + 100 - back_text.get_width() // 2, 525 - back_text.get_height() // 2))
+
+    elif current_state == STATE_TREATMENT:
+        # Отрисовка информации о лечении
+        treat_info = font_large.render("Выберите лечение:", True, BLUE)
+        screen.blit(treat_info, (50, 150))
+
+        # Кнопки лекарств
+        medications = ["Арипипразол", "Рисперидон", "Оланзапин", "Кветиапин", "Галоперидол", "Зипрасидон"]
+        button_width = 200
+        for i, med in enumerate(medications):
+            x = (i % 3) * (button_width + 20) + 50
+            y = (i // 3) * 60 + 200
+            pygame.draw.rect(screen, GRAY, (x, y, button_width, 50))
+            med_text = font_medium.render(med, True, BLUE if med == current_patient["correct_treatment"] else BLACK)
+            screen.blit(med_text, (x + button_width // 2 - med_text.get_width() // 2, y + 25 - med_text.get_height() // 2))
+
+    elif current_state == STATE_XRAY:
+        # Отрисовка "рентгена" (просто картинка)
+        pygame.draw.ellipse(screen, GRAY, (WIDTH // 2 - 150, 150, 300, 300))
+        for _ in range(20):
+            x = random.randint(WIDTH // 2 - 140, WIDTH // 2 + 140)
+            y = random.randint(160, 440)
+            pygame.draw.circle(screen, RED if random.random() > 0.8 else BLUE, (x, y), random.randint(2, 5))
+
+        xray_text = font_large.render("Рентген головного мозга", True, BLUE)
+        screen.blit(xray_text, (WIDTH // 2 - xray_text.get_width() // 2, 50))
+
+        # Кнопки действий
+        pygame.draw.rect(screen, GREEN, (50, 500, 200, 50))
+        back_text = font_medium.render("Назад", True, BLACK)
+        screen.blit(back_text, (50 + 100 - back_text.get_width() // 2, 525 - back_text.get_height() // 2))
+
+        pygame.draw.rect(screen, YELLOW, (550, 500, 200, 50))
+        next_text = font_medium.render("Готово", True, BLACK)
+        screen.blit(next_text, (550 + 100 - next_text.get_width() // 2, 525 - next_text.get_height() // 2))
+
+    # Отрисовка общей информации (день, деньги, пациенты)
+    info_text = [
+        f"День: {day}",
+        f"Деньги: ${money}",
+        f"Пациентов: {patients_treated}"
+    ]
+
+    for i, line in enumerate(info_text):
+        text = font_small.render(line, True, BLUE if i == 1 else BLACK)
+        screen.blit(text, (WIDTH - 150, 20 + i * 20))
+
+    pygame.display.flip()
+    clock.tick(30)
+
+pygame.quit()
+sys.exit()
