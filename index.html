@@ -1,650 +1,430 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Симулятор психиатра</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrot - Древнерусское программирование</title>
     <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+        @import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+        :root {
+            --primary: #8B4513;
+            --secondary: #D2B48C;
+            --accent: #A0522D;
+            --text: #3E2723;
+            --bg: #F5F5DC;
         }
-        body {
+        * {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            touch-action: manipulation;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
+            box-sizing: border-box;
         }
-        #game-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            max-height: 100%;
+        body {
+            font-family: 'Old Standard TT', serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            background-image: url('https://www.transparenttextures.com/patterns/old-map.png');
+        }
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            background-color: #e6e6e6;
-            overflow: hidden;
+            padding: 0 1rem;
         }
-        #office {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            /* Вставьте свой фон больницы здесь */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            border-bottom: 5px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.25rem;
+        }
+        nav a:hover {
+            border-bottom: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
-        }
-        #player {
-            position: absolute;
-            width: 60px;
-            height: 100px;
-            bottom: 200px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-image: url('https://img.icons8.com/plasticine/100/000000/doctor-male.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 10;
-        }
-        #patient {
-            position: absolute;
-            width: 60px;
-            height: 100px;
-            bottom: 200px;
-            left: 30%;
-            transform: translateX(-50%);
-            background-image: url('https://img.icons8.com/plasticine/100/000000/user.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 10;
-            display: none;
-        }
-        #desk {
-            position: absolute;
-            width: 60%;
-            height: 80px;
-            bottom: 180px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #8B4513;
-            z-index: 5;
-            border-radius: 5px;
-        }
-        #ui-container {
-            position: absolute;
-            bottom: 25%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            height: auto;
-            background-color: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 10px;
-            z-index: 20;
+            height: 70vh;
             display: flex;
-            flex-direction: column;
-            border-radius: 15px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
         }
-        #dialogue-box {
-            flex: 1;
-            overflow-y: auto;
-            font-size: 16px;
-            margin-bottom: 10px;
-            padding: 5px;
-            background-color: rgba(255, 255, 255, 0.1);
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%238B4513"></path></svg>');
+            background-size: cover;
+        }
+        .hero-content {
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
             border-radius: 5px;
-            max-height: 100px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--secondary);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        #action-buttons {
+        .btn:hover {
+            background-color: var(--secondary);
+            color: var(--text);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--secondary);
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-align: center;
+            position: relative;
+        }
+        h2::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 0.5rem auto;
+        }
+        .services {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
-        .action-btn {
-            padding: 12px 5px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
+        .service-card {
+            background-color: white;
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            min-height: 60px;
-            white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid var(--secondary);
         }
-        .action-btn:active {
-            background-color: #3e8e41;
-            transform: scale(0.98);
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
-        #stats-container {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+        .service-content {
+            padding: 1.5rem;
+        }
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .about-text {
+            font-size: 1.1rem;
+        }
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+        .about-image {
+            position: relative;
+            border: 10px solid var(--secondary);
+            border-radius: 5px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .about-image img {
+            width: 100%;
+            display: block;
+        }
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--secondary);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--secondary);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: #fffaf0;
+        }
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        footer {
+            background-color: var(--primary);
             color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 20;
-            font-size: 14px;
-            max-width: 40%;
+            padding: 2rem 0;
+            text-align: center;
         }
-        #patient-info {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 20;
-            font-size: 14px;
-            display: none;
-            max-width: 55%;
-        }
-        #medication-menu, #therapy-menu, #xray-menu {
-            position: absolute;
-            bottom: 30%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.95);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 30;
-            display: none;
-            width: 90%;
-            max-height: 50vh;
-            overflow-y: auto;
-            border: 2px solid #4CAF50;
-        }
-        .med-option, .therapy-option, .xray-option {
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #333;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .med-option:active, .therapy-option:active, .xray-option:active {
-            background-color: #555;
-        }
-        #waiting-room {
-            position: absolute;
-            right: 10px;
-            bottom: 230px;
-            width: 80px;
-            height: 120px;
-            background-color: rgba(221, 221, 221, 0.7);
-            z-index: 5;
+        .footer-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-end;
-            border-radius: 5px;
+            gap: 1rem;
         }
-        .waiting-patient {
-            width: 30px;
-            height: 50px;
-            margin-bottom: 5px;
-            background-image: url('https://img.icons8.com/plasticine/100/000000/user.png');
-            background-size: contain;
-            background-repeat: no-repeat;
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
         }
-        .menu-title {
-            text-align: center;
-            margin-bottom: 10px;
-            color: #4CAF50;
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        /* Декоративные элементы */
+        .decorative-border {
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23A0522D"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23A0522D"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23A0522D"></path></svg>');
+            background-size: cover;
+            margin: 2rem 0;
+        }
+        .initial-letter::first-letter {
+            font-size: 3em;
+            float: left;
+            line-height: 0.8;
+            margin-right: 0.1em;
+            color: var(--accent);
             font-weight: bold;
         }
-        #xray-image {
-            width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            margin: 10px 0;
-            display: none;
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            nav ul {
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .about-image {
+                order: -1;
+            }
+            section {
+                padding: 2rem 0;
+            }
+            h2 {
+                font-size: 2rem;
+            }
         }
-        /* Адаптация для очень маленьких экранов */
-        @media (max-height: 700px) {
-            #ui-container {
-                bottom: 20%;
+        @media (max-width: 480px) {
+            .services {
+                grid-template-columns: 1fr;
             }
-            #medication-menu, #therapy-menu, #xray-menu {
-                bottom: 25%;
+            .hero {
+                height: 60vh;
             }
-            .action-btn {
-                min-height: 50px;
-                font-size: 14px;
-            }
-            #player, #patient {
-                bottom: 150px;
-            }
-            #desk {
-                bottom: 130px;
-            }
-            #waiting-room {
-                bottom: 180px;
-            }
-        }
-        @media (max-width: 400px) {
-            #dialogue-box {
-                font-size: 14px;
-                max-height: 80px;
-            }
-            .action-btn {
-                font-size: 14px;
-                min-height: 50px;
-            }
-            #stats-container, #patient-info {
-                font-size: 12px;
-                padding: 8px;
-            }
-            #action-buttons {
-                grid-template-columns: repeat(2, 1fr);
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <div id="game-container">
-        <div id="office">
-            <div id="desk"></div>
-            <div id="player"></div>
-            <div id="patient"></div>
-            <div id="waiting-room">
-                <!-- Пациенты в очереди будут добавляться сюда -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Павел Леонидовичъ</div>
+            <nav>
+                <ul>
+                    <li><a href="#services">Службы</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contact">Беседа</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Павел Леонидовичъ - Письмена цифровые</h1>
+            <p>Создаем хитроумные системы и грады виртуальные по велению твоему</p>
+            <a href="#contact" class="btn">Весть подать</a>
+        </div>
+    </section>
+    <div class="decorative-border"></div>
+    <section id="services" class="container">
+        <h2>Службы наши</h2>
+        <div class="services">
+            <div class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Программирование">
+                </div>
+                <div class="service-content">
+                    <h3>Письмена тайные</h3>
+                    <p class="initial-letter">Создаем хитроумные программы и системы по образу и подобию твоему. От малых скриптов до великих царств цифровых.</p>
+                </div>
             </div>
-            <div id="stats-container">
-                <div>День: <span id="day">1</span></div>
-                <div>Пациентов: <span id="patients-today">0</span>/<span id="max-patients">5</span></div>
-                <div>Деньги: $<span id="money">1000</span></div>
-                <div>Репутация: <span id="reputation">50</span>/100</div>
+            <div class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Веб-разработка">
+                </div>
+                <div class="service-content">
+                    <h3>Грады вебовые</h3>
+                    <p class="initial-letter">Воздвигаем хоромы виртуальные - от малых избушек-визиток до великих градов-магазинов. Украшаем по последнему слову хитрости.</p>
+                </div>
             </div>
-            <div id="patient-info">
-                <div>Имя: <span id="patient-name">-</span></div>
-                <div>Возраст: <span id="patient-age">-</span></div>
-                <div>Симптомы: <span id="patient-symptoms">-</span></div>
-                <div>Тяжесть: <span id="patient-severity">-</span>/100</div>
-            </div>
-            <div id="medication-menu">
-                <div class="menu-title">Выберите лекарство:</div>
-                <div id="med-options"></div>
-                <button class="action-btn" onclick="hideMedMenu()" style="margin-top: 10px;">Отмена</button>
-            </div>
-            <div id="therapy-menu">
-                <div class="menu-title">Выберите терапию:</div>
-                <div id="therapy-options"></div>
-                <button class="action-btn" onclick="hideTherapyMenu()" style="margin-top: 10px;">Отмена</button>
-            </div>
-            <div id="xray-menu">
-                <div class="menu-title">Рентген головного мозга</div>
-                <img id="xray-image" src="https://img.freepik.com/free-vector/brain-x-ray-scanner-with-medical-diagnostic-result_107791-1668.jpg" alt="Рентген мозга">
-                <div id="xray-results"></div>
-                <button class="action-btn" onclick="hideXrayMenu()" style="margin-top: 10px;">Закрыть</button>
-                <button class="action-btn" onclick="hospitalizePatient()" style="margin-top: 10px; background-color: #f44336;">Госпитализировать</button>
+            <div class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1624953587687-daf255b6b80a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Автоматизация">
+                </div>
+                <div class="service-content">
+                    <h3>Роботы служивые</h3>
+                    <p class="initial-letter">Создаем слуг цифровых, кои трудятся без устали, исполняя волю твою. От малых дел до великих процессов.</p>
+                </div>
             </div>
         </div>
-        <div id="ui-container">
-            <div id="dialogue-box">Добро пожаловать в клинику психического здоровья. Сегодня у вас приём пациентов с шизофренией. Ваша задача - правильно диагностировать и лечить их.</div>
-            <div id="action-buttons">
-                <button class="action-btn" onclick="startNewDay()" id="start-day-btn">Начать приём</button>
-                <button class="action-btn" onclick="examinePatient()" id="examine-btn" disabled>Осмотреть(обязательно)</button>
-                <button class="action-btn" onclick="showXrayMenu()" id="xray-btn" disabled>Рентген</button>
-                <button class="action-btn" onclick="showMedMenu()" id="medicate-btn" disabled>Лекарства</button>
-                <button class="action-btn" onclick="showTherapyMenu()" id="therapy-btn" disabled>Терапия</button>
-                <button class="action-btn" onclick="nextPatient()" id="next-btn" disabled>Следующий</button>
-                <button class="action-btn" onclick="endDay()" id="end-btn" disabled>Закончить день</button>
+    </section>
+    <section id="about" class="container">
+        <h2>О нас</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p class="initial-letter">//Требуется программистъ , зарплата - чисто символическая, по поводъю писати ниже\\
+Павел Леонидовичъ - дружина умельцев цифровых, собранная под началом Павла Леонидовича, мужа мудрого и искусного в письменах тайных.</p>
+                <p>Служим мы делу создания хитроумных систем и градов виртуальных уже лет немало. Ведомы страстью к ремеслу своему и желанием творить дела добрые.</p>
+                <p>Не гнушаемся ни малыми делами, ни великими. Для каждого находим подход особый, совет да наставление мудрое.</p>
+                <p>Верны мы заветам старых мастеров, но и новым веяниям не чужды. Соединяем мудрость древнюю с хитростью современной.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Павел Леонидович">
             </div>
         </div>
-    </div>
-
-    <script>
-        // Игровые переменные
-        let day = 1;
-        let money = 10000;
-        let reputation = 50;
-        let patientsToday = 0;
-        let maxPatients = 5;
-        let currentPatient = null;
-        let patientsInQueue = [];
-        let isDayActive = false;
-        // База данных лекарств
-        const medications = [
-            { id: 1, name: "Галоперидол", cost: 50, effect: 20, sideEffects: "Тремор, сонливость" },
-            { id: 2, name: "Рисперидон", cost: 80, effect: 30, sideEffects: "Увеличение веса" },
-            { id: 3, name: "Оланзапин", cost: 120, effect: 40, sideEffects: "Сонливость, сухость во рту" },
-            { id: 4, name: "Кветиапин", cost: 100, effect: 35, sideEffects: "Головокружение" },
-            { id: 5, name: "Арипипразол", cost: 150, effect: 45, sideEffects: "Беспокойство" }
-        ];
-        // База данных терапий
-        const therapies = [
-            { id: 1, name: "Магнитотерапия", cost: 200, effect: 30, duration: "4 недели" },
-            { id: 2, name: "Электротерапия", cost: 150, effect: 20, duration: "6 недель" },
-            { id: 3, name: "Госпитализация на 15 суток", cost: 100, effect: 15, duration: "2,5 недели" },
-            { id: 4, name: "Госпитализация на 30 суток", cost: 120, effect: 25, duration: "4,2 недели" },
-            { id: 5, name: "Психообразование", cost: 80, effect: 10, duration: "2 недели" }
-        ];
-        // База данных симптомов
-        const symptomsList = [
-            "Галлюцинации", "Бред", "Дезорганизованная речь", 
-            "Кататония", "Аффективная уплощённость", 
-            "Алогия", "Абулия", "Ангедония",
-            "Паранойя", "Голоса в голове", "Мания преследования",
-            "Дереализация", "Деперсонализация", "Бред величия"
-        ];
-        // Аномалии на рентгене
-        const xrayFindings = [
-            "Увеличенные желудочки мозга",
-            "Сниженная активность в лобных долях",
-            "Аномальная активность в височных долях",
-            "Нарушения в базальных ганглиях",
-            "Гиперактивность дофаминовых рецепторов",
-            "Уменьшенный объем серого вещества",
-            "Асимметрия полушарий"
-        ];
-        // Имена пациентов
-        const firstNames = ["Алексей", "Дмитрий", "Иван", "Михаил", "Сергей", "Андрей", "Евгений", "Анна", "Елена", "Ольга", "Наталья", "Ирина", "Мария", "Светлана"];
-        const lastNames = ["Иванов", "Петров", "Сидоров", "Смирнов", "Кузнецов", "Васильев", "Попов", "Новиков", "Фёдоров", "Морозов", "Волков", "Алексеев", "Лебедев", "Семёнов"];
-        // Инициализация игры
-        function initGame() {
-            updateStats();
-            // Проверяем, если это мобильное устройство, добавляем сообщение
-            if (/Mobi|Android/i.test(navigator.userAgent)) {
-                addDialogue("Игра оптимизирована для мобильных устройств. Используйте кнопки в центре экрана.");
-            }
-        }
-        // Обновление статистики на экране
-        function updateStats() {
-            document.getElementById('day').textContent = day;
-            document.getElementById('money').textContent = money;
-            document.getElementById('reputation').textContent = reputation;
-            document.getElementById('patients-today').textContent = patientsToday;
-            document.getElementById('max-patients').textContent = maxPatients;
-        }
-        // Начать новый день
-        function startNewDay() {
-            if (isDayActive) return;
-            isDayActive = true;
-            patientsToday = 0;
-            maxPatients = 5 + Math.floor(Math.random() * 3);
-            // Создаем очередь пациентов
-            patientsInQueue = [];
-            for (let i = 0; i < maxPatients; i++) {
-                patientsInQueue.push(generatePatient());
-            }
-            updateStats();
-            updateWaitingRoom();
-            document.getElementById('start-day-btn').disabled = true;
-            document.getElementById('end-btn').disabled = false;
-            addDialogue(`Начало дня ${day}. Сегодня у вас ${maxPatients} пациентов.`);
-            // Принимаем первого пациента
-            nextPatient();
-        }
-        // Закончить день
-        function endDay() {
-            if (!isDayActive) return;
-            isDayActive = false;
-            // Рассчитываем доход
-            let dailyIncome = patientsToday * 200;
-            money += dailyIncome;
-            // Обновляем репутацию
-            if (patientsToday / maxPatients < 0.5) {
-                reputation -= 10;
-                addDialogue("Вы приняли слишком мало пациентов. Репутация ухудшилась.");
-            } else if (patientsToday === maxPatients) {
-                reputation += 5;
-                addDialogue("Вы приняли всех пациентов! Репутация улучшилась.");
-            }
-            reputation = Math.max(0, Math.min(100, reputation));
-            // Очищаем очередь
-            patientsInQueue = [];
-            currentPatient = null;
-            updateWaitingRoom();
-            document.getElementById('patient').style.display = 'none';
-            document.getElementById('patient-info').style.display = 'none';
-            document.getElementById('start-day-btn').disabled = false;
-            document.getElementById('examine-btn').disabled = true;
-            document.getElementById('xray-btn').disabled = true;
-            document.getElementById('medicate-btn').disabled = true;
-            document.getElementById('therapy-btn').disabled = true;
-            document.getElementById('next-btn').disabled = true;
-            document.getElementById('end-btn').disabled = true;
-            day++;
-            updateStats();
-            addDialogue(`День ${day-1} завершён. Вы заработали $${dailyIncome}.`);
-        }
-        // Следующий пациент
-        function nextPatient() {
-            if (!isDayActive || patientsInQueue.length === 0) {
-                if (patientsToday >= maxPatients) {
-                    addDialogue("Все пациенты на сегодня приняты.");
-                    document.getElementById('next-btn').disabled = true;
-                }
-                return;
-            }
-            currentPatient = patientsInQueue.shift();
-            patientsToday++;
-            document.getElementById('patient').style.display = 'block';
-            document.getElementById('patient-info').style.display = 'block';
-            document.getElementById('examine-btn').disabled = false;
-            document.getElementById('xray-btn').disabled = false;
-            document.getElementById('medicate-btn').disabled = true;
-            document.getElementById('therapy-btn').disabled = true;
-            document.getElementById('next-btn').disabled = true;
-            updatePatientInfo();
-            updateWaitingRoom();
-            updateStats();
-            addDialogue(`Пациент ${currentPatient.name}, ${currentPatient.age} лет. На что жалуетесь?`);
-        }
-        // Осмотреть пациента
-        function examinePatient() {
-            if (!currentPatient) return;
-            let symptomsText = currentPatient.symptoms.join(", ");
-            addDialogue(`Симптомы: ${symptomsText}. Тяжесть состояния: ${currentPatient.severity}/100.`);
-            document.getElementById('medicate-btn').disabled = false;
-            document.getElementById('therapy-btn').disabled = false;
-            document.getElementById('next-btn').disabled = false;
-        }
-        // Показать меню рентгена
-        function showXrayMenu() {
-            if (!currentPatient) return;
-            // Стоимость рентгена
-            const xrayCost = 150;
-            if (money < xrayCost) {
-                addDialogue("Недостаточно денег для проведения рентгена (стоимость $150).");
-                return;
-            }
-            money -= xrayCost;
-            updateStats();
-            // Генерация результатов рентгена
-            let findingsCount = 1 + Math.floor(Math.random() * 3);
-            let findings = [];
-            let findingsCopy = [...xrayFindings];
-            for (let i = 0; i < findingsCount; i++) {
-                let randomIndex = Math.floor(Math.random() * findingsCopy.length);
-                findings.push(findingsCopy[randomIndex]);
-                findingsCopy.splice(randomIndex, 1);
-            }
-            document.getElementById('xray-results').innerHTML = 
-                `<strong>Результаты рентгена:</strong><br>${findings.join("<br>")}`;
-            document.getElementById('xray-image').style.display = 'block';
-            document.getElementById('xray-menu').style.display = 'block';
-            addDialogue(`Вы провели рентген головного мозга. Обнаружены: ${findings.join(", ")}.`);
-        }
-        // Скрыть меню рентгена
-        function hideXrayMenu() {
-            document.getElementById('xray-image').style.display = 'none';
-            document.getElementById('xray-menu').style.display = 'none';
-        }
-        // Госпитализировать пациента
-        function hospitalizePatient() {
-            if (!currentPatient) return;
-            const hospitalizationCost = 300;
-            if (money < hospitalizationCost) {
-                addDialogue(`Недостаточно денег для госпитализации (стоимость $${hospitalizationCost}).`);
-                return;
-            }
-            money -= hospitalizationCost;
-            // Улучшение состояния при госпитализации
-            let improvement = 30 + Math.floor(Math.random() * 40);
-            currentPatient.severity = Math.min(100, currentPatient.severity + improvement);
-            // Улучшение репутации
-            reputation += 5;
-            addDialogue(`Пациент ${currentPatient.name} госпитализирован. Состояние улучшилось на ${improvement}%.`);
-            updateStats();
-            updatePatientInfo();
-            hideXrayMenu();
-            // Переходим к следующему пациенту
-            nextPatient();
-        }
-        // Показать меню лекарств
-        function showMedMenu() {
-            document.getElementById('medication-menu').style.display = 'block';
-            document.getElementById('med-options').innerHTML = '';
-            medications.forEach(med => {
-                let medElement = document.createElement('div');
-                medElement.className = 'med-option';
-                medElement.innerHTML = `
-                    <strong>${med.name}</strong><br>
-                    <small>+${med.effect}% к лечению</small><br>
-                    <small>Побочка: ${med.sideEffects}</small><br>
-                    <small>Цена: $${med.cost}</small>
-                `;
-                medElement.onclick = () => prescribeMedication(med);
-                document.getElementById('med-options').appendChild(medElement);
-            });
-        }
-        // Скрыть меню лекарств
-        function hideMedMenu() {
-            document.getElementById('medication-menu').style.display = 'none';
-        }
-        // Назначить лекарство
-        function prescribeMedication(medication) {
-            if (!currentPatient || money < medication.cost) {
-                addDialogue("Недостаточно денег для этого лекарства.");
-                hideMedMenu();
-                return;
-            }
-            money -= medication.cost;
-            let effectiveness = Math.min(100, currentPatient.severity + medication.effect);
-            let improvement = effectiveness - currentPatient.severity;
-            currentPatient.severity = effectiveness;
-            currentPatient.medication = medication.name;
-            addDialogue(`Назначен ${medication.name}. Состояние улучшилось на ${improvement}%.`);
-            updatePatientInfo();
-            updateStats();
-            hideMedMenu();
-            // Улучшаем репутацию за успешное лечение
-            if (improvement > 20) {
-                reputation += 2;
-                updateStats();
-            }
-        }
-        // Показать меню терапий
-        function showTherapyMenu() {
-            document.getElementById('therapy-menu').style.display = 'block';
-            document.getElementById('therapy-options').innerHTML = '';
-            therapies.forEach(therapy => {
-                let therapyElement = document.createElement('div');
-                therapyElement.className = 'therapy-option';
-                therapyElement.innerHTML = `
-                    <strong>${therapy.name}</strong><br>
-                    <small>+${therapy.effect}% к лечению</small><br>
-                    <small>Длительность: ${therapy.duration}</small><br>
-                    <small>Цена: $${therapy.cost}</small>
-                `;
-                therapyElement.onclick = () => prescribeTherapy(therapy);
-                document.getElementById('therapy-options').appendChild(therapyElement);
-            });
-        }
-        // Скрыть меню терапий
-        function hideTherapyMenu() {
-            document.getElementById('therapy-menu').style.display = 'none';
-        }
-        // Назначить терапию
-        function prescribeTherapy(therapy) {
-            if (!currentPatient || money < therapy.cost) {
-                addDialogue("Недостаточно денег для этой терапии.");
-                hideTherapyMenu();
-                return;
-            }
-            money -= therapy.cost;
-            let effectiveness = Math.min(100, currentPatient.severity + therapy.effect);
-            let improvement = effectiveness - currentPatient.severity;
-            currentPatient.severity = effectiveness;
-            currentPatient.therapy = therapy.name;
-            addDialogue(`Назначена ${therapy.name}. Состояние улучшилось на ${improvement}%.`);
-            updatePatientInfo();
-            updateStats();
-            hideTherapyMenu();
-            // Улучшаем репутацию за успешное лечение
-            if (improvement > 15) {
-                reputation += 3;
-                updateStats();
-            }
-        }
-        // Обновить информацию о пациенте
-        function updatePatientInfo() {
-            if (!currentPatient) return;
-            document.getElementById('patient-name').textContent = currentPatient.name;
-            document.getElementById('patient-age').textContent = currentPatient.age;
-            document.getElementById('patient-symptoms').textContent = currentPatient.symptoms.join(", ");
-            document.getElementById('patient-severity').textContent = currentPatient.severity;
-        }
-        // Обновить отображение очереди
-        function updateWaitingRoom() {
-            let waitingRoom = document.getElementById('waiting-room');
-            waitingRoom.innerHTML = '';
-            patientsInQueue.forEach((patient, index) => {
-                if (index < 3) { // Показываем только первых 3 пациентов в очереди
-                    let patientElement = document.createElement('div');
-                    patientElement.className = 'waiting-patient';
-                    waitingRoom.appendChild(patientElement);
-                }
-            });
-            if (patientsInQueue.length > 3) {
-                let moreElement = document.createElement('div');
-                moreElement.textContent = `+${patientsInQueue.length - 3}`;
-                moreElement.style.color = 'black';
-                moreElement.style.fontSize = '12px';
-                waitingRoom.appendChild(moreElement);
-            }
-        }
-        // Добавить текст в диалоговое окно
-        function addDialogue(text) {
-            let dialogueBox = document.getElementById('dialogue-box');
-            dialogueBox.innerHTML += `<div>${text}</div>`;
-            dialogueBox.scrollTop = dialogueBox.scrollHeight;
-        }
-        // Генерация случайного пациента
-        function generatePatient() {
-            let firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-            let lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-            let age = 18 + Math.floor(Math.random() * 50);
-            // Генерируем случайные симптомы (3-5 штук)
-            let symptomsCount = 3 + Math.floor(Math.random() * 3);
-            let symptoms = [];
-            let symptomsCopy = [...symptomsList];
-            for (let i = 0; i < symptomsCount; i++) {
-                let randomIndex = Math.floor(Math.random() * symptomsCopy.length);
-                symptoms.push(symptomsCopy[randomIndex]);
-                symptomsCopy.splice(randomIndex, 1);
-            }
-            // Тяжесть состояния (30-90)
-            let severity = 30 + Math.floor(Math.random() * 60);
-            return {
-                name: `${firstName} ${lastName}`,
-                age: age,
-                symptoms: symptoms,
-                severity: severity,
-                medication: null,
-                therapy: null
-            };
-        }
-        // Инициализируем игру при загрузке
-        window.onload = initGame;
-    </script>
+    </section>
+    <section id="contact" class="container">
+        <h2>Беседа с нами</h2>
+        <div class="contact-form">
+            <form>
+                <div class="form-group">
+                    <label for="name">Имя твое</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Весть электронная</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Слово твое</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Послать весть</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="container footer-content">
+            <div class="logo">Павел Леонидовичъ</div>
+            <p>Письмена цифровые по велению твоему</p>
+            <div class="social-links">
+                <a href="#" aria-label="ВКонтакте">Ⰲ</a>
+                <a href="#" aria-label="Телеграм">Ⱅ</a>
+                <a href="#" aria-label="Почта">Ⱂ</a>
+            </div>
+            <div class="copyright">
+                &copy; Лето от сотворения мира 7533 (2025 от Р.Х.) Arrot. Все права соблюдены.
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
