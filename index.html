@@ -6,6 +6,7 @@
     <title>Arrot - Древнерусское программирование</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+        
         :root {
             --primary: #8B4513;
             --secondary: #D2B48C;
@@ -13,11 +14,13 @@
             --text: #3E2723;
             --bg: #F5F5DC;
         }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
             font-family: 'Old Standard TT', serif;
             background-color: var(--bg);
@@ -25,11 +28,13 @@
             line-height: 1.6;
             background-image: url('https://www.transparenttextures.com/patterns/old-map.png');
         }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
         }
+        
         header {
             background-color: var(--primary);
             color: white;
@@ -37,24 +42,28 @@
             border-bottom: 5px solid var(--accent);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
+        
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
         }
+        
         .logo {
             font-size: 2rem;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             letter-spacing: 2px;
         }
+        
         nav ul {
             display: flex;
             list-style: none;
             gap: 1.5rem;
             flex-wrap: wrap;
         }
+        
         nav a {
             color: white;
             text-decoration: none;
@@ -63,10 +72,12 @@
             border-bottom: 2px solid transparent;
             padding-bottom: 0.25rem;
         }
+        
         nav a:hover {
             border-bottom: 2px solid var(--secondary);
             color: var(--secondary);
         }
+        
         .hero {
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
@@ -80,6 +91,7 @@
             margin-bottom: 2rem;
             position: relative;
         }
+        
         .hero::after {
             content: "";
             position: absolute;
@@ -90,20 +102,24 @@
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%238B4513"></path></svg>');
             background-size: cover;
         }
+        
         .hero-content {
             max-width: 800px;
             padding: 0 1rem;
         }
+        
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
         }
+        
         .hero p {
             font-size: 1.5rem;
             margin-bottom: 2rem;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
         }
+        
         .btn {
             display: inline-block;
             background-color: var(--accent);
@@ -116,19 +132,23 @@
             border: 2px solid var(--secondary);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+        
         .btn:hover {
             background-color: var(--secondary);
             color: var(--text);
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
+        
         section {
             padding: 3rem 0;
             border-bottom: 1px solid var(--secondary);
         }
+        
         section:last-child {
             border-bottom: none;
         }
+        
         h2 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
@@ -136,6 +156,7 @@
             text-align: center;
             position: relative;
         }
+        
         h2::after {
             content: "";
             display: block;
@@ -144,12 +165,14 @@
             background-color: var(--accent);
             margin: 0.5rem auto;
         }
+        
         .services {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
+        
         .service-card {
             background-color: white;
             border-radius: 8px;
@@ -158,53 +181,65 @@
             transition: all 0.3s ease;
             border: 1px solid var(--secondary);
         }
+        
         .service-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
+        
         .service-img {
             height: 200px;
             overflow: hidden;
         }
+        
         .service-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
+        
         .service-card:hover .service-img img {
             transform: scale(1.1);
         }
+        
         .service-content {
             padding: 1.5rem;
         }
+        
         .service-content h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--accent);
         }
+        
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: center;
         }
+        
         .about-text {
             font-size: 1.1rem;
         }
+        
         .about-text p {
             margin-bottom: 1rem;
         }
+        
         .about-image {
             position: relative;
             border: 10px solid var(--secondary);
             border-radius: 5px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
+        
         .about-image img {
             width: 100%;
             display: block;
         }
+        
         .contact-form {
             max-width: 600px;
             margin: 0 auto;
@@ -214,15 +249,18 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--secondary);
         }
+        
         .form-group {
             margin-bottom: 1.5rem;
         }
+        
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
             color: var(--primary);
         }
+        
         .form-group input,
         .form-group textarea {
             width: 100%;
@@ -233,40 +271,48 @@
             font-size: 1rem;
             background-color: #fffaf0;
         }
+        
         .form-group textarea {
             min-height: 150px;
             resize: vertical;
         }
+        
         footer {
             background-color: var(--primary);
             color: white;
             padding: 2rem 0;
             text-align: center;
         }
+        
         .footer-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1rem;
         }
+        
         .social-links {
             display: flex;
             gap: 1rem;
             margin-top: 1rem;
         }
+        
         .social-links a {
             color: white;
             font-size: 1.5rem;
             transition: color 0.3s ease;
         }
+        
         .social-links a:hover {
             color: var(--secondary);
         }
+        
         .copyright {
             margin-top: 1.5rem;
             font-size: 0.9rem;
             opacity: 0.8;
         }
+        
         /* Декоративные элементы */
         .decorative-border {
             height: 20px;
@@ -274,6 +320,7 @@
             background-size: cover;
             margin: 2rem 0;
         }
+        
         .initial-letter::first-letter {
             font-size: 3em;
             float: left;
@@ -282,41 +329,52 @@
             color: var(--accent);
             font-weight: bold;
         }
+        
         /* Адаптация для мобильных устройств */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 gap: 1rem;
             }
+            
             nav ul {
                 justify-content: center;
             }
+            
             .hero h1 {
                 font-size: 2rem;
             }
+            
             .hero p {
                 font-size: 1.2rem;
             }
+            
             .about-content {
                 grid-template-columns: 1fr;
             }
+            
             .about-image {
                 order: -1;
             }
+            
             section {
                 padding: 2rem 0;
             }
+            
             h2 {
                 font-size: 2rem;
             }
         }
+        
         @media (max-width: 480px) {
             .services {
                 grid-template-columns: 1fr;
             }
+            
             .hero {
                 height: 60vh;
             }
+            
             .btn {
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
@@ -337,6 +395,7 @@
             </nav>
         </div>
     </header>
+    
     <section class="hero">
         <div class="hero-content">
             <h1>Павел Леонидовичъ - Письмена цифровые</h1>
@@ -344,7 +403,9 @@
             <a href="#contact" class="btn">Весть подать</a>
         </div>
     </section>
+    
     <div class="decorative-border"></div>
+    
     <section id="services" class="container">
         <h2>Службы наши</h2>
         <div class="services">
@@ -357,6 +418,7 @@
                     <p class="initial-letter">Создаем хитроумные программы и системы по образу и подобию твоему. От малых скриптов до великих царств цифровых.</p>
                 </div>
             </div>
+            
             <div class="service-card">
                 <div class="service-img">
                     <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Веб-разработка">
@@ -366,6 +428,7 @@
                     <p class="initial-letter">Воздвигаем хоромы виртуальные - от малых избушек-визиток до великих градов-магазинов. Украшаем по последнему слову хитрости.</p>
                 </div>
             </div>
+            
             <div class="service-card">
                 <div class="service-img">
                     <img src="https://images.unsplash.com/photo-1624953587687-daf255b6b80a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Автоматизация">
@@ -377,6 +440,7 @@
             </div>
         </div>
     </section>
+    
     <section id="about" class="container">
         <h2>О нас</h2>
         <div class="about-content">
@@ -392,6 +456,7 @@
             </div>
         </div>
     </section>
+    
     <section id="contact" class="container">
         <h2>Беседа с нами</h2>
         <div class="contact-form">
@@ -412,6 +477,7 @@
             </form>
         </div>
     </section>
+    
     <footer>
         <div class="container footer-content">
             <div class="logo">Павел Леонидовичъ</div>
