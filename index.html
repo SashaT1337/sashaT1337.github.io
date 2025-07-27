@@ -1,496 +1,624 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Так называемое</title>
+    <title>F450 - Кнопочный телефон</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
-        
-        :root {
-            --primary: #8B4513;
-            --secondary: #D2B48C;
-            --accent: #A0522D;
-            --text: #3E2723;
-            --bg: #F5F5DC;
-        }
-        
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
         }
         
         body {
-            font-family: 'Old Standard TT', serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            background-image: url('https://www.transparenttextures.com/patterns/old-map.png');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
+        .phone {
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                        inset 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #1a1a1a;
         }
         
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 1rem 0;
-            border-bottom: 5px solid var(--accent);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        .header-content {
+        .phone-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            letter-spacing: 2px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        nav a {
+            padding: 5px 15px;
             color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            border-bottom: 2px solid transparent;
-            padding-bottom: 0.25rem;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px 10px 0 0;
         }
         
-        nav a:hover {
-            border-bottom: 2px solid var(--secondary);
-            color: var(--secondary);
-        }
-        
-        .hero {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            margin-bottom: 2rem;
-            position: relative;
-        }
-        
-        .hero::after {
-            content: "";
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            width: 100%;
-            height: 40px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%238B4513"></path></svg>');
-            background-size: cover;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            padding: 0 1rem;
-        }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-        }
-        
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid var(--secondary);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn:hover {
-            background-color: var(--secondary);
-            color: var(--text);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-        
-        section {
-            padding: 3rem 0;
-            border-bottom: 1px solid var(--secondary);
-        }
-        
-        section:last-child {
-            border-bottom: none;
-        }
-        
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: var(--primary);
-            text-align: center;
-            position: relative;
-        }
-        
-        h2::after {
-            content: "";
-            display: block;
-            width: 100px;
-            height: 4px;
-            background-color: var(--accent);
-            margin: 0.5rem auto;
-        }
-        
-        .services {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .service-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid var(--secondary);
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-        }
-        
-        .service-img {
+        .phone-screen {
             height: 200px;
-            overflow: hidden;
-        }
-        
-        .service-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .service-card:hover .service-img img {
-            transform: scale(1.1);
-        }
-        
-        .service-content {
-            padding: 1.5rem;
-        }
-        
-        .service-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-        
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-        
-        .about-text {
-            font-size: 1.1rem;
-        }
-        
-        .about-text p {
-            margin-bottom: 1rem;
-        }
-        
-        .about-image {
-            position: relative;
-            border: 10px solid var(--secondary);
+            background: #ecf0f1;
             border-radius: 5px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+            padding: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
         
-        .about-image img {
-            width: 100%;
-            display: block;
+        .screen-content {
+            height: 100%;
+            overflow-y: auto;
         }
         
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--secondary);
+        .phone-keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
         }
         
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--secondary);
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 1rem;
-            background-color: #fffaf0;
-        }
-        
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        footer {
-            background-color: var(--primary);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-        }
-        
-        .footer-content {
+        .key {
+            background: linear-gradient(145deg, #7f8c8d, #95a5a6);
+            border: none;
+            border-radius: 50%;
+            height: 60px;
+            width: 60px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 1rem;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .social-links a {
             color: white;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            color: var(--secondary);
-        }
-        
-        .copyright {
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        /* Декоративные элементы */
-        .decorative-border {
-            height: 20px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23A0522D"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23A0522D"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23A0522D"></path></svg>');
-            background-size: cover;
-            margin: 2rem 0;
-        }
-        
-        .initial-letter::first-letter {
-            font-size: 3em;
-            float: left;
-            line-height: 0.8;
-            margin-right: 0.1em;
-            color: var(--accent);
             font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+            position: relative;
+            margin: 0 auto;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
         }
         
-        /* Адаптация для мобильных устройств */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            nav ul {
-                justify-content: center;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-image {
-                order: -1;
-            }
-            
-            section {
-                padding: 2rem 0;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
+        .key:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
-        @media (max-width: 480px) {
-            .services {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero {
-                height: 60vh;
-            }
-            
-            .btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
+        .key span.small {
+            font-size: 10px;
+            margin-top: 2px;
+            color: #ecf0f1;
+        }
+        
+        .key-call {
+            background: linear-gradient(145deg, #27ae60, #2ecc71);
+            grid-column: span 3;
+            width: 80px;
+            height: 40px;
+            border-radius: 20px;
+            margin: 10px auto;
+        }
+        
+        .key-special {
+            background: linear-gradient(145deg, #3498db, #2980b9);
+        }
+        
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            background: #3498db;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            margin: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            line-height: 1.2;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            justify-items: center;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .dialer-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 24px;
+            text-align: center;
+            border: none;
+            border-bottom: 2px solid #bdc3c7;
+            margin-bottom: 10px;
+            background: transparent;
+        }
+        
+        .call-button {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .message-input, .number-input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+        
+        .send-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .alarm-item, .calendar-event {
+            background: #f1c40f;
+            color: #34495e;
+            padding: 5px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        
+        .calculator-display {
+            width: 100%;
+            padding: 10px;
+            font-size: 24px;
+            text-align: right;
+            border: none;
+            border-bottom: 2px solid #bdc3c7;
+            margin-bottom: 10px;
+            background: transparent;
+        }
+        
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        
+        .calc-btn {
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background: #bdc3c7;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .calc-btn.operator {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .notification {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            z-index: 100;
+            animation: fadeOut 3s forwards;
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+        
+        .clock-display {
+            font-size: 48px;
+            text-align: center;
+            margin-top: 30px;
+            color: #2c3e50;
+        }
+        
+        .date-display {
+            text-align: center;
+            font-size: 16px;
+            color: #7f8c8d;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <div class="logo">Павел Леонидовичъ</div>
-            <nav>
-                <ul>
-                    <li><a href="#services">Службы</a></li>
-                    <li><a href="#about">О нас</a></li>
-                    <li><a href="#contact">Беседа</a></li>
-                </ul>
-            </nav>
+    <div class="phone">
+        <div class="phone-top">
+            <span id="time-display">12:34</span>
+            <span>F450</span>
+            <span id="battery">100%</span>
         </div>
-    </header>
-    
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Павел Леонидовичъ - Письмена цифровые</h1>
-            <p>Создаем хитроумные системы и грады виртуальные по велению твоему</p>
-            <a href="#contact" class="btn">Весть подать</a>
-        </div>
-    </section>
-    
-    <div class="decorative-border"></div>
-    
-    <section id="services" class="container">
-        <h2>Службы наши</h2>
-        <div class="services">
-            <div class="service-card">
-                <div class="service-img">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Программирование">
+        
+        <div class="phone-screen">
+            <div class="screen-content" id="main-screen">
+                <div style="text-align: center; margin-top: 10px;">
+                    <h2 style="color: #2c3e50; margin-bottom: 5px;"> F450</h2>
+                    <p style="color: #7f8c8d; font-size: 12px;">Мобильный телефон</p>
                 </div>
-                <div class="service-content">
-                    <h3>Письмена тайные</h3>
-                    <p class="initial-letter">Создаем хитроумные программы и системы по образу и подобию твоему. От малых скриптов до великих царств цифровых.</p>
+                
+                <div class="app-grid">
+                    <div class="app-icon" onclick="showApp('dialer')">Телефон</div>
+                    <div class="app-icon" onclick="showApp('messages')">Сообщения</div>
+                    <div class="app-icon" onclick="showApp('alarm')">Будильник</div>
+                    <div class="app-icon" onclick="showApp('calculator')">Калькулятор</div>
+                    <div class="app-icon" onclick="showApp('calendar')">Календарь</div>
+                    <div class="app-icon" onclick="showApp('clock')">Часы</div>
+                    <div class="app-icon" onclick="showApp('settings')">Настройки</div>
                 </div>
             </div>
             
-            <div class="service-card">
-                <div class="service-img">
-                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Веб-разработка">
-                </div>
-                <div class="service-content">
-                    <h3>Грады вебовые</h3>
-                    <p class="initial-letter">Воздвигаем хоромы виртуальные - от малых избушек-визиток до великих градов-магазинов. Украшаем по последнему слову хитрости.</p>
+            <!-- Диалер -->
+            <div class="screen-content hidden" id="dialer-screen">
+                <input type="text" class="dialer-input" id="dialer-number" placeholder="Введите номер" readonly>
+                <div style="text-align: center;">
+                    <button class="call-button" onclick="makeCall()">Позвонить</button>
+                    <button class="back-button" onclick="hideApp()">Назад</button>
                 </div>
             </div>
             
-            <div class="service-card">
-                <div class="service-img">
-                    <img src="https://images.unsplash.com/photo-1624953587687-daf255b6b80a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Автоматизация">
+            <!-- Сообщения -->
+            <div class="screen-content hidden" id="messages-screen">
+                <h3 style="text-align: center; color: #2c3e50;">Сообщения</h3>
+                <input type="text" class="number-input" id="message-number" placeholder="Номер">
+                <textarea class="message-input" id="message-text" placeholder="Текст сообщения" rows="4"></textarea>
+                <div style="text-align: center;">
+                    <button class="send-button" onclick="sendSMS()">Отправить</button>
+                    <button class="back-button" onclick="hideApp()">Назад</button>
                 </div>
-                <div class="service-content">
-                    <h3>Роботы служивые</h3>
-                    <p class="initial-letter">Создаем слуг цифровых, кои трудятся без устали, исполняя волю твою. От малых дел до великих процессов.</p>
+            </div>
+            
+            <!-- Будильник -->
+            <div class="screen-content hidden" id="alarm-screen">
+                <h3 style="text-align: center; color: #2c3e50;">Будильник</h3>
+                <div id="alarms-list">
+                    <div class="alarm-item">05:00 - Будний день</div>
+                    <div class="alarm-item">07:00 - Выходной</div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <input type="time" id="new-alarm-time" style="width: 100%; padding: 5px;">
+                    <input type="text" id="new-alarm-label" placeholder="Название будильника" style="width: 100%; padding: 5px; margin-top: 5px;">
+                    <button class="send-button" onclick="addAlarm()" style="width: 100%; margin-top: 5px;">Добавить</button>
+                </div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <button class="back-button" onclick="hideApp()">Назад</button>
+                </div>
+            </div>
+            
+            <!-- Калькулятор -->
+            <div class="screen-content hidden" id="calculator-screen">
+                <input type="text" class="calculator-display" id="calc-display" value="0" readonly>
+                <div class="calculator-buttons">
+                    <button class="calc-btn" onclick="calcInput('7')">7</button>
+                    <button class="calc-btn" onclick="calcInput('8')">8</button>
+                    <button class="calc-btn" onclick="calcInput('9')">9</button>
+                    <button class="calc-btn operator" onclick="calcInput('/')">/</button>
+                    <button class="calc-btn" onclick="calcInput('4')">4</button>
+                    <button class="calc-btn" onclick="calcInput('5')">5</button>
+                    <button class="calc-btn" onclick="calcInput('6')">6</button>
+                    <button class="calc-btn operator" onclick="calcInput('*')">×</button>
+                    <button class="calc-btn" onclick="calcInput('1')">1</button>
+                    <button class="calc-btn" onclick="calcInput('2')">2</button>
+                    <button class="calc-btn" onclick="calcInput('3')">3</button>
+                    <button class="calc-btn operator" onclick="calcInput('-')">-</button>
+                    <button class="calc-btn" onclick="calcInput('0')">0</button>
+                    <button class="calc-btn" onclick="calcInput('.')">.</button>
+                    <button class="calc-btn operator" onclick="calculate()">=</button>
+                    <button class="calc-btn operator" onclick="calcInput('+')">+</button>
+                    <button class="calc-btn" onclick="clearCalc()" style="grid-column: span 4;">C</button>
+                </div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <button class="back-button" onclick="hideApp()">Назад</button>
+                </div>
+            </div>
+            
+            <!-- Календарь -->
+            <div class="screen-content hidden" id="calendar-screen">
+                <h3 style="text-align: center; color: #2c3e50;">Календарь</h3>
+                <div id="calendar-month" style="text-align: center; font-weight: bold; margin-bottom: 10px;">Июль 2023</div>
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 12px;">
+                    <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 12px;">
+                    <div></div><div></div><div></div><div></div><div></div><div>1</div><div>2</div>
+                    <div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                    <div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div>
+                    <div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div>
+                    <div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div>
+                    <div>31</div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div id="calendar-events" style="margin-top: 15px;">
+                    <div class="calendar-event">15:00 - Физика</div>
+                    <div class="calendar-event">19:30 - Тренировка</div>
+                </div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <button class="back-button" onclick="hideApp()">Назад</button>
+                </div>
+            </div>
+            
+            <!-- Часы -->
+            <div class="screen-content hidden" id="clock-screen">
+                <div class="clock-display" id="digital-clock">12:34:56</div>
+                <div class="date-display" id="date-display">Понедельник, 17 июля 2023</div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="back-button" onclick="hideApp()">Назад</button>
+                </div>
+            </div>
+            
+            <!-- Настройки -->
+            <div class="screen-content hidden" id="settings-screen">
+                <h3 style="text-align: center; color: #2c3e50;">Настройки</h3>
+                <div style="margin-top: 15px;">
+                    <div style="padding: 8px; border-bottom: 1px solid #bdc3c7;">Звуки</div>
+                    <div style="padding: 8px; border-bottom: 1px solid #bdc3c7;">Дисплей</div>
+                    <div style="padding: 8px; border-bottom: 1px solid #bdc3c7;">Батарея</div>
+                    <div style="padding: 8px; border-bottom: 1px solid #bdc3c7;">О телефоне</div>
+                </div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <button class="back-button" onclick="hideApp()">Назад</button>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <section id="about" class="container">
-        <h2>О нас</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p class="initial-letter">//Требуется программистъ , зарплата - чисто символическая, по поводъю писати ниже\\
-Павел Леонидовичъ - дружина умельцев цифровых, собранная под началом Павла Леонидовича, мужа мудрого и искусного в письменах тайных.</p>
-                <p>Служим мы делу создания хитроумных систем и градов виртуальных уже лет немало. Ведомы страстью к ремеслу своему и желанием творить дела добрые.</p>
-                <p>Не гнушаемся ни малыми делами, ни великими. Для каждого находим подход особый, совет да наставление мудрое.</p>
-                <p>Верны мы заветам старых мастеров, но и новым веяниям не чужды. Соединяем мудрость древнюю с хитростью современной.</p>
-            </div>
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Павел Леонидович">
-            </div>
-        </div>
-    </section>
-    
-    <section id="contact" class="container">
-        <h2>Беседа с нами</h2>
-        <div class="contact-form">
-            <form>
-                <div class="form-group">
-                    <label for="name">Имя твое</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Весть электронная</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Слово твое</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="btn">Послать весть</button>
-            </form>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="container footer-content">
-            <div class="logo">Павел Леонидовичъ</div>
-            <p>Письмена цифровые по велению твоему</p>
-            <div class="social-links">
-                <a href="#" aria-label="ВКонтакте">Ⰲ</a>
-                <a href="#" aria-label="Телеграм">Ⱅ</a>
-                <a href="#" aria-label="Почта">Ⱂ</a>
-            </div>
-            <div class="copyright">
-                &copy; Лето от сотворения мира 7533 (2025 от Р.Х.) Arrot. Все права соблюдены.
+        
+        <div class="phone-keyboard">
+            <div class="key" onclick="pressKey('1')">1 <span class="small"></span></div>
+            <div class="key" onclick="pressKey('2')">2 <span class="small">ABC</span></div>
+            <div class="key" onclick="pressKey('3')">3 <span class="small">DEF</span></div>
+            <div class="key" onclick="pressKey('4')">4 <span class="small">GHI</span></div>
+            <div class="key" onclick="pressKey('5')">5 <span class="small">JKL</span></div>
+            <div class="key" onclick="pressKey('6')">6 <span class="small">MNO</span></div>
+            <div class="key" onclick="pressKey('7')">7 <span class="small">PQRS</span></div>
+            <div class="key" onclick="pressKey('8')">8 <span class="small">TUV</span></div>
+            <div class="key" onclick="pressKey('9')">9 <span class="small">WXYZ</span></div>
+            <div class="key key-special" onclick="pressKey('*')">*</div>
+            <div class="key" onclick="pressKey('0')">0 <span class="small">+</span></div>
+            <div class="key key-special" onclick="pressKey('#')">#</div>
+            <div class="key-call" onclick="pressKey('call')">
+                <span>Вызов</span>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <script>
+        // Глобальные переменные
+        let currentScreen = 'main';
+        let dialerNumber = '';
+        let calcValue = '0';
+        let calcPreviousValue = '';
+        let calcOperation = '';
+        
+        // Обновление времени и батареи
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('time-display').textContent = `${hours}:${minutes}`;
+            
+            // Обновление цифровых часов
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('digital-clock').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Обновление даты
+            const days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+            const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+            document.getElementById('date-display').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+            
+            // Симуляция разрядки батареи
+            const battery = document.getElementById('battery');
+            let batteryLevel = parseInt(battery.textContent);
+            if (now.getMinutes() % 5 === 0 && now.getSeconds() === 0) {
+                batteryLevel = Math.max(5, batteryLevel - 1);
+                battery.textContent = `${batteryLevel}%`;
+            }
+        }
+        
+        setInterval(updateTime, 1000);
+        updateTime();
+        
+        // Функции для работы с экранами
+        function showApp(appName) {
+            document.getElementById(`${currentScreen}-screen`).classList.add('hidden');
+            document.getElementById(`${appName}-screen`).classList.remove('hidden');
+            currentScreen = appName;
+            
+            // Сброс ввода при открытии диалера
+            if (appName === 'dialer') {
+                dialerNumber = '';
+                document.getElementById('dialer-number').value = '';
+            }
+        }
+        
+        function hideApp() {
+            document.getElementById(`${currentScreen}-screen`).classList.add('hidden');
+            document.getElementById('main-screen').classList.remove('hidden');
+            currentScreen = 'main';
+        }
+        
+        // Функции для работы с клавиатурой
+        function pressKey(key) {
+            if (currentScreen === 'dialer') {
+                if (key === 'call') {
+                    makeCall();
+                } else {
+                    dialerNumber += key;
+                    document.getElementById('dialer-number').value = dialerNumber;
+                }
+            } else if (currentScreen === 'calculator') {
+                if (key === 'call') {
+                    calculate();
+                } else if (['+', '-', '*', '/'].includes(key)) {
+                    calcOperation = key;
+                    calcPreviousValue = calcValue;
+                    calcValue = '0';
+                    document.getElementById('calc-display').value = calcValue;
+                } else if (key === '#') {
+                    clearCalc();
+                } else {
+                    calcInput(key);
+                }
+            } else if (key === 'call' && currentScreen === 'main') {
+                showApp('dialer');
+            }
+        }
+        
+        // Функции для звонков
+        function makeCall() {
+            if (dialerNumber.length > 0) {
+                showNotification(`Вызов: ${dialerNumber}`);
+                setTimeout(() => {
+                    showNotification(`Вызов завершен`);
+                }, 3000);
+            } else {
+                showNotification(`Введите номер`);
+            }
+        }
+        
+        // Функции для сообщений
+        function sendSMS() {
+            const number = document.getElementById('message-number').value;
+            const text = document.getElementById('message-text').value;
+            
+            if (number && text) {
+                showNotification(`SMS отправлено на ${number}`);
+                document.getElementById('message-number').value = '';
+                document.getElementById('message-text').value = '';
+            } else {
+                showNotification(`Введите номер и текст`);
+            }
+        }
+        
+        // Функции для будильника
+        function addAlarm() {
+            const time = document.getElementById('new-alarm-time').value;
+            const label = document.getElementById('new-alarm-label').value;
+            
+            if (time) {
+                const alarmText = label ? `${time} - ${label}` : time;
+                const alarmItem = document.createElement('div');
+                alarmItem.className = 'alarm-item';
+                alarmItem.textContent = alarmText;
+                document.getElementById('alarms-list').appendChild(alarmItem);
+                
+                document.getElementById('new-alarm-time').value = '';
+                document.getElementById('new-alarm-label').value = '';
+                
+                showNotification(`Будильник установлен на ${time}`);
+            } else {
+                showNotification(`Укажите время`);
+            }
+        }
+        
+        // Функции для калькулятора
+        function calcInput(value) {
+            if (calcValue === '0' && value !== '.') {
+                calcValue = value;
+            } else {
+                calcValue += value;
+            }
+            document.getElementById('calc-display').value = calcValue;
+        }
+        
+        function clearCalc() {
+            calcValue = '0';
+            calcPreviousValue = '';
+            calcOperation = '';
+            document.getElementById('calc-display').value = calcValue;
+        }
+        
+        function calculate() {
+            let result;
+            const prev = parseFloat(calcPreviousValue);
+            const current = parseFloat(calcValue);
+            
+            if (isNaN(prev) || isNaN(current)) {
+                return;
+            }
+            
+            switch (calcOperation) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+            
+            calcValue = result.toString();
+            calcOperation = '';
+            calcPreviousValue = '';
+            document.getElementById('calc-display').value = calcValue;
+        }
+        
+        // Вспомогательная функция для уведомлений
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.querySelector('.phone-screen').appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
