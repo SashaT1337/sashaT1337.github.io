@@ -67,6 +67,7 @@
             flex-direction: column;
             color: white;
             padding: 20px;
+            background: #111; /* Однотонный фон для всех приложений */
         }
         
         .active {
@@ -133,6 +134,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            background: #000; /* Черный фон для домашнего экрана */
         }
         
         .clock {
@@ -177,6 +179,25 @@
         .app-name {
             font-size: 10px;
             text-align: center;
+        }
+        
+        /* Кнопка назад */
+        .back-btn {
+            background: #333;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .back-btn::before {
+            content: '←';
+            margin-right: 5px;
         }
         
         /* Стили для экрана звонков */
@@ -406,6 +427,7 @@
         .calendar-nav {
             font-size: 20px;
             cursor: pointer;
+            padding: 5px 10px;
         }
         
         .calendar-month {
@@ -469,15 +491,6 @@
         }
         
         /* Стили для подэкранов настроек */
-        .back-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-bottom: 15px;
-        }
-        
         .option {
             margin-bottom: 15px;
         }
@@ -587,6 +600,37 @@
         .spec-value {
             font-size: 16px;
         }
+        
+        /* Улучшенные стили для ползунков */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #2196F3;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        /* Стили для выпадающего списка */
+        select {
+            background: #222;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 14px;
+            outline: none;
+        }
     </style>
 </head>
 <body>
@@ -634,6 +678,7 @@
                         </div>
                     </div>
                 </div>
+                <button class="back-btn" onclick="goHome()">Назад</button>
                 <div class="app-title">Звонки</div>
                 <div class="app-content">
                     <input type="text" class="dialer-input" id="phone-number" placeholder="Введите номер" maxlength="11">
@@ -666,6 +711,7 @@
                         </div>
                     </div>
                 </div>
+                <button class="back-btn" onclick="goHome()">Назад</button>
                 <div class="app-title">Сообщения</div>
                 <div class="app-content">
                     <input type="text" class="sms-input" id="sms-number" placeholder="Номер получателя" maxlength="11">
@@ -685,6 +731,7 @@
                         </div>
                     </div>
                 </div>
+                <button class="back-btn" onclick="goHome()">Назад</button>
                 <div class="app-title">Будильник</div>
                 <div class="app-content">
                     <div class="alarm-list" id="alarm-list">
@@ -705,7 +752,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="back-btn" onclick="showApp('alarm-screen')">← Назад</button>
+                <button class="back-btn" onclick="showApp('alarm-screen')">Назад</button>
                 <div class="app-title">Новый будильник</div>
                 <div class="app-content">
                     <div style="text-align: center; margin: 20px 0;">
@@ -726,6 +773,7 @@
                         </div>
                     </div>
                 </div>
+                <button class="back-btn" onclick="goHome()">Назад</button>
                 <div class="app-title">Калькулятор</div>
                 <div class="app-content">
                     <input type="text" class="calculator-display" id="calculator-display" value="0" readonly>
@@ -764,6 +812,7 @@
                         </div>
                     </div>
                 </div>
+                <button class="back-btn" onclick="goHome()">Назад</button>
                 <div class="app-title">Календарь</div>
                 <div class="app-content">
                     <div class="calendar-header">
@@ -797,6 +846,7 @@
                         </div>
                     </div>
                 </div>
+                <button class="back-btn" onclick="goHome()">Назад</button>
                 <div class="app-title">Настройки</div>
                 <div class="app-content">
                     <div class="settings-item" onclick="showApp('sounds-settings')">
@@ -829,7 +879,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="back-btn" onclick="showApp('settings-screen')">← Назад</button>
+                <button class="back-btn" onclick="showApp('settings-screen')">Назад</button>
                 <div class="app-title">Звуки</div>
                 <div class="app-content">
                     <div class="option">
@@ -850,7 +900,7 @@
                         <div class="option-title">Вибрация</div>
                         <div class="option-content">
                             <label class="toggle-switch">
-                                <input type="checkbox" checked>
+                                <input type="checkbox" checked id="vibration-toggle">
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
@@ -868,7 +918,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="back-btn" onclick="showApp('settings-screen')">← Назад</button>
+                <button class="back-btn" onclick="showApp('settings-screen')">Назад</button>
                 <div class="app-title">Дисплей</div>
                 <div class="app-content">
                     <div class="option">
@@ -882,7 +932,7 @@
                         <div class="option-title">Темная тема</div>
                         <div class="option-content">
                             <label class="toggle-switch">
-                                <input type="checkbox" checked>
+                                <input type="checkbox" checked id="dark-mode-toggle">
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
@@ -911,7 +961,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="back-btn" onclick="showApp('settings-screen')">← Назад</button>
+                <button class="back-btn" onclick="showApp('settings-screen')">Назад</button>
                 <div class="app-title">Батарея</div>
                 <div class="app-content">
                     <div class="battery-info">
@@ -922,7 +972,7 @@
                         <div class="option-title">Энергосберегающий режим</div>
                         <div class="option-content">
                             <label class="toggle-switch">
-                                <input type="checkbox">
+                                <input type="checkbox" id="power-save-toggle">
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
@@ -940,7 +990,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="back-btn" onclick="showApp('settings-screen')">← Назад</button>
+                <button class="back-btn" onclick="showApp('settings-screen')">Назад</button>
                 <div class="app-title">О часах</div>
                 <div class="app-content">
                     <div class="about-info">
@@ -1103,6 +1153,11 @@
             const list = document.getElementById('alarm-list');
             list.innerHTML = '';
             
+            if (alarms.length === 0) {
+                list.innerHTML = '<div style="text-align: center; color: #aaa; padding: 20px;">Нет будильников</div>';
+                return;
+            }
+            
             alarms.forEach((alarm, index) => {
                 const alarmItem = document.createElement('div');
                 alarmItem.className = 'alarm-item';
@@ -1153,6 +1208,12 @@
             
             if (digit === '±') {
                 calculator.displayValue = (parseFloat(displayValue) * -1).toString();
+                updateCalculatorDisplay();
+                return;
+            }
+            
+            if (digit === '%') {
+                calculator.displayValue = (parseFloat(displayValue) / 100).toString();
                 updateCalculatorDisplay();
                 return;
             }
@@ -1330,8 +1391,8 @@
                     button.addEventListener('click', clearCalculator);
                 } else if (button.textContent === '=') {
                     button.addEventListener('click', calculate);
-                } else if (['+', '-', '*', '/', '%'].includes(button.textContent)) {
-                    button.addEventListener('click', () => handleOperator(button.textContent));
+                } else if (['+', '-', '×', '/', '%'].includes(button.textContent)) {
+                    button.addEventListener('click', () => handleOperator(button.textContent === '×' ? '*' : button.textContent));
                 } else {
                     button.addEventListener('click', () => calculatorInput(button.textContent));
                 }
