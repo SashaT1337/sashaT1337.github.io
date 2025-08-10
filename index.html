@@ -3,808 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Телефон F1080</title>
+    <title>Хлестаков's mod menu</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: rgba(0, 0, 0, 0.7);
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            touch-action: manipulation;
+            color: #e0e0e0;
         }
         
-        .phone {
-            width: 300px;
-            height: 600px;
-            background: linear-gradient(135deg, #333, #111);
-            border-radius: 30px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            position: relative;
+        .mod-menu {
+            width: 280px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
             overflow: hidden;
-            border: 8px solid #222;
+            border: 1px solid #333;
         }
         
-        .screen {
-            width: 100%;
-            height: 65%;
-            background-color: #e0e0e0;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            overflow: hidden;
+        .header {
+            background-color: #0d0d0d;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 16px;
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        .cheat-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .cheat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-bottom: 1px solid #252525;
+            font-size: 13px;
+        }
+        
+        .cheat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .switch {
             position: relative;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            width: 40px;
+            height: 20px;
         }
         
-        .app {
-            width: 100%;
-            height: 100%;
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
             position: absolute;
+            cursor: pointer;
             top: 0;
             left: 0;
-            background-color: #e0e0e0;
-            display: none;
-            flex-direction: column;
-            padding: 10px;
-        }
-        
-        .app.active {
-            display: flex;
-        }
-        
-        .app-header {
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #999;
-            flex-shrink: 0;
-        }
-        
-        .app-content {
-            flex-grow: 1;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-        
-        .key {
-            background: linear-gradient(135deg, #555, #777);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: transform 0.1s;
-            outline: none;
-        }
-        
-        .key:active {
-            transform: scale(0.95);
-        }
-        
-        .key span {
-            font-size: 12px;
-            margin-top: 2px;
-        }
-        
-        .key.special {
-            background: linear-gradient(135deg, #777, #999);
-        }
-        
-        .key.call {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            grid-column: span 3;
-            width: 80px;
-            border-radius: 30px;
-            margin-top: 10px;
-        }
-        
-        .home-screen {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            padding: 15px;
-            height: calc(100% - 30px);
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .app-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            height: 80px;
-        }
-        
-        .app-icon div {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 20px;
-            margin-bottom: 5px;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-        }
-        
-        .app-icon span {
-            font-size: 10px;
-            text-align: center;
-            color: #333;
-            word-break: break-word;
-            max-width: 60px;
-        }
-        
-        .dialer-input {
-            width: 100%;
-            padding: 10px;
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 20px;
-            border: 1px solid #999;
-            border-radius: 5px;
-            flex-shrink: 0;
-        }
-        
-        .contact-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .contact-list li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-        }
-        
-        .contact-list li:active {
-            background-color: #ddd;
-        }
-        
-        .message-input {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 10px;
-            padding: 5px;
-            border: 1px solid #999;
-            border-radius: 5px;
-            resize: none;
-            flex-shrink: 0;
-        }
-        
-        .chess-board {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            grid-template-rows: repeat(8, 1fr);
-            width: 100%;
-            height: 100%;
-            border: 2px solid #333;
-        }
-        
-        .chess-square {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        .chess-square.white {
-            background-color: #f0d9b5;
-        }
-        
-        .chess-square.black {
-            background-color: #b58863;
-        }
-        
-        .chess-piece {
-            cursor: grab;
-            user-select: none;
-            touch-action: none;
-        }
-        
-        .calculator-display {
-            width: 100%;
-            padding: 10px;
-            font-size: 24px;
-            text-align: right;
-            margin-bottom: 10px;
-            border: 1px solid #999;
-            border-radius: 5px;
-            background-color: #fff;
-            flex-shrink: 0;
-        }
-        
-        .calculator-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-        }
-        
-        .calculator-button {
-            padding: 10px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            background-color: #ddd;
-            cursor: pointer;
-        }
-        
-        .calculator-button:active {
-            background-color: #ccc;
-        }
-        
-        .calculator-button.operator {
-            background-color: #f39c12;
-            color: white;
-        }
-        
-        .settings-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-        }
-        
-        .settings-item:active {
-            background-color: #ddd;
-        }
-        
-        .alarm-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .alarm-add {
-            text-align: center;
-            padding: 10px;
-            color: #3498db;
-            cursor: pointer;
-        }
-        
-        .back-button {
-            padding: 5px 10px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            align-self: flex-start;
-            flex-shrink: 0;
-        }
-        
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 10px;
+            right: 0;
+            bottom: 0;
             background-color: #333;
-            color: white;
-            font-size: 12px;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            flex-shrink: 0;
+            transition: .2s;
+            border-radius: 20px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: #aaa;
+            transition: .2s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #d4af37;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: #fff;
+        }
+        
+        .footer {
+            padding: 8px;
+            text-align: center;
+            font-size: 10px;
+            color: #555;
+            background-color: #0d0d0d;
+            border-top: 1px solid #252525;
+        }
+        
+        /* Стиль скроллбара */
+        .cheat-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .cheat-list::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 2px;
+        }
+        
+        .cheat-list::-webkit-scrollbar-track {
+            background: #1a1a1a;
         }
     </style>
 </head>
 <body>
-    <div class="phone">
-        <div class="screen">
-            <div class="status-bar">
-                <span>F1080</span>
-                <span id="time">12:34</span>
-                <span>100%</span>
+    <div class="mod-menu">
+        <div class="header">
+            <h1>Хлестаков mod menu</h1>
+        </div>
+        
+        <div class="cheat-list">
+            <div class="cheat-item">
+                <span>1. Напасть ладьи</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Главный экран -->
-            <div class="app home-screen active" id="home">
-                <div class="app-icon" onclick="openApp('dialer')">
-                    <div>📞</div>
-                    <span>Звонки</span>
-                </div>
-                <div class="app-icon" onclick="openApp('messages')">
-                    <div>✉️</div>
-                    <span>Сообщения</span>
-                </div>
-                <div class="app-icon" onclick="openApp('alarm')">
-                    <div>⏰</div>
-                    <span>Будильник</span>
-                </div>
-                <div class="app-icon" onclick="openApp('calculator')">
-                    <div>🧮</div>
-                    <span>Калькулятор</span>
-                </div>
-                <div class="app-icon" onclick="openApp('calendar')">
-                    <div>📅</div>
-                    <span>Календарь</span>
-                </div>
-                <div class="app-icon" onclick="openApp('clock')">
-                    <div>🕒</div>
-                    <span>Часы</span>
-                </div>
-                <div class="app-icon" onclick="openApp('settings')">
-                    <div>⚙️</div>
-                    <span>Настройки</span>
-                </div>
-                <div class="app-icon" onclick="openApp('chess')">
-                    <div>♟️</div>
-                    <span>Шахматы</span>
-                </div>
+            <div class="cheat-item">
+                <span>2. Буст слонов</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Звонки -->
-            <div class="app" id="dialer">
-                <div class="app-header">Звонки</div>
-                <div class="app-content">
-                    <input type="text" class="dialer-input" id="phone-number" placeholder="Номер" readonly>
-                    <div class="keypad">
-                        <button class="key" onclick="addNumber('1')">1</button>
-                        <button class="key" onclick="addNumber('2')">2<span>ABC</span></button>
-                        <button class="key" onclick="addNumber('3')">3<span>DEF</span></button>
-                        <button class="key" onclick="addNumber('4')">4<span>GHI</span></button>
-                        <button class="key" onclick="addNumber('5')">5<span>JKL</span></button>
-                        <button class="key" onclick="addNumber('6')">6<span>MNO</span></button>
-                        <button class="key" onclick="addNumber('7')">7<span>PQRS</span></button>
-                        <button class="key" onclick="addNumber('8')">8<span>TUV</span></button>
-                        <button class="key" onclick="addNumber('9')">9<span>WXYZ</span></button>
-                        <button class="key special" onclick="addNumber('*')">*</button>
-                        <button class="key" onclick="addNumber('0')">0<span>+</span></button>
-                        <button class="key special" onclick="addNumber('#')">#</button>
-                    </div>
-                    <button class="key call" onclick="makeCall()">Позвонить</button>
-                </div>
-                <button class="back-button" onclick="goHome()">Назад</button>
+            <div class="cheat-item">
+                <span>3. Все пешки - ферзи</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Сообщения -->
-            <div class="app" id="messages">
-                <div class="app-header">Сообщения</div>
-                <div class="app-content">
-                    <input type="text" class="dialer-input" id="message-number" placeholder="Номер получателя">
-                    <textarea class="message-input" id="message-text" placeholder="Текст сообщения"></textarea>
-                    <button class="key call" onclick="sendSms()">Отправить</button>
-                </div>
-                <button class="back-button" onclick="goHome()">Назад</button>
+            <div class="cheat-item">
+                <span>4. Анархия</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Будильник -->
-            <div class="app" id="alarm">
-                <div class="app-header">Будильник</div>
-                <div class="app-content">
-                    <div class="alarm-item">
-                        <span>07:00</span>
-                        <span>✓</span>
-                    </div>
-                    <div class="alarm-item">
-                        <span>08:30</span>
-                        <span>✗</span>
-                    </div>
-                    <div class="alarm-add" onclick="addAlarm()">+ Добавить будильник</div>
-                </div>
-                <button class="back-button" onclick="goHome()">Назад</button>
+            <div class="cheat-item">
+                <span>5. Конь не видит препятствий</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Калькулятор -->
-            <div class="app" id="calculator">
-                <div class="app-header">Калькулятор</div>
-                <div class="app-content">
-                    <input type="text" class="calculator-display" id="calc-display" readonly>
-                    <div class="calculator-buttons">
-                        <button class="calculator-button" onclick="calcInput('7')">7</button>
-                        <button class="calculator-button" onclick="calcInput('8')">8</button>
-                        <button class="calculator-button" onclick="calcInput('9')">9</button>
-                        <button class="calculator-button operator" onclick="calcInput('/')">/</button>
-                        <button class="calculator-button" onclick="calcInput('4')">4</button>
-                        <button class="calculator-button" onclick="calcInput('5')">5</button>
-                        <button class="calculator-button" onclick="calcInput('6')">6</button>
-                        <button class="calculator-button operator" onclick="calcInput('*')">*</button>
-                        <button class="calculator-button" onclick="calcInput('1')">1</button>
-                        <button class="calculator-button" onclick="calcInput('2')">2</button>
-                        <button class="calculator-button" onclick="calcInput('3')">3</button>
-                        <button class="calculator-button operator" onclick="calcInput('-')">-</button>
-                        <button class="calculator-button" onclick="calcInput('0')">0</button>
-                        <button class="calculator-button" onclick="calcInput('.')">.</button>
-                        <button class="calculator-button" onclick="calculate()">=</button>
-                        <button class="calculator-button operator" onclick="calcInput('+')">+</button>
-                        <button class="calculator-button" onclick="clearDisplay()" style="grid-column: span 4;">C</button>
-                    </div>
-                </div>
-                <button class="back-button" onclick="goHome()">Назад</button>
+            <div class="cheat-item">
+                <span>6. Бесконечные ходы</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Календарь -->
-            <div class="app" id="calendar">
-                <div class="app-header">Календарь</div>
-                <div class="app-content">
-                    <div style="text-align: center; margin: 20px 0; font-size: 24px;">
-                        Август 2023<br>
-                        <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
-                            <tr>
-                                <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
-                            </tr>
-                            <tr>
-                                <td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
-                            </tr>
-                            <tr>
-                                <td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td>
-                            </tr>
-                            <tr>
-                                <td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td>
-                            </tr>
-                            <tr>
-                                <td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td>
-                            </tr>
-                            <tr>
-                                <td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <button class="back-button" onclick="goHome()">Назад</button>
+            <div class="cheat-item">
+                <span>7. Неуязвимый король</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Часы -->
-            <div class="app" id="clock">
-                <div class="app-header">Часы</div>
-                <div class="app-content" style="display: flex; justify-content: center; align-items: center; font-size: 48px; text-align: center;">
-                    <div id="digital-clock">12:34:56</div>
-                </div>
-                <button class="back-button" onclick="goHome()">Назад</button>
+            <div class="cheat-item">
+                <span>8. Телепортация фигур</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Настройки -->
-            <div class="app" id="settings">
-                <div class="app-header">Настройки</div>
-                <div class="app-content">
-                    <div class="settings-item" onclick="openSubSetting('sounds')">Звуки</div>
-                    <div class="settings-item" onclick="openSubSetting('display')">Дисплей</div>
-                    <div class="settings-item" onclick="openSubSetting('battery')">Батарея</div>
-                    <div class="settings-item" onclick="openSubSetting('about')">О телефоне</div>
-                </div>
-                <button class="back-button" onclick="goHome()">Назад</button>
+            <div class="cheat-item">
+                <span>9. Невидимые фигуры</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Шахматы -->
-            <div class="app" id="chess">
-                <div class="app-header">Шахматы</div>
-                <div class="app-content">
-                    <div class="chess-board" id="chess-board"></div>
-                </div>
-                <button class="back-button" onclick="goHome()">Назад</button>
+            <div class="cheat-item">
+                <span>10. Авто-рокировка</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
             
-            <!-- Поднастройки -->
-            <div class="app" id="sub-settings">
-                <div class="app-header" id="sub-settings-header">Настройки</div>
-                <div class="app-content" id="sub-settings-content">
-                    <!-- Контент будет загружен динамически -->
-                </div>
-                <button class="back-button" onclick="backToSettings()">Назад</button>
+            <div class="cheat-item">
+                <span>11. Двойной удар</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="cheat-item">
+                <span>12. Заморозка времени</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="cheat-item">
+                <span>13. Клонер фигур</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="cheat-item">
+                <span>14. Массовый апгрейд</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="cheat-item">
+                <span>15. Шахматный апокалипсис</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="cheat-item">
+                <span>16. Перевернуть все</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
         </div>
         
-        <div class="keypad">
-            <button class="key" onclick="handleKeyPress('1')">1</button>
-            <button class="key" onclick="handleKeyPress('2')">2<span>ABC</span></button>
-            <button class="key" onclick="handleKeyPress('3')">3<span>DEF</span></button>
-            <button class="key" onclick="handleKeyPress('4')">4<span>GHI</span></button>
-            <button class="key" onclick="handleKeyPress('5')">5<span>JKL</span></button>
-            <button class="key" onclick="handleKeyPress('6')">6<span>MNO</span></button>
-            <button class="key" onclick="handleKeyPress('7')">7<span>PQRS</span></button>
-            <button class="key" onclick="handleKeyPress('8')">8<span>TUV</span></button>
-            <button class="key" onclick="handleKeyPress('9')">9<span>WXYZ</span></button>
-            <button class="key special" onclick="handleKeyPress('*')">*</button>
-            <button class="key" onclick="handleKeyPress('0')">0<span>+</span></button>
-            <button class="key special" onclick="handleKeyPress('#')">#</button>
+        <div class="footer">
+            v1.0 | Chess Hacks
         </div>
     </div>
-
-    <script>
-        // Текущее активное приложение
-        let currentApp = 'home';
-        let selectedPiece = null;
-        let chessPieces = [];
-        
-        // Инициализация часов
-        function updateClock() {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString();
-            document.getElementById('digital-clock').textContent = timeStr;
-            document.getElementById('time').textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        }
-        
-        setInterval(updateClock, 1000);
-        updateClock();
-        
-        // Управление приложениями
-        function openApp(appId) {
-            document.getElementById(currentApp).classList.remove('active');
-            document.getElementById(appId).classList.add('active');
-            currentApp = appId;
-            
-            // Инициализация шахматной доски при открытии
-            if (appId === 'chess' && chessPieces.length === 0) {
-                initializeChessBoard();
-            }
-            
-            // Сброс позиции прокрутки при открытии приложения
-            if (appId === 'home') {
-                document.getElementById('home').scrollTop = 0;
-            }
-        }
-        
-        function goHome() {
-            openApp('home');
-        }
-        
-        function backToSettings() {
-            openApp('settings');
-        }
-        
-        // Набор номера
-        function addNumber(num) {
-            const input = document.getElementById('phone-number');
-            input.value += num;
-        }
-        
-        // Звонок
-        function makeCall() {
-            const number = document.getElementById('phone-number').value;
-            if (number) {
-                alert(`Вызов: ${number}`);
-            } else {
-                alert('Введите номер');
-            }
-        }
-        
-        // Отправка SMS
-        function sendSms() {
-            const number = document.getElementById('message-number').value;
-            const text = document.getElementById('message-text').value;
-            
-            if (number && text) {
-                alert(`SMS отправлено на номер ${number}: ${text}`);
-                document.getElementById('message-number').value = '';
-                document.getElementById('message-text').value = '';
-            } else {
-                alert('Заполните номер и текст сообщения');
-            }
-        }
-        
-        // Добавление будильника
-        function addAlarm() {
-            const time = prompt('Введите время будильника (HH:MM)');
-            if (time) {
-                alert(`Будильник установлен на ${time}`);
-            }
-        }
-        
-        // Калькулятор
-        function calcInput(value) {
-            document.getElementById('calc-display').value += value;
-        }
-        
-        function clearDisplay() {
-            document.getElementById('calc-display').value = '';
-        }
-        
-        function calculate() {
-            try {
-                const result = eval(document.getElementById('calc-display').value);
-                document.getElementById('calc-display').value = result;
-            } catch (e) {
-                alert('Ошибка вычисления');
-            }
-        }
-        
-        // Настройки
-        function openSubSetting(setting) {
-            const header = document.getElementById('sub-settings-header');
-            const content = document.getElementById('sub-settings-content');
-            
-            switch (setting) {
-                case 'sounds':
-                    header.textContent = 'Звуки';
-                    content.innerHTML = `
-                        <div class="settings-item">Громкость звонка</div>
-                        <div class="settings-item">Громкость уведомлений</div>
-                        <div class="settings-item">Мелодия звонка</div>
-                        <div class="settings-item">Вибрация</div>
-                    `;
-                    break;
-                case 'display':
-                    header.textContent = 'Дисплей';
-                    content.innerHTML = `
-                        <div class="settings-item">Яркость</div>
-                        <div class="settings-item">Таймаут экрана</div>
-                        <div class="settings-item">Обои</div>
-                        <div class="settings-item">Шрифт</div>
-                    `;
-                    break;
-                case 'battery':
-                    header.textContent = 'Батарея';
-                    content.innerHTML = `
-                        <div class="settings-item">Уровень заряда: 100%</div>
-                        <div class="settings-item">Энергосбережение</div>
-                        <div class="settings-item">Использование батареи</div>
-                    `;
-                    break;
-                case 'about':
-                    header.textContent = 'О телефоне';
-                    content.innerHTML = `
-                        <div style="padding: 15px; text-align: center;">
-                            <h3>F1080</h3>
-                            <p>Версия ОС: 1.0</p>
-                            <p>Память: 64MB</p>
-                            <p>Производитель: FPhone</p>
-                        </div>
-                    `;
-                    break;
-            }
-            
-            openApp('sub-settings');
-        }
-        
-        // Шахматы
-        function initializeChessBoard() {
-            const board = document.getElementById('chess-board');
-            board.innerHTML = '';
-            chessPieces = [];
-            
-            const piecesOrder = [
-                '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
-                '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙',
-                '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'
-            ];
-            
-            for (let i = 0; i < 64; i++) {
-                const row = Math.floor(i / 8);
-                const col = i % 8;
-                const square = document.createElement('div');
-                square.className = `chess-square ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
-                square.dataset.row = row;
-                square.dataset.col = col;
-                
-                if (piecesOrder[i]) {
-                    const piece = document.createElement('div');
-                    piece.className = 'chess-piece';
-                    piece.textContent = piecesOrder[i];
-                    piece.dataset.row = row;
-                    piece.dataset.col = col;
-                    piece.draggable = true;
-                    piece.addEventListener('dragstart', handleDragStart);
-                    square.appendChild(piece);
-                    chessPieces.push({
-                        row: row,
-                        col: col,
-                        element: piece,
-                        type: piecesOrder[i]
-                    });
-                }
-                
-                square.addEventListener('dragover', handleDragOver);
-                square.addEventListener('drop', handleDrop);
-                board.appendChild(square);
-            }
-        }
-        
-        function handleDragStart(e) {
-            selectedPiece = e.target;
-            e.dataTransfer.setData('text/plain', '');
-        }
-        
-        function handleDragOver(e) {
-            e.preventDefault();
-        }
-        
-        function handleDrop(e) {
-            e.preventDefault();
-            if (selectedPiece) {
-                // Удаляем фигуру с предыдущей позиции
-                const fromRow = parseInt(selectedPiece.dataset.row);
-                const fromCol = parseInt(selectedPiece.dataset.col);
-                
-                // Проверяем, есть ли фигура на целевой клетке
-                const toRow = parseInt(e.currentTarget.dataset.row);
-                const toCol = parseInt(e.currentTarget.dataset.col);
-                
-                // Находим фигуру в массиве
-                const pieceIndex = chessPieces.findIndex(p => 
-                    p.row === fromRow && p.col === fromCol);
-                
-                if (pieceIndex !== -1) {
-                    // Обновляем позицию фигуры
-                    chessPieces[pieceIndex].row = toRow;
-                    chessPieces[pieceIndex].col = toCol;
-                    selectedPiece.dataset.row = toRow;
-                    selectedPiece.dataset.col = toCol;
-                    
-                    // Удаляем все фигуры с целевой клетки
-                    while (e.currentTarget.firstChild) {
-                        e.currentTarget.removeChild(e.currentTarget.firstChild);
-                    }
-                    
-                    // Перемещаем фигуру
-                    e.currentTarget.appendChild(selectedPiece);
-                }
-            }
-        }
-        
-        // Обработка нажатий кнопок
-        function handleKeyPress(key) {
-            if (currentApp === 'dialer') {
-                addNumber(key);
-            } else if (currentApp === 'home') {
-                // Можно добавить действия при нажатии кнопок на главном экране
-            }
-        }
-        
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            // Добавляем обработчики для всех кнопок
-            const keys = document.querySelectorAll('.key');
-            keys.forEach(key => {
-                key.addEventListener('mousedown', function() {
-                    this.style.transform = 'scale(0.95)';
-                });
-                key.addEventListener('mouseup', function() {
-                    this.style.transform = 'scale(1)';
-                });
-                key.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                });
-                
-                // Для сенсорных устройств
-                key.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.95)';
-                });
-                key.addEventListener('touchend', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            });
-            
-            // Предотвращаем стандартное поведение для прокрутки
-            const homeScreen = document.getElementById('home');
-            homeScreen.addEventListener('touchmove', function(e) {
-                e.preventDefault();
-            }, { passive: false });
-        });
-    </script>
 </body>
 </html>
