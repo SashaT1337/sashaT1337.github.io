@@ -3,158 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Умные часы A220</title>
+    <title>Телефон F1080</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            touch-action: manipulation;
         }
         
-        .smartwatch {
+        .phone {
             width: 300px;
-            height: 450px;
-            background: #1a1a1a;
-            border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
-                        inset 0 0 10px rgba(255, 255, 255, 0.1);
+            height: 600px;
+            background: linear-gradient(135deg, #333, #111);
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
-            border: 10px solid #2a2a2a;
+            border: 8px solid #222;
         }
         
         .screen {
             width: 100%;
-            height: 100%;
-            background: #000;
-            border-radius: 30px;
+            height: 65%;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            margin-bottom: 15px;
             overflow: hidden;
             position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
         }
         
-        .home-button {
-            width: 50px;
-            height: 50px;
-            background: #2a2a2a;
-            border-radius: 50%;
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            z-index: 10;
-            border: 2px solid #3a3a3a;
-            cursor: pointer;
-        }
-        
-        .app-screen {
+        .app {
             width: 100%;
             height: 100%;
             position: absolute;
             top: 0;
             left: 0;
+            background-color: #e0e0e0;
             display: none;
             flex-direction: column;
-            color: white;
-            padding: 20px;
-            background: #111; /* Однотонный фон для всех приложений */
+            padding: 10px;
         }
         
-        .active {
+        .app.active {
             display: flex;
         }
         
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .time {
-            font-size: 14px;
+        .app-header {
+            font-size: 18px;
             font-weight: bold;
-        }
-        
-        .battery {
-            display: flex;
-            align-items: center;
-            font-size: 12px;
-        }
-        
-        .battery-icon {
-            width: 20px;
-            height: 10px;
-            border: 1px solid white;
-            border-radius: 2px;
-            margin-left: 5px;
-            position: relative;
-        }
-        
-        .battery-icon::after {
-            content: '';
-            position: absolute;
-            right: -3px;
-            top: 2px;
-            width: 2px;
-            height: 4px;
-            background: white;
-            border-radius: 1px;
-        }
-        
-        .battery-level {
-            width: 80%;
-            height: 100%;
-            background: #4CAF50;
-        }
-        
-        .app-title {
-            font-size: 24px;
-            margin-bottom: 20px;
             text-align: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #999;
+            flex-shrink: 0;
         }
         
         .app-content {
-            flex: 1;
+            flex-grow: 1;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .key {
+            background: linear-gradient(135deg, #555, #777);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.1s;
+            outline: none;
+        }
+        
+        .key:active {
+            transform: scale(0.95);
+        }
+        
+        .key span {
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        
+        .key.special {
+            background: linear-gradient(135deg, #777, #999);
+        }
+        
+        .key.call {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            grid-column: span 3;
+            width: 80px;
+            border-radius: 30px;
+            margin-top: 10px;
         }
         
         .home-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #000; /* Черный фон для домашнего экрана */
-        }
-        
-        .clock {
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .date {
-            font-size: 16px;
-            color: #aaa;
-            margin-bottom: 30px;
-        }
-        
-        .apps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
-            width: 100%;
-            padding: 0 20px;
+            padding: 15px;
+            height: calc(100% - 30px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .app-icon {
@@ -162,1245 +139,672 @@
             flex-direction: column;
             align-items: center;
             cursor: pointer;
+            height: 80px;
         }
         
-        .icon {
+        .app-icon div {
             width: 50px;
             height: 50px;
-            background: #333;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: white;
+            font-size: 20px;
             margin-bottom: 5px;
-            font-size: 24px;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
         }
         
-        .app-name {
+        .app-icon span {
             font-size: 10px;
             text-align: center;
+            color: #333;
+            word-break: break-word;
+            max-width: 60px;
         }
         
-        /* Кнопка назад */
-        .back-btn {
-            background: #333;
-            border: none;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-        }
-        
-        .back-btn::before {
-            content: '←';
-            margin-right: 5px;
-        }
-        
-        /* Стили для экрана звонков */
         .dialer-input {
             width: 100%;
             padding: 10px;
             font-size: 24px;
             text-align: center;
-            background: #222;
-            border: none;
-            color: white;
-            border-radius: 10px;
             margin-bottom: 20px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            flex-shrink: 0;
         }
         
-        .dialer-pad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
         
-        .dialer-btn {
-            background: #333;
-            border: none;
-            color: white;
-            font-size: 24px;
-            padding: 15px;
-            border-radius: 50%;
+        .contact-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
             cursor: pointer;
-            transition: background 0.3s;
         }
         
-        .dialer-btn:hover {
-            background: #444;
+        .contact-list li:active {
+            background-color: #ddd;
         }
         
-        .call-btn {
-            grid-column: span 3;
-            background: #4CAF50;
-            border-radius: 10px;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        
-        .call-btn:hover {
-            background: #45a049;
-        }
-        
-        /* Стили для экрана SMS */
-        .sms-input {
+        .message-input {
             width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            background: #222;
-            border: none;
-            color: white;
-            border-radius: 10px;
+            height: 100px;
             margin-bottom: 10px;
-        }
-        
-        .sms-textarea {
-            width: 100%;
-            height: 150px;
-            padding: 10px;
-            font-size: 16px;
-            background: #222;
-            border: none;
-            color: white;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #999;
+            border-radius: 5px;
             resize: none;
+            flex-shrink: 0;
         }
         
-        .send-btn {
+        .chess-board {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
             width: 100%;
-            background: #2196F3;
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
+            height: 100%;
+            border: 2px solid #333;
         }
         
-        .send-btn:hover {
-            background: #0b7dda;
-        }
-        
-        /* Стили для будильника */
-        .alarm-list {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        
-        .alarm-item {
+        .chess-square {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 10px;
-            background: #222;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .alarm-time {
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .alarm-toggle {
-            position: relative;
-            width: 40px;
-            height: 20px;
-        }
-        
-        .alarm-toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .alarm-slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #555;
-            border-radius: 20px;
-            transition: .4s;
+            font-size: 20px;
             cursor: pointer;
         }
         
-        .alarm-slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 2px;
-            bottom: 2px;
-            background: white;
-            border-radius: 50%;
-            transition: .4s;
+        .chess-square.white {
+            background-color: #f0d9b5;
         }
         
-        .alarm-toggle input:checked + .alarm-slider {
-            background: #4CAF50;
+        .chess-square.black {
+            background-color: #b58863;
         }
         
-        .alarm-toggle input:checked + .alarm-slider:before {
-            transform: translateX(20px);
+        .chess-piece {
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
         }
         
-        .add-alarm-btn {
-            width: 100%;
-            background: #2196F3;
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .add-alarm-btn:hover {
-            background: #0b7dda;
-        }
-        
-        /* Стили для калькулятора */
         .calculator-display {
             width: 100%;
-            padding: 15px;
+            padding: 10px;
             font-size: 24px;
             text-align: right;
-            background: #222;
-            border: none;
-            color: white;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            background-color: #fff;
+            flex-shrink: 0;
         }
         
         .calculator-buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        
-        .calc-btn {
-            background: #333;
-            border: none;
-            color: white;
-            font-size: 18px;
-            padding: 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .calc-btn:hover {
-            background: #444;
-        }
-        
-        .calc-btn.operator {
-            background: #FF9800;
-        }
-        
-        .calc-btn.operator:hover {
-            background: #e68a00;
-        }
-        
-        .calc-btn.equals {
-            background: #4CAF50;
-        }
-        
-        .calc-btn.equals:hover {
-            background: #45a049;
-        }
-        
-        /* Стили для календаря */
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .calendar-nav {
-            font-size: 20px;
-            cursor: pointer;
-            padding: 5px 10px;
-        }
-        
-        .calendar-month {
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
             gap: 5px;
         }
         
-        .calendar-day-header {
-            text-align: center;
-            font-size: 12px;
-            color: #aaa;
-            padding: 5px;
-        }
-        
-        .calendar-day {
-            text-align: center;
-            padding: 8px;
+        .calculator-button {
+            padding: 10px;
+            font-size: 18px;
+            border: none;
             border-radius: 5px;
+            background-color: #ddd;
             cursor: pointer;
         }
         
-        .calendar-day:hover {
-            background: #333;
+        .calculator-button:active {
+            background-color: #ccc;
         }
         
-        .calendar-day.today {
-            background: #2196F3;
-            font-weight: bold;
+        .calculator-button.operator {
+            background-color: #f39c12;
+            color: white;
         }
         
-        .calendar-day.other-month {
-            color: #555;
-        }
-        
-        /* Стили для настроек */
         .settings-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+        
+        .settings-item:active {
+            background-color: #ddd;
+        }
+        
+        .alarm-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #333;
-            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
         }
         
-        .settings-item:last-child {
-            border-bottom: none;
-        }
-        
-        .settings-item i {
-            margin-right: 10px;
-        }
-        
-        .settings-arrow {
-            color: #aaa;
-        }
-        
-        /* Стили для подэкранов настроек */
-        .option {
-            margin-bottom: 15px;
-        }
-        
-        .option-title {
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #aaa;
-        }
-        
-        .option-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .toggle-switch {
-            position: relative;
-            width: 50px;
-            height: 24px;
-        }
-        
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .toggle-slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #555;
-            border-radius: 24px;
-            transition: .4s;
-            cursor: pointer;
-        }
-        
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 4px;
-            bottom: 4px;
-            background: white;
-            border-radius: 50%;
-            transition: .4s;
-        }
-        
-        .toggle-switch input:checked + .toggle-slider {
-            background: #2196F3;
-        }
-        
-        .toggle-switch input:checked + .toggle-slider:before {
-            transform: translateX(26px);
-        }
-        
-        .battery-info {
+        .alarm-add {
             text-align: center;
-            margin-top: 20px;
-        }
-        
-        .battery-percent {
-            font-size: 36px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .battery-status {
-            color: #aaa;
-            font-size: 14px;
-        }
-        
-        .about-info {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .watch-model {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .watch-version {
-            color: #aaa;
-            margin-bottom: 20px;
-        }
-        
-        .watch-specs {
-            text-align: left;
-            margin-top: 20px;
-        }
-        
-        .spec-item {
-            margin-bottom: 10px;
-        }
-        
-        .spec-title {
-            color: #aaa;
-            font-size: 14px;
-        }
-        
-        .spec-value {
-            font-size: 16px;
-        }
-        
-        /* Улучшенные стили для ползунков */
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 8px;
-            background: #333;
-            border-radius: 5px;
-            outline: none;
-        }
-        
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            background: #2196F3;
-            border-radius: 50%;
+            padding: 10px;
+            color: #3498db;
             cursor: pointer;
         }
         
-        /* Стили для выпадающего списка */
-        select {
-            background: #222;
+        .back-button {
+            padding: 5px 10px;
+            background-color: #3498db;
             color: white;
             border: none;
-            padding: 8px;
             border-radius: 5px;
-            font-size: 14px;
-            outline: none;
+            cursor: pointer;
+            margin-top: 10px;
+            align-self: flex-start;
+            flex-shrink: 0;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            background-color: #333;
+            color: white;
+            font-size: 12px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            flex-shrink: 0;
         }
     </style>
 </head>
 <body>
-    <div class="smartwatch">
+    <div class="phone">
         <div class="screen">
-            <div class="home-screen app-screen active" id="home-screen">
-                <div class="clock" id="clock">00:00</div>
-                <div class="date" id="date">1 января 2023</div>
-                <div class="apps-grid">
-                    <div class="app-icon" onclick="showApp('phone-screen')">
-                        <div class="icon">📞</div>
-                        <div class="app-name">Звонки</div>
-                    </div>
-                    <div class="app-icon" onclick="showApp('sms-screen')">
-                        <div class="icon">💬</div>
-                        <div class="app-name">SMS</div>
-                    </div>
-                    <div class="app-icon" onclick="showApp('alarm-screen')">
-                        <div class="icon">⏰</div>
-                        <div class="app-name">Будильник</div>
-                    </div>
-                    <div class="app-icon" onclick="showApp('calculator-screen')">
-                        <div class="icon">🧮</div>
-                        <div class="app-name">Калькулятор</div>
-                    </div>
-                    <div class="app-icon" onclick="showApp('calendar-screen')">
-                        <div class="icon">📅</div>
-                        <div class="app-name">Календарь</div>
-                    </div>
-                    <div class="app-icon" onclick="showApp('settings-screen')">
-                        <div class="icon">⚙️</div>
-                        <div class="app-name">Настройки</div>
-                    </div>
+            <div class="status-bar">
+                <span>F1080</span>
+                <span id="time">12:34</span>
+                <span>100%</span>
+            </div>
+            
+            <!-- Главный экран -->
+            <div class="app home-screen active" id="home">
+                <div class="app-icon" onclick="openApp('dialer')">
+                    <div>📞</div>
+                    <span>Звонки</span>
+                </div>
+                <div class="app-icon" onclick="openApp('messages')">
+                    <div>✉️</div>
+                    <span>Сообщения</span>
+                </div>
+                <div class="app-icon" onclick="openApp('alarm')">
+                    <div>⏰</div>
+                    <span>Будильник</span>
+                </div>
+                <div class="app-icon" onclick="openApp('calculator')">
+                    <div>🧮</div>
+                    <span>Калькулятор</span>
+                </div>
+                <div class="app-icon" onclick="openApp('calendar')">
+                    <div>📅</div>
+                    <span>Календарь</span>
+                </div>
+                <div class="app-icon" onclick="openApp('clock')">
+                    <div>🕒</div>
+                    <span>Часы</span>
+                </div>
+                <div class="app-icon" onclick="openApp('settings')">
+                    <div>⚙️</div>
+                    <span>Настройки</span>
+                </div>
+                <div class="app-icon" onclick="openApp('chess')">
+                    <div>♟️</div>
+                    <span>Шахматы</span>
                 </div>
             </div>
             
-            <!-- Экран звонков -->
-            <div class="app-screen" id="phone-screen">
-                <div class="header">
-                    <div class="time" id="phone-time">00:00</div>
-                    <div class="battery">
-                        <span id="phone-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="back-btn" onclick="goHome()">Назад</button>
-                <div class="app-title">Звонки</div>
+            <!-- Звонки -->
+            <div class="app" id="dialer">
+                <div class="app-header">Звонки</div>
                 <div class="app-content">
-                    <input type="text" class="dialer-input" id="phone-number" placeholder="Введите номер" maxlength="11">
-                    <div class="dialer-pad">
-                        <button class="dialer-btn" onclick="addNumber('1')">1</button>
-                        <button class="dialer-btn" onclick="addNumber('2')">2</button>
-                        <button class="dialer-btn" onclick="addNumber('3')">3</button>
-                        <button class="dialer-btn" onclick="addNumber('4')">4</button>
-                        <button class="dialer-btn" onclick="addNumber('5')">5</button>
-                        <button class="dialer-btn" onclick="addNumber('6')">6</button>
-                        <button class="dialer-btn" onclick="addNumber('7')">7</button>
-                        <button class="dialer-btn" onclick="addNumber('8')">8</button>
-                        <button class="dialer-btn" onclick="addNumber('9')">9</button>
-                        <button class="dialer-btn" onclick="addNumber('*')">*</button>
-                        <button class="dialer-btn" onclick="addNumber('0')">0</button>
-                        <button class="dialer-btn" onclick="addNumber('#')">#</button>
-                        <button class="dialer-btn call-btn" onclick="makeCall()">Позвонить</button>
+                    <input type="text" class="dialer-input" id="phone-number" placeholder="Номер" readonly>
+                    <div class="keypad">
+                        <button class="key" onclick="addNumber('1')">1</button>
+                        <button class="key" onclick="addNumber('2')">2<span>ABC</span></button>
+                        <button class="key" onclick="addNumber('3')">3<span>DEF</span></button>
+                        <button class="key" onclick="addNumber('4')">4<span>GHI</span></button>
+                        <button class="key" onclick="addNumber('5')">5<span>JKL</span></button>
+                        <button class="key" onclick="addNumber('6')">6<span>MNO</span></button>
+                        <button class="key" onclick="addNumber('7')">7<span>PQRS</span></button>
+                        <button class="key" onclick="addNumber('8')">8<span>TUV</span></button>
+                        <button class="key" onclick="addNumber('9')">9<span>WXYZ</span></button>
+                        <button class="key special" onclick="addNumber('*')">*</button>
+                        <button class="key" onclick="addNumber('0')">0<span>+</span></button>
+                        <button class="key special" onclick="addNumber('#')">#</button>
                     </div>
+                    <button class="key call" onclick="makeCall()">Позвонить</button>
                 </div>
+                <button class="back-button" onclick="goHome()">Назад</button>
             </div>
             
-            <!-- Экран SMS -->
-            <div class="app-screen" id="sms-screen">
-                <div class="header">
-                    <div class="time" id="sms-time">00:00</div>
-                    <div class="battery">
-                        <span id="sms-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="back-btn" onclick="goHome()">Назад</button>
-                <div class="app-title">Сообщения</div>
+            <!-- Сообщения -->
+            <div class="app" id="messages">
+                <div class="app-header">Сообщения</div>
                 <div class="app-content">
-                    <input type="text" class="sms-input" id="sms-number" placeholder="Номер получателя" maxlength="11">
-                    <textarea class="sms-textarea" id="sms-text" placeholder="Текст сообщения"></textarea>
-                    <button class="send-btn" onclick="sendSms()">Отправить</button>
+                    <input type="text" class="dialer-input" id="message-number" placeholder="Номер получателя">
+                    <textarea class="message-input" id="message-text" placeholder="Текст сообщения"></textarea>
+                    <button class="key call" onclick="sendSms()">Отправить</button>
                 </div>
+                <button class="back-button" onclick="goHome()">Назад</button>
             </div>
             
-            <!-- Экран будильника -->
-            <div class="app-screen" id="alarm-screen">
-                <div class="header">
-                    <div class="time" id="alarm-time">00:00</div>
-                    <div class="battery">
-                        <span id="alarm-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="back-btn" onclick="goHome()">Назад</button>
-                <div class="app-title">Будильник</div>
+            <!-- Будильник -->
+            <div class="app" id="alarm">
+                <div class="app-header">Будильник</div>
                 <div class="app-content">
-                    <div class="alarm-list" id="alarm-list">
-                        <!-- Будильники будут добавляться здесь -->
+                    <div class="alarm-item">
+                        <span>07:00</span>
+                        <span>✓</span>
                     </div>
-                    <button class="add-alarm-btn" onclick="showAddAlarm()">Добавить будильник</button>
+                    <div class="alarm-item">
+                        <span>08:30</span>
+                        <span>✗</span>
+                    </div>
+                    <div class="alarm-add" onclick="addAlarm()">+ Добавить будильник</div>
                 </div>
+                <button class="back-button" onclick="goHome()">Назад</button>
             </div>
             
-            <!-- Экран добавления будильника -->
-            <div class="app-screen" id="add-alarm-screen">
-                <div class="header">
-                    <div class="time" id="add-alarm-time">00:00</div>
-                    <div class="battery">
-                        <span id="add-alarm-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="back-btn" onclick="showApp('alarm-screen')">Назад</button>
-                <div class="app-title">Новый будильник</div>
+            <!-- Калькулятор -->
+            <div class="app" id="calculator">
+                <div class="app-header">Калькулятор</div>
                 <div class="app-content">
-                    <div style="text-align: center; margin: 20px 0;">
-                        <input type="time" id="new-alarm-time" style="font-size: 24px; background: #222; border: none; color: white; padding: 10px; border-radius: 10px;">
-                    </div>
-                    <button class="add-alarm-btn" onclick="addAlarm()">Сохранить будильник</button>
-                </div>
-            </div>
-            
-            <!-- Экран калькулятора -->
-            <div class="app-screen" id="calculator-screen">
-                <div class="header">
-                    <div class="time" id="calculator-time">00:00</div>
-                    <div class="battery">
-                        <span id="calculator-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="back-btn" onclick="goHome()">Назад</button>
-                <div class="app-title">Калькулятор</div>
-                <div class="app-content">
-                    <input type="text" class="calculator-display" id="calculator-display" value="0" readonly>
+                    <input type="text" class="calculator-display" id="calc-display" readonly>
                     <div class="calculator-buttons">
-                        <button class="calc-btn" onclick="clearCalculator()">C</button>
-                        <button class="calc-btn" onclick="calculatorInput('±')">±</button>
-                        <button class="calc-btn" onclick="calculatorInput('%')">%</button>
-                        <button class="calc-btn operator" onclick="calculatorInput('/')">/</button>
-                        <button class="calc-btn" onclick="calculatorInput('7')">7</button>
-                        <button class="calc-btn" onclick="calculatorInput('8')">8</button>
-                        <button class="calc-btn" onclick="calculatorInput('9')">9</button>
-                        <button class="calc-btn operator" onclick="calculatorInput('*')">×</button>
-                        <button class="calc-btn" onclick="calculatorInput('4')">4</button>
-                        <button class="calc-btn" onclick="calculatorInput('5')">5</button>
-                        <button class="calc-btn" onclick="calculatorInput('6')">6</button>
-                        <button class="calc-btn operator" onclick="calculatorInput('-')">-</button>
-                        <button class="calc-btn" onclick="calculatorInput('1')">1</button>
-                        <button class="calc-btn" onclick="calculatorInput('2')">2</button>
-                        <button class="calc-btn" onclick="calculatorInput('3')">3</button>
-                        <button class="calc-btn operator" onclick="calculatorInput('+')">+</button>
-                        <button class="calc-btn" onclick="calculatorInput('0')" style="grid-column: span 2;">0</button>
-                        <button class="calc-btn" onclick="calculatorInput('.')">.</button>
-                        <button class="calc-btn equals" onclick="calculate()">=</button>
+                        <button class="calculator-button" onclick="calcInput('7')">7</button>
+                        <button class="calculator-button" onclick="calcInput('8')">8</button>
+                        <button class="calculator-button" onclick="calcInput('9')">9</button>
+                        <button class="calculator-button operator" onclick="calcInput('/')">/</button>
+                        <button class="calculator-button" onclick="calcInput('4')">4</button>
+                        <button class="calculator-button" onclick="calcInput('5')">5</button>
+                        <button class="calculator-button" onclick="calcInput('6')">6</button>
+                        <button class="calculator-button operator" onclick="calcInput('*')">*</button>
+                        <button class="calculator-button" onclick="calcInput('1')">1</button>
+                        <button class="calculator-button" onclick="calcInput('2')">2</button>
+                        <button class="calculator-button" onclick="calcInput('3')">3</button>
+                        <button class="calculator-button operator" onclick="calcInput('-')">-</button>
+                        <button class="calculator-button" onclick="calcInput('0')">0</button>
+                        <button class="calculator-button" onclick="calcInput('.')">.</button>
+                        <button class="calculator-button" onclick="calculate()">=</button>
+                        <button class="calculator-button operator" onclick="calcInput('+')">+</button>
+                        <button class="calculator-button" onclick="clearDisplay()" style="grid-column: span 4;">C</button>
                     </div>
                 </div>
+                <button class="back-button" onclick="goHome()">Назад</button>
             </div>
             
-            <!-- Экран календаря -->
-            <div class="app-screen" id="calendar-screen">
-                <div class="header">
-                    <div class="time" id="calendar-time">00:00</div>
-                    <div class="battery">
-                        <span id="calendar-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="back-btn" onclick="goHome()">Назад</button>
-                <div class="app-title">Календарь</div>
+            <!-- Календарь -->
+            <div class="app" id="calendar">
+                <div class="app-header">Календарь</div>
                 <div class="app-content">
-                    <div class="calendar-header">
-                        <div class="calendar-nav" onclick="prevMonth()">←</div>
-                        <div class="calendar-month" id="calendar-month">Январь 2023</div>
-                        <div class="calendar-nav" onclick="nextMonth()">→</div>
-                    </div>
-                    <div class="calendar-grid" id="calendar-days-header">
-                        <div class="calendar-day-header">Пн</div>
-                        <div class="calendar-day-header">Вт</div>
-                        <div class="calendar-day-header">Ср</div>
-                        <div class="calendar-day-header">Чт</div>
-                        <div class="calendar-day-header">Пт</div>
-                        <div class="calendar-day-header">Сб</div>
-                        <div class="calendar-day-header">Вс</div>
-                    </div>
-                    <div class="calendar-grid" id="calendar-days">
-                        <!-- Дни календаря будут добавляться здесь -->
+                    <div style="text-align: center; margin: 20px 0; font-size: 24px;">
+                        Август 2023<br>
+                        <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+                            <tr>
+                                <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
+                            </tr>
+                            <tr>
+                                <td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
+                            </tr>
+                            <tr>
+                                <td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td>
+                            </tr>
+                            <tr>
+                                <td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td>
+                            </tr>
+                            <tr>
+                                <td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td>
+                            </tr>
+                            <tr>
+                                <td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
+                <button class="back-button" onclick="goHome()">Назад</button>
             </div>
             
-            <!-- Экран настроек -->
-            <div class="app-screen" id="settings-screen">
-                <div class="header">
-                    <div class="time" id="settings-time">00:00</div>
-                    <div class="battery">
-                        <span id="settings-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
+            <!-- Часы -->
+            <div class="app" id="clock">
+                <div class="app-header">Часы</div>
+                <div class="app-content" style="display: flex; justify-content: center; align-items: center; font-size: 48px; text-align: center;">
+                    <div id="digital-clock">12:34:56</div>
                 </div>
-                <button class="back-btn" onclick="goHome()">Назад</button>
-                <div class="app-title">Настройки</div>
-                <div class="app-content">
-                    <div class="settings-item" onclick="showApp('sounds-settings')">
-                        <div><span>🔊</span> Звуки</div>
-                        <div class="settings-arrow">→</div>
-                    </div>
-                    <div class="settings-item" onclick="showApp('display-settings')">
-                        <div><span>🖥️</span> Дисплей</div>
-                        <div class="settings-arrow">→</div>
-                    </div>
-                    <div class="settings-item" onclick="showApp('battery-settings')">
-                        <div><span>🔋</span> Батарея</div>
-                        <div class="settings-arrow">→</div>
-                    </div>
-                    <div class="settings-item" onclick="showApp('about-settings')">
-                        <div><span>ℹ️</span> О часах</div>
-                        <div class="settings-arrow">→</div>
-                    </div>
-                </div>
+                <button class="back-button" onclick="goHome()">Назад</button>
             </div>
             
-            <!-- Подэкраны настроек -->
-            <div class="app-screen" id="sounds-settings">
-                <div class="header">
-                    <div class="time" id="sounds-time">00:00</div>
-                    <div class="battery">
-                        <span id="sounds-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="back-btn" onclick="showApp('settings-screen')">Назад</button>
-                <div class="app-title">Звуки</div>
+            <!-- Настройки -->
+            <div class="app" id="settings">
+                <div class="app-header">Настройки</div>
                 <div class="app-content">
-                    <div class="option">
-                        <div class="option-title">Громкость звонка</div>
-                        <div class="option-content">
-                            <input type="range" min="0" max="100" value="80" class="slider" id="ringtone-volume">
-                            <span id="ringtone-volume-value">80%</span>
-                        </div>
-                    </div>
-                    <div class="option">
-                        <div class="option-title">Громкость уведомлений</div>
-                        <div class="option-content">
-                            <input type="range" min="0" max="100" value="60" class="slider" id="notification-volume">
-                            <span id="notification-volume-value">60%</span>
-                        </div>
-                    </div>
-                    <div class="option">
-                        <div class="option-title">Вибрация</div>
-                        <div class="option-content">
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked id="vibration-toggle">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
+                    <div class="settings-item" onclick="openSubSetting('sounds')">Звуки</div>
+                    <div class="settings-item" onclick="openSubSetting('display')">Дисплей</div>
+                    <div class="settings-item" onclick="openSubSetting('battery')">Батарея</div>
+                    <div class="settings-item" onclick="openSubSetting('about')">О телефоне</div>
                 </div>
+                <button class="back-button" onclick="goHome()">Назад</button>
             </div>
             
-            <div class="app-screen" id="display-settings">
-                <div class="header">
-                    <div class="time" id="display-time">00:00</div>
-                    <div class="battery">
-                        <span id="display-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="back-btn" onclick="showApp('settings-screen')">Назад</button>
-                <div class="app-title">Дисплей</div>
+            <!-- Шахматы -->
+            <div class="app" id="chess">
+                <div class="app-header">Шахматы</div>
                 <div class="app-content">
-                    <div class="option">
-                        <div class="option-title">Яркость</div>
-                        <div class="option-content">
-                            <input type="range" min="0" max="100" value="70" class="slider" id="brightness">
-                            <span id="brightness-value">70%</span>
-                        </div>
-                    </div>
-                    <div class="option">
-                        <div class="option-title">Темная тема</div>
-                        <div class="option-content">
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked id="dark-mode-toggle">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="option">
-                        <div class="option-title">Таймаут экрана</div>
-                        <div class="option-content">
-                            <select id="screen-timeout" style="background: #222; color: white; border: none; padding: 5px; border-radius: 5px;">
-                                <option value="15">15 секунд</option>
-                                <option value="30" selected>30 секунд</option>
-                                <option value="60">1 минута</option>
-                                <option value="120">2 минуты</option>
-                            </select>
-                        </div>
-                    </div>
+                    <div class="chess-board" id="chess-board"></div>
                 </div>
+                <button class="back-button" onclick="goHome()">Назад</button>
             </div>
             
-            <div class="app-screen" id="battery-settings">
-                <div class="header">
-                    <div class="time" id="battery-time">00:00</div>
-                    <div class="battery">
-                        <span id="battery-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
+            <!-- Поднастройки -->
+            <div class="app" id="sub-settings">
+                <div class="app-header" id="sub-settings-header">Настройки</div>
+                <div class="app-content" id="sub-settings-content">
+                    <!-- Контент будет загружен динамически -->
                 </div>
-                <button class="back-btn" onclick="showApp('settings-screen')">Назад</button>
-                <div class="app-title">Батарея</div>
-                <div class="app-content">
-                    <div class="battery-info">
-                        <div class="battery-percent" id="battery-percent">100%</div>
-                        <div class="battery-status" id="battery-status">Заряжается</div>
-                    </div>
-                    <div class="option" style="margin-top: 30px;">
-                        <div class="option-title">Энергосберегающий режим</div>
-                        <div class="option-content">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="power-save-toggle">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="app-screen" id="about-settings">
-                <div class="header">
-                    <div class="time" id="about-time">00:00</div>
-                    <div class="battery">
-                        <span id="about-battery">100%</span>
-                        <div class="battery-icon">
-                            <div class="battery-level"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="back-btn" onclick="showApp('settings-screen')">Назад</button>
-                <div class="app-title">О часах</div>
-                <div class="app-content">
-                    <div class="about-info">
-                        <div class="watch-model">A220</div>
-                        <div class="watch-version">Версия 1.0.0</div>
-                        <div class="watch-specs">
-                            <div class="spec-item">
-                                <div class="spec-title">Производитель</div>
-                                <div class="spec-value">SmartTech</div>
-                            </div>
-                            <div class="spec-item">
-                                <div class="spec-title">Процессор</div>
-                                <div class="spec-value">Quad-core 1.2 GHz</div>
-                            </div>
-                            <div class="spec-item">
-                                <div class="spec-title">Память</div>
-                                <div class="spec-value">512 MB RAM, 4 GB ROM</div>
-                            </div>
-                            <div class="spec-item">
-                                <div class="spec-title">Экран</div>
-                                <div class="spec-value">1.5" AMOLED, 320x320</div>
-                            </div>
-                            <div class="spec-item">
-                                <div class="spec-title">Батарея</div>
-                                <div class="spec-value">300 mAh</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button class="back-button" onclick="backToSettings()">Назад</button>
             </div>
         </div>
-        <div class="home-button" onclick="goHome()"></div>
+        
+        <div class="keypad">
+            <button class="key" onclick="handleKeyPress('1')">1</button>
+            <button class="key" onclick="handleKeyPress('2')">2<span>ABC</span></button>
+            <button class="key" onclick="handleKeyPress('3')">3<span>DEF</span></button>
+            <button class="key" onclick="handleKeyPress('4')">4<span>GHI</span></button>
+            <button class="key" onclick="handleKeyPress('5')">5<span>JKL</span></button>
+            <button class="key" onclick="handleKeyPress('6')">6<span>MNO</span></button>
+            <button class="key" onclick="handleKeyPress('7')">7<span>PQRS</span></button>
+            <button class="key" onclick="handleKeyPress('8')">8<span>TUV</span></button>
+            <button class="key" onclick="handleKeyPress('9')">9<span>WXYZ</span></button>
+            <button class="key special" onclick="handleKeyPress('*')">*</button>
+            <button class="key" onclick="handleKeyPress('0')">0<span>+</span></button>
+            <button class="key special" onclick="handleKeyPress('#')">#</button>
+        </div>
     </div>
 
     <script>
-        // Обновление времени на всех экранах
-        function updateTime() {
+        // Текущее активное приложение
+        let currentApp = 'home';
+        let selectedPiece = null;
+        let chessPieces = [];
+        
+        // Инициализация часов
+        function updateClock() {
             const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const timeString = `${hours}:${minutes}`;
-            
-            // Обновляем время на всех экранах
-            document.querySelectorAll('.time').forEach(el => {
-                el.textContent = timeString;
-            });
-            
-            // Обновляем главные часы
-            document.getElementById('clock').textContent = timeString;
-            
-            // Обновляем дату
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('date').textContent = now.toLocaleDateString('ru-RU', options);
+            const timeStr = now.toLocaleTimeString();
+            document.getElementById('digital-clock').textContent = timeStr;
+            document.getElementById('time').textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         }
         
-        // Обновление батареи
-        function updateBattery() {
-            // Имитация изменения уровня батареи
-            let batteryLevel = Math.floor(Math.random() * 20) + 80; // 80-100%
-            if (batteryLevel > 100) batteryLevel = 100;
-            
-            document.querySelectorAll('.battery span').forEach(el => {
-                el.textContent = `${batteryLevel}%`;
-            });
-            
-            document.querySelectorAll('.battery-level').forEach(el => {
-                el.style.width = `${batteryLevel}%`;
-                el.style.background = batteryLevel > 20 ? '#4CAF50' : '#f44336';
-            });
-            
-            document.getElementById('battery-percent').textContent = `${batteryLevel}%`;
-            document.getElementById('battery-status').textContent = batteryLevel > 90 ? 'Полностью заряжена' : 
-                                                                  batteryLevel > 50 ? 'Достаточно заряжена' : 
-                                                                  batteryLevel > 20 ? 'Заряд низкий' : 'Очень низкий заряд';
-        }
+        setInterval(updateClock, 1000);
+        updateClock();
         
-        // Переключение между экранами
-        function showApp(appId) {
-            document.querySelectorAll('.app-screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
+        // Управление приложениями
+        function openApp(appId) {
+            document.getElementById(currentApp).classList.remove('active');
             document.getElementById(appId).classList.add('active');
+            currentApp = appId;
+            
+            // Инициализация шахматной доски при открытии
+            if (appId === 'chess' && chessPieces.length === 0) {
+                initializeChessBoard();
+            }
+            
+            // Сброс позиции прокрутки при открытии приложения
+            if (appId === 'home') {
+                document.getElementById('home').scrollTop = 0;
+            }
         }
         
         function goHome() {
-            showApp('home-screen');
+            openApp('home');
         }
         
-        // Функционал звонков
+        function backToSettings() {
+            openApp('settings');
+        }
+        
+        // Набор номера
         function addNumber(num) {
             const input = document.getElementById('phone-number');
             input.value += num;
         }
         
+        // Звонок
         function makeCall() {
             const number = document.getElementById('phone-number').value;
             if (number) {
-                alert(`Вызов номера ${number}...`);
-                // Здесь мог бы быть реальный вызов
+                alert(`Вызов: ${number}`);
             } else {
-                alert('Введите номер для вызова');
+                alert('Введите номер');
             }
         }
         
-        // Функционал SMS
+        // Отправка SMS
         function sendSms() {
-            const number = document.getElementById('sms-number').value;
-            const text = document.getElementById('sms-text').value;
+            const number = document.getElementById('message-number').value;
+            const text = document.getElementById('message-text').value;
             
-            if (!number) {
-                alert('Введите номер получателя');
-                return;
-            }
-            
-            if (!text) {
-                alert('Введите текст сообщения');
-                return;
-            }
-            
-            alert(`SMS отправлено на номер ${number}\nТекст: ${text}`);
-            document.getElementById('sms-number').value = '';
-            document.getElementById('sms-text').value = '';
-        }
-        
-        // Функционал будильника
-        let alarms = [];
-        
-        function showAddAlarm() {
-            showApp('add-alarm-screen');
-            document.getElementById('new-alarm-time').value = '';
-        }
-        
-        function addAlarm() {
-            const time = document.getElementById('new-alarm-time').value;
-            if (!time) {
-                alert('Укажите время будильника');
-                return;
-            }
-            
-            alarms.push({
-                time: time,
-                active: true
-            });
-            
-            updateAlarmsList();
-            showApp('alarm-screen');
-        }
-        
-        function toggleAlarm(index) {
-            alarms[index].active = !alarms[index].active;
-            updateAlarmsList();
-        }
-        
-        function deleteAlarm(index) {
-            alarms.splice(index, 1);
-            updateAlarmsList();
-        }
-        
-        function updateAlarmsList() {
-            const list = document.getElementById('alarm-list');
-            list.innerHTML = '';
-            
-            if (alarms.length === 0) {
-                list.innerHTML = '<div style="text-align: center; color: #aaa; padding: 20px;">Нет будильников</div>';
-                return;
-            }
-            
-            alarms.forEach((alarm, index) => {
-                const alarmItem = document.createElement('div');
-                alarmItem.className = 'alarm-item';
-                
-                alarmItem.innerHTML = `
-                    <div class="alarm-time">${alarm.time}</div>
-                    <label class="alarm-toggle">
-                        <input type="checkbox" ${alarm.active ? 'checked' : ''} onchange="toggleAlarm(${index})">
-                        <span class="alarm-slider"></span>
-                    </label>
-                `;
-                
-                list.appendChild(alarmItem);
-            });
-            
-            // Проверка срабатывания будильников
-            checkAlarms();
-        }
-        
-        function checkAlarms() {
-            const now = new Date();
-            const currentHours = now.getHours().toString().padStart(2, '0');
-            const currentMinutes = now.getMinutes().toString().padStart(2, '0');
-            const currentTime = `${currentHours}:${currentMinutes}`;
-            
-            alarms.forEach(alarm => {
-                if (alarm.active && alarm.time === currentTime) {
-                    alert(`Будильник! Время: ${alarm.time}`);
-                    // Здесь мог бы быть звук будильника
-                }
-            });
-        }
-        
-        // Функционал калькулятора
-        let calculator = {
-            displayValue: '0',
-            firstOperand: null,
-            waitingForSecondOperand: false,
-            operator: null
-        };
-        
-        function updateCalculatorDisplay() {
-            document.getElementById('calculator-display').value = calculator.displayValue;
-        }
-        
-        function calculatorInput(digit) {
-            const { displayValue, waitingForSecondOperand } = calculator;
-            
-            if (digit === '±') {
-                calculator.displayValue = (parseFloat(displayValue) * -1).toString();
-                updateCalculatorDisplay();
-                return;
-            }
-            
-            if (digit === '%') {
-                calculator.displayValue = (parseFloat(displayValue) / 100).toString();
-                updateCalculatorDisplay();
-                return;
-            }
-            
-            if (waitingForSecondOperand) {
-                calculator.displayValue = digit;
-                calculator.waitingForSecondOperand = false;
+            if (number && text) {
+                alert(`SMS отправлено на номер ${number}: ${text}`);
+                document.getElementById('message-number').value = '';
+                document.getElementById('message-text').value = '';
             } else {
-                calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+                alert('Заполните номер и текст сообщения');
             }
-            
-            updateCalculatorDisplay();
         }
         
-        function calculatorDecimal() {
-            if (calculator.waitingForSecondOperand) {
-                calculator.displayValue = '0.';
-                calculator.waitingForSecondOperand = false;
-                return;
+        // Добавление будильника
+        function addAlarm() {
+            const time = prompt('Введите время будильника (HH:MM)');
+            if (time) {
+                alert(`Будильник установлен на ${time}`);
             }
-            
-            if (!calculator.displayValue.includes('.')) {
-                calculator.displayValue += '.';
-            }
-            
-            updateCalculatorDisplay();
         }
         
-        function handleOperator(nextOperator) {
-            const { firstOperand, displayValue, operator } = calculator;
-            const inputValue = parseFloat(displayValue);
-            
-            if (operator && calculator.waitingForSecondOperand) {
-                calculator.operator = nextOperator;
-                return;
-            }
-            
-            if (firstOperand === null) {
-                calculator.firstOperand = inputValue;
-            } else if (operator) {
-                const result = performCalculation[operator](firstOperand, inputValue);
-                calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
-                calculator.firstOperand = result;
-            }
-            
-            calculator.waitingForSecondOperand = true;
-            calculator.operator = nextOperator;
-            updateCalculatorDisplay();
+        // Калькулятор
+        function calcInput(value) {
+            document.getElementById('calc-display').value += value;
         }
         
-        const performCalculation = {
-            '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
-            '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
-            '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
-            '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
-            '=': (firstOperand, secondOperand) => secondOperand
-        };
-        
-        function clearCalculator() {
-            calculator.displayValue = '0';
-            calculator.firstOperand = null;
-            calculator.waitingForSecondOperand = false;
-            calculator.operator = null;
-            updateCalculatorDisplay();
+        function clearDisplay() {
+            document.getElementById('calc-display').value = '';
         }
         
         function calculate() {
-            if (calculator.operator) {
-                handleOperator('=');
+            try {
+                const result = eval(document.getElementById('calc-display').value);
+                document.getElementById('calc-display').value = result;
+            } catch (e) {
+                alert('Ошибка вычисления');
             }
         }
         
-        // Функционал календаря
-        let currentDate = new Date();
-        
-        function renderCalendar() {
-            const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-            document.getElementById('calendar-month').textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+        // Настройки
+        function openSubSetting(setting) {
+            const header = document.getElementById('sub-settings-header');
+            const content = document.getElementById('sub-settings-content');
             
-            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-            
-            const daysInMonth = lastDay.getDate();
-            const startingDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // Пн=0, Вт=1, ..., Вс=6
-            
-            const calendarDays = document.getElementById('calendar-days');
-            calendarDays.innerHTML = '';
-            
-            // Дни предыдущего месяца
-            const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
-            for (let i = 0; i < startingDay; i++) {
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day other-month';
-                dayElement.textContent = prevMonthLastDay - startingDay + i + 1;
-                calendarDays.appendChild(dayElement);
+            switch (setting) {
+                case 'sounds':
+                    header.textContent = 'Звуки';
+                    content.innerHTML = `
+                        <div class="settings-item">Громкость звонка</div>
+                        <div class="settings-item">Громкость уведомлений</div>
+                        <div class="settings-item">Мелодия звонка</div>
+                        <div class="settings-item">Вибрация</div>
+                    `;
+                    break;
+                case 'display':
+                    header.textContent = 'Дисплей';
+                    content.innerHTML = `
+                        <div class="settings-item">Яркость</div>
+                        <div class="settings-item">Таймаут экрана</div>
+                        <div class="settings-item">Обои</div>
+                        <div class="settings-item">Шрифт</div>
+                    `;
+                    break;
+                case 'battery':
+                    header.textContent = 'Батарея';
+                    content.innerHTML = `
+                        <div class="settings-item">Уровень заряда: 100%</div>
+                        <div class="settings-item">Энергосбережение</div>
+                        <div class="settings-item">Использование батареи</div>
+                    `;
+                    break;
+                case 'about':
+                    header.textContent = 'О телефоне';
+                    content.innerHTML = `
+                        <div style="padding: 15px; text-align: center;">
+                            <h3>F1080</h3>
+                            <p>Версия ОС: 1.0</p>
+                            <p>Память: 64MB</p>
+                            <p>Производитель: FPhone</p>
+                        </div>
+                    `;
+                    break;
             }
             
-            // Дни текущего месяца
-            const today = new Date();
-            for (let i = 1; i <= daysInMonth; i++) {
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day';
-                dayElement.textContent = i;
+            openApp('sub-settings');
+        }
+        
+        // Шахматы
+        function initializeChessBoard() {
+            const board = document.getElementById('chess-board');
+            board.innerHTML = '';
+            chessPieces = [];
+            
+            const piecesOrder = [
+                '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
+                '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙',
+                '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'
+            ];
+            
+            for (let i = 0; i < 64; i++) {
+                const row = Math.floor(i / 8);
+                const col = i % 8;
+                const square = document.createElement('div');
+                square.className = `chess-square ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
+                square.dataset.row = row;
+                square.dataset.col = col;
                 
-                if (i === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
-                    dayElement.classList.add('today');
+                if (piecesOrder[i]) {
+                    const piece = document.createElement('div');
+                    piece.className = 'chess-piece';
+                    piece.textContent = piecesOrder[i];
+                    piece.dataset.row = row;
+                    piece.dataset.col = col;
+                    piece.draggable = true;
+                    piece.addEventListener('dragstart', handleDragStart);
+                    square.appendChild(piece);
+                    chessPieces.push({
+                        row: row,
+                        col: col,
+                        element: piece,
+                        type: piecesOrder[i]
+                    });
                 }
                 
-                calendarDays.appendChild(dayElement);
-            }
-            
-            // Дни следующего месяца
-            const totalCells = startingDay + daysInMonth;
-            const remainingCells = totalCells <= 35 ? 35 - totalCells : 42 - totalCells;
-            
-            for (let i = 1; i <= remainingCells; i++) {
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day other-month';
-                dayElement.textContent = i;
-                calendarDays.appendChild(dayElement);
+                square.addEventListener('dragover', handleDragOver);
+                square.addEventListener('drop', handleDrop);
+                board.appendChild(square);
             }
         }
         
-        function prevMonth() {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
+        function handleDragStart(e) {
+            selectedPiece = e.target;
+            e.dataTransfer.setData('text/plain', '');
         }
         
-        function nextMonth() {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
+        function handleDragOver(e) {
+            e.preventDefault();
         }
         
-        // Настройки слайдеров
-        function setupSliders() {
-            const ringtoneSlider = document.getElementById('ringtone-volume');
-            const notificationSlider = document.getElementById('notification-volume');
-            const brightnessSlider = document.getElementById('brightness');
-            
-            ringtoneSlider.addEventListener('input', function() {
-                document.getElementById('ringtone-volume-value').textContent = `${this.value}%`;
-            });
-            
-            notificationSlider.addEventListener('input', function() {
-                document.getElementById('notification-volume-value').textContent = `${this.value}%`;
-            });
-            
-            brightnessSlider.addEventListener('input', function() {
-                document.getElementById('brightness-value').textContent = `${this.value}%`;
-            });
-        }
-        
-        // Инициализация
-        function init() {
-            updateTime();
-            updateBattery();
-            updateAlarmsList();
-            renderCalendar();
-            setupSliders();
-            
-            // Обновляем время каждую минуту
-            setInterval(updateTime, 60000);
-            
-            // Обновляем батарею каждые 5 минут
-            setInterval(updateBattery, 300000);
-            
-            // Проверяем будильники каждую минуту
-            setInterval(checkAlarms, 60000);
-            
-            // Добавляем обработчики для калькулятора
-            document.querySelectorAll('.calc-btn').forEach(button => {
-                if (button.textContent === '.') {
-                    button.addEventListener('click', calculatorDecimal);
-                } else if (button.textContent === 'C') {
-                    button.addEventListener('click', clearCalculator);
-                } else if (button.textContent === '=') {
-                    button.addEventListener('click', calculate);
-                } else if (['+', '-', '×', '/', '%'].includes(button.textContent)) {
-                    button.addEventListener('click', () => handleOperator(button.textContent === '×' ? '*' : button.textContent));
-                } else {
-                    button.addEventListener('click', () => calculatorInput(button.textContent));
+        function handleDrop(e) {
+            e.preventDefault();
+            if (selectedPiece) {
+                // Удаляем фигуру с предыдущей позиции
+                const fromRow = parseInt(selectedPiece.dataset.row);
+                const fromCol = parseInt(selectedPiece.dataset.col);
+                
+                // Проверяем, есть ли фигура на целевой клетке
+                const toRow = parseInt(e.currentTarget.dataset.row);
+                const toCol = parseInt(e.currentTarget.dataset.col);
+                
+                // Находим фигуру в массиве
+                const pieceIndex = chessPieces.findIndex(p => 
+                    p.row === fromRow && p.col === fromCol);
+                
+                if (pieceIndex !== -1) {
+                    // Обновляем позицию фигуры
+                    chessPieces[pieceIndex].row = toRow;
+                    chessPieces[pieceIndex].col = toCol;
+                    selectedPiece.dataset.row = toRow;
+                    selectedPiece.dataset.col = toCol;
+                    
+                    // Удаляем все фигуры с целевой клетки
+                    while (e.currentTarget.firstChild) {
+                        e.currentTarget.removeChild(e.currentTarget.firstChild);
+                    }
+                    
+                    // Перемещаем фигуру
+                    e.currentTarget.appendChild(selectedPiece);
                 }
-            });
+            }
         }
         
-        // Запускаем при загрузке
-        window.onload = init;
+        // Обработка нажатий кнопок
+        function handleKeyPress(key) {
+            if (currentApp === 'dialer') {
+                addNumber(key);
+            } else if (currentApp === 'home') {
+                // Можно добавить действия при нажатии кнопок на главном экране
+            }
+        }
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Добавляем обработчики для всех кнопок
+            const keys = document.querySelectorAll('.key');
+            keys.forEach(key => {
+                key.addEventListener('mousedown', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                key.addEventListener('mouseup', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                key.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                
+                // Для сенсорных устройств
+                key.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                key.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Предотвращаем стандартное поведение для прокрутки
+            const homeScreen = document.getElementById('home');
+            homeScreen.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+        });
     </script>
 </body>
 </html>
