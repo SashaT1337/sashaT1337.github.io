@@ -3,270 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хлестаков's mod menu</title>
+    <title>Surreal Chess - всё о шахматах</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: rgba(0, 0, 0, 0.7);
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        nav {
+            background-color: #34495e;
+            padding: 0.7rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #e0e0e0;
+            flex-wrap: wrap;
         }
         
-        .mod-menu {
-            width: 280px;
-            background-color: #1a1a1a;
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.2rem;
+            margin: 0.3rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .main-content {
+            background-color: white;
             border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-            overflow: hidden;
-            border: 1px solid #333;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        .header {
-            background-color: #0d0d0d;
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #333;
+        .sidebar {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        .header h1 {
-            margin: 0;
-            font-size: 16px;
-            color: #d4af37;
-            font-weight: bold;
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
         }
         
-        .cheat-list {
-            max-height: 400px;
-            overflow-y: auto;
+        h3 {
+            color: #34495e;
+            margin: 1.5rem 0 1rem;
         }
         
-        .cheat-item {
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .chess-board {
+            width: 100%;
+            max-width: 500px;
+            margin: 1.5rem auto;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            border: 3px solid #333;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .square {
+            aspect-ratio: 1;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
-            border-bottom: 1px solid #252525;
-            font-size: 13px;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: background-color 0.2s;
         }
         
-        .cheat-item:last-child {
-            border-bottom: none;
+        .white {
+            background-color: #f0d9b5;
         }
         
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 20px;
+        .black {
+            background-color: #b58863;
         }
         
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
+        .featured {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #2c3e50;
         }
         
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #333;
-            transition: .2s;
-            border-radius: 20px;
-        }
-        
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 2px;
-            bottom: 2px;
-            background-color: #aaa;
-            transition: .2s;
-            border-radius: 50%;
-        }
-        
-        input:checked + .slider {
-            background-color: #d4af37;
-        }
-        
-        input:checked + .slider:before {
-            transform: translateX(20px);
-            background-color: #fff;
-        }
-        
-        .footer {
-            padding: 8px;
+        .tg-channel {
+            display: block;
+            background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: 8px;
             text-align: center;
-            font-size: 10px;
-            color: #555;
-            background-color: #0d0d0d;
-            border-top: 1px solid #252525;
+            margin-top: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         
-        /* Стиль скроллбара */
-        .cheat-list::-webkit-scrollbar {
-            width: 4px;
+        .tg-channel:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        .cheat-list::-webkit-scrollbar-thumb {
-            background: #d4af37;
-            border-radius: 2px;
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
         
-        .cheat-list::-webkit-scrollbar-track {
-            background: #1a1a1a;
+        .article-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-img {
+            height: 160px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-1 {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="%23f0d9b5"/><path d="M30,30 L70,30 L70,70 L30,70 Z" fill="%23b58863"/></svg>');
+        }
+        
+        .card-2 {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="%23f0d9b5"/><circle cx="50" cy="50" r="30" fill="%23b58863"/></svg>');
+        }
+        
+        .card-3 {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="%23f0d9b5"/><polygon points="50,20 80,80 20,80" fill="%23b58863"/></svg>');
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: #666;
+            border-left: 3px solid #ddd;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .rules-list {
+            list-style-type: none;
+        }
+        
+        .rules-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .rules-list li:before {
+            content: "♔";
+            position: absolute;
+            left: 0;
+            color: #b58863;
         }
     </style>
 </head>
 <body>
-    <div class="mod-menu">
-        <div class="header">
-            <h1>Хлестаков mod menu</h1>
+    <header>
+        <div class="header-content">
+            <h1>Surreal Chess</h1>
+            <p class="subtitle">Погрузитесь в мир шахмат: от основ к мастерству</p>
         </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <a href="#">Главная</a>
+            <a href="#">Правила</a>
+            <a href="#">Тактики</a>
+            <a href="#">История</a>
+            <a href="#">Великие игроки</a>
+            <a href="#">Турниры</a>
+            <a href="#">Обучение</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <main class="main-content">
+            <h2>Добро пожаловать в мир шахмат</h2>
+            <p>Шахматы — это настольная игра, которая сочетает в себе элементы искусства, науки и спорта. Это одна из древнейших игр, которая до сих пор пользуется огромной популярностью по всему миру.</p>
+            
+            <div class="chess-board">
+                <!-- Шахматная доска -->
+                <div class="square black">♜</div><div class="square white">♞</div><div class="square black">♝</div><div class="square white">♛</div><div class="square black">♚</div><div class="square white">♝</div><div class="square black">♞</div><div class="square white">♜</div>
+                
+                <div class="square white">♟</div><div class="square black">♟</div><div class="square white">♟</div><div class="square black">♟</div><div class="square white">♟</div><div class="square black">♟</div><div class="square white">♟</div><div class="square black">♟</div>
+                
+                <div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div>
+                
+                <div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div>
+                
+                <div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div>
+                
+                <div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div>
+                
+                <div class="square black">♙</div><div class="square white">♙</div><div class="square black">♙</div><div class="square white">♙</div><div class="square black">♙</div><div class="square white">♙</div><div class="square black">♙</div><div class="square white">♙</div>
+                
+                <div class="square white">♖</div><div class="square black">♘</div><div class="square white">♗</div><div class="square black">♕</div><div class="square white">♔</div><div class="square black">♗</div><div class="square white">♘</div><div class="square black">♖</div>
+            </div>
+            
+            <div class="featured">
+                <h3>Почему шахматы?</h3>
+                <p>Шахматы развивают критическое мышление, улучшают память, способствуют концентрации внимания и творческому подходу к решению проблем. Это не просто игра, а инструмент для развития интеллектуальных способностей.</p>
+            </div>
+            
+            <h3>Основные правила шахмат</h3>
+            <ul class="rules-list">
+                <li>Цель игры — поставить мат королю противника.</li>
+                <li>Игра ведется на доске 8×8 клеток.</li>
+                <li>У каждого игрока в начале партии по 16 фигур.</li>
+                <li>Фигуры ходят по определенным правилам.</li>
+                <li>Существуют специальные правила: рокировка, взятие на проходе, превращение пешки.</li>
+            </ul>
+            
+            <h3>Популярные разделы</h3>
+            <div class="article-grid">
+                <div class="article-card">
+                    <div class="card-img card-1"></div>
+                    <div class="card-content">
+                        <h3>Тактические приемы</h3>
+                        <p>Изучите основные тактические приемы: вилка, связка, вскрытое нападение и другие.</p>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="card-img card-2"></div>
+                    <div class="card-content">
+                        <h3>Великие шахматисты</h3>
+                        <p>От Капабланки до Карлсена — история великих чемпионов мира по шахматам.</p>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="card-img card-3"></div>
+                    <div class="card-content">
+                        <h3>Дебаты о стилях</h3>
+                        <p>Тактик vs стратег: какой стиль игры更适合 для вас?</p>
+                    </div>
+                </div>
+            </div>
+        </main>
         
-        <div class="cheat-list">
-            <div class="cheat-item">
-                <span>1. Напасть ладьи</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
+        <aside class="sidebar">
+            <h2>О проекте</h2>
+            <p>Surreal Chess — это ресурс для всех любителей шахмат: от начинающих до опытных игроков.</p>
+            
+            <div class="featured">
+                <h3>Интересный факт</h3>
+                <p>Количество возможных уникальных шахматных партий больше, чем количество атомов в наблюдаемой вселенной.</p>
             </div>
             
-            <div class="cheat-item">
-                <span>2. Буст слонов</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
+            <h3>Подпишитесь на наш Telegram-канал</h3>
+            <p>Будьте в курсе последних событий в мире шахмат, изучайте новые тактики и участвуйте в обсуждениях.</p>
             
-            <div class="cheat-item">
-                <span>3. Все пешки - ферзи</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
+            <a href="https://t.me/Surchess" class="tg-channel">Перейти в Surchess Telegram</a>
             
-            <div class="cheat-item">
-                <span>4. Анархия</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>5. Конь не видит препятствий</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>6. Бесконечные ходы</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>7. Неуязвимый король</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>8. Телепортация фигур</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>9. Невидимые фигуры</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>10. Авто-рокировка</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>11. Двойной удар</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>12. Заморозка времени</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>13. Клонер фигур</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>14. Массовый апгрейд</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>15. Шахматный апокалипсис</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            
-            <div class="cheat-item">
-                <span>16. Перевернуть все</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-        </div>
-        
-        <div class="footer">
-            v1.0 | Chess Hacks
-        </div>
+            <h3>Последние новости</h3>
+            <p>• Турнир претендентов 2023: результаты</p>
+            <p>• Новый рекорд по одновременной игре вслепую</p>
+            <p>• ИИ в шахматах: новые достижения</p>
+        </aside>
     </div>
+    
+    <footer>
+        <div class="footer-content">
+            <p>Surreal Chess © 2023. Все права защищены.</p>
+            <p>Шахматы — это не просто игра, это целый мир возможностей.</p>
+        </div>
+    </footer>
 </body>
 </html>
