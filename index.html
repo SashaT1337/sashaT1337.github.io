@@ -24,32 +24,32 @@
         header {
             background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
             color: white;
-            padding: 1.5rem 0;
+            padding: 1rem 0;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
         
         h1 {
-            font-size: 2.8rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1rem;
             opacity: 0.9;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
         
         nav {
             background-color: #34495e;
-            padding: 0.7rem 0;
+            padding: 0.5rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -59,76 +59,112 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 10px;
         }
         
         nav a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1.2rem;
-            margin: 0.3rem;
+            padding: 0.5rem 0.8rem;
+            margin: 0.2rem;
             border-radius: 4px;
             transition: background-color 0.3s;
+            font-size: 0.9rem;
         }
         
         nav a:hover, nav a.active {
             background-color: #2c3e50;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 2rem;
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
         }
         
-        @media (max-width: 900px) {
+        .container {
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
             .container {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 300px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            nav a {
+                padding: 0.5rem 1.2rem;
+                margin: 0.3rem;
+                font-size: 1rem;
             }
         }
         
         .main-content {
             background-color: white;
             border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .sidebar {
             background-color: white;
             border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            order: -1;
+        }
+        
+        @media (min-width: 768px) {
+            .sidebar {
+                order: 1;
+            }
         }
         
         h2 {
             color: #2c3e50;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid #eee;
+            font-size: 1.5rem;
         }
         
         h3 {
             color: #34495e;
-            margin: 1.5rem 0 1rem;
+            margin: 1.2rem 0 0.8rem;
+            font-size: 1.2rem;
         }
         
         p {
             margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
         
         .chess-board {
             width: 100%;
-            max-width: 500px;
-            margin: 1.5rem auto;
+            max-width: 100%;
+            margin: 1.2rem auto;
             display: grid;
             grid-template-columns: repeat(8, 1fr);
-            border: 3px solid #333;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border: 2px solid #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         
         .square {
@@ -136,8 +172,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             transition: background-color 0.2s;
+        }
+        
+        @media (min-width: 480px) {
+            .square {
+                font-size: 2.2rem;
+            }
         }
         
         .white {
@@ -150,9 +192,9 @@
         
         .featured {
             background-color: #f8f9fa;
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 8px;
-            margin: 1.5rem 0;
+            margin: 1.2rem 0;
             border-left: 4px solid #2c3e50;
         }
         
@@ -161,44 +203,51 @@
             background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
             color: white;
             text-decoration: none;
-            padding: 1rem;
+            padding: 0.8rem;
             border-radius: 8px;
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             font-weight: bold;
             transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 0.9rem;
         }
         
         .tg-channel:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
         
         .article-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+        
+        @media (min-width: 480px) {
+            .article-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
         }
         
         .article-card {
             background-color: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
         }
         
         .article-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
         
         .card-content {
-            padding: 1.5rem;
+            padding: 1.2rem;
         }
         
         .card-img {
-            height: 160px;
+            height: 140px;
             background-color: #ddd;
             background-size: cover;
             background-position: center;
@@ -220,22 +269,23 @@
             background-color: #2c3e50;
             color: white;
             text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
         }
         
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
         
         .quote {
             font-style: italic;
             color: #666;
             border-left: 3px solid #ddd;
-            padding-left: 1rem;
-            margin: 1.5rem 0;
+            padding-left: 0.8rem;
+            margin: 1.2rem 0;
+            font-size: 0.9rem;
         }
         
         .rules-list {
@@ -243,9 +293,10 @@
         }
         
         .rules-list li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.5rem;
+            margin-bottom: 0.6rem;
+            padding-left: 1.2rem;
             position: relative;
+            font-size: 0.95rem;
         }
         
         .rules-list li:before {
@@ -265,49 +316,72 @@
         
         .player-card {
             display: flex;
-            margin-bottom: 1.5rem;
-            align-items: center;
+            margin-bottom: 1.2rem;
+            align-items: flex-start;
             background: #f9f9f9;
             padding: 1rem;
             border-radius: 8px;
+            flex-direction: column;
+        }
+        
+        @media (min-width: 480px) {
+            .player-card {
+                flex-direction: row;
+                align-items: center;
+            }
         }
         
         .player-img {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background-color: #ddd;
-            margin-right: 1rem;
+            margin-right: 0.8rem;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #777;
+            margin-bottom: 0.8rem;
+        }
+        
+        @media (min-width: 480px) {
+            .player-img {
+                margin-bottom: 0;
+            }
         }
         
         .openings-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            margin: 1.2rem 0;
+        }
+        
+        @media (min-width: 480px) {
+            .openings-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
         }
         
         .opening-card {
             background: #f0f0f0;
-            padding: 1rem;
+            padding: 0.8rem;
             border-radius: 8px;
             border-left: 4px solid #b58863;
+            font-size: 0.9rem;
         }
         
         .tournament-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.5rem 0;
+            margin: 1.2rem 0;
+            font-size: 0.85rem;
         }
         
         .tournament-table th, .tournament-table td {
-            padding: 0.8rem;
+            padding: 0.6rem;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -323,16 +397,16 @@
         
         .tactics-example {
             background: #f8f9fa;
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 8px;
-            margin: 1.5rem 0;
+            margin: 1.2rem 0;
         }
         
         .tactics-board {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             width: 100%;
-            max-width: 400px;
+            max-width: 100%;
             margin: 1rem auto;
             border: 2px solid #333;
         }
@@ -342,7 +416,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
+        }
+        
+        @media (min-width: 480px) {
+            .tactic-square {
+                font-size: 1.8rem;
+            }
         }
         
         .tactic-white {
@@ -360,18 +440,42 @@
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-top: 1rem;
         }
         
         .social-icons a {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             transition: transform 0.2s;
         }
         
         .social-icons a:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
+        }
+        
+        /* Мобильное меню */
+        @media (max-width: 767px) {
+            .nav-container {
+                flex-direction: column;
+                display: none;
+                padding: 0.5rem;
+            }
+            
+            .nav-container.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                margin: 0 auto;
+            }
+            
+            nav a {
+                width: 100%;
+                text-align: center;
+                margin: 0.2rem 0;
+            }
         }
     </style>
 </head>
@@ -384,6 +488,9 @@
     </header>
     
     <nav>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="nav-container">
             <a href="#" class="active" data-tab="home">Главная</a>
             <a href="#" data-tab="rules">Правила</a>
@@ -604,37 +711,39 @@
                 <p>Турнир по нокаут-системе, проводимый раз в два года. Участники играют матчи из двух партий с тай-брейками. Лучшие игроки получают право участвовать в турнире претендентов.</p>
                 
                 <h3>Крупные ежегодные турниры</h3>
-                <table class="tournament-table">
-                    <thead>
-                        <tr>
-                            <th>Турнир</th>
-                            <th>Место проведения</th>
-                            <th>Формат</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tata Steel Chess</td>
-                            <td>Нидерланды</td>
-                            <td>Круговой</td>
-                        </tr>
-                        <tr>
-                            <td>Sinquefield Cup</td>
-                            <td>США</td>
-                            <td>Круговой</td>
-                        </tr>
-                        <tr>
-                            <td>Norway Chess</td>
-                            <td>Норвегия</td>
-                            <td>Круговой</td>
-                        </tr>
-                        <tr>
-                            <td>Гран-при FIDE</td>
-                            <td>Разные страны</td>
-                            <td>Серия турниров</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div style="overflow-x: auto;">
+                    <table class="tournament-table">
+                        <thead>
+                            <tr>
+                                <th>Турнир</th>
+                                <th>Место проведения</th>
+                                <th>Формат</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tata Steel Chess</td>
+                                <td>Нидерланды</td>
+                                <td>Круговой</td>
+                            </tr>
+                            <tr>
+                                <td>Sinquefield Cup</td>
+                                <td>США</td>
+                                <td>Круговой</td>
+                            </tr>
+                            <tr>
+                                <td>Norway Chess</td>
+                                <td>Норвегия</td>
+                                <td>Круговой</td>
+                            </tr>
+                            <tr>
+                                <td>Гран-при FIDE</td>
+                                <td>Разные страны</td>
+                                <td>Серия турниров</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             
             <!-- Обучение -->
@@ -745,6 +854,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('nav a');
             const tabContents = document.querySelectorAll('.tab-content');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navContainer = document.querySelector('.nav-container');
             
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -760,7 +871,24 @@
                     // Показываем соответствующую вкладку
                     const tabId = this.getAttribute('data-tab');
                     document.getElementById(tabId).classList.add('active');
+                    
+                    // На мобильных устройствах закрываем меню после выбора
+                    if (window.innerWidth < 768) {
+                        navContainer.classList.remove('active');
+                    }
                 });
+            });
+            
+            // Обработчик для мобильного меню
+            mobileMenuBtn.addEventListener('click', function() {
+                navContainer.classList.toggle('active');
+            });
+            
+            // Закрываем меню при клике вне его области
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('nav') && window.innerWidth < 768) {
+                    navContainer.classList.remove('active');
+                }
             });
         });
     </script>
