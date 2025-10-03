@@ -3,63 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surreal Chess - всё о шахматах</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Питомник облепихи - Купить саженцы облепихи</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: #f5f5f5;
-            color: #333;
+            font-family: 'Arial', sans-serif;
             line-height: 1.6;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="50" height="50" fill="%23f0d9b5"/><rect x="50" y="0" width="50" height="50" fill="%23b58863"/><rect x="0" y="50" width="50" height="50" fill="%23b58863"/><rect x="50" y="50" width="50" height="50" fill="%23f0d9b5"/></svg>');
-            background-size: 100px 100px;
+            color: #333;
         }
-        
-        header {
-            background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
-            color: white;
-            padding: 1.5rem 0;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-content {
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #f9a825, #f57f17);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .contact-info {
+            text-align: right;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+
+        /* Navigation */
+        nav {
+            background: #2e7d32;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu li {
+            padding: 1rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd54f;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('sachenez1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
-        
-        nav {
-            background-color: #34495e;
-            padding: 0.7rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
         }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
+
+        .btn {
+            display: inline-block;
+            background: #f9a825;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #f57f17;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2e7d32;
+            font-size: 2rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2e7d32;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #f57f17;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        /* Features Section */
+        .features {
+            background: #f5f5f5;
+            padding: 3rem 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 3rem 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #2e7d32;
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background: #f9a825;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: #1b5e20;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-info {
+                text-align: center;
+                margin-top: 1rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Питомник Облепихи</div>
+                <div class="contact-info">
+                    <a href="mailto:Tyutyulnikoff@yandex.ru">Tyutyulnikoff@yandex.ru</a>
+                    <a href="tel:+79134311532">+7 913 431 15 32</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-menu">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#products">Саженцы</a></li>
+                <li><a href="#about">О питомнике</a></li>
+                <li><a href="#features">Преимущества</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Качественные саженцы облепихи</h1>
+            <p>Выращены с заботой в нашем питомнике. Гарантия качества и приживаемости</p>
+            <a href="#products" class="btn">Выбрать саженцы</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Наши саженцы</h2>
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <img src="sachenez1.jpg" alt="Саженец облепихи 1" class="product-image">
+                    <h3 class="product-title">#</h3>
+                    <p>#</p>
+                    <div class="product-price"># ₽</div>
+                    <a href="#contact" class="btn">Заказать</a>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <img src="sachenez2.jpg" alt="Саженец облепихи 2" class="product-image">
+                    <h3 class="product-title">#</h3>
+                    <p>#</p>
+                    <div class="product-price"># ₽</div>
+                    <a href="#contact" class="btn">Заказать</a>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <img src="sachenez3.jpg" alt="Саженец облепихи 3" class="product-image">
+                    <h3 class="product-title">#</h3>
+                    <p>#</p>
+                    <div class="product-price"># ₽</div>
+                    <a href="#contact" class="btn">Заказать</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нас</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Качественные саженцы</h3>
+                    <p>#</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Быстрая доставка</h3>
+                    <p>#</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌿</div>
+                    <h3>Натуральное выращивание</h3>
+                    <p>#</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📞</div>
+                    <h3>Профессиональная консультация</h3>
+                    <p>#</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">О нашем питомнике</h2>
+            <div class="about-content">
+                <div>
+                    <img src="sachenez1.jpg" alt="Наш питомник" class="about-image">
+                </div>
+                <div>
+                    <h3>#</h3>
+                    <p>#</p>
+                    <p>#</p>
+                    <p>#</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <div class="contact-grid">
+                <div>
+                    <h3>Контакты</h3>
+                    <p><strong>Email:</strong> Tyutyulnikoff@yandex.ru</p>
+                    <p><strong>Телефон:</strong> +7 913 431 15 32</p>
+                    <p><strong>Адрес:</strong> #</p>
+                    <p><strong>Режим работы:</strong> #</p>
+                </div>
+                <div>
+                    <form class="contact-form">
+                        <input type="text" placeholder="Ваше имя" required>
+                        <input type="email" placeholder="Ваш email" required>
+                        <input type="tel" placeholder="Ваш телефон">
+                        <textarea placeholder="Ваше сообщение" rows="5" required></textarea>
+                        <button type="submit" class="btn">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Питомник Облепихи. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>            justify-content: center;
             flex-wrap: wrap;
         }
         
