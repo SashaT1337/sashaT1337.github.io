@@ -3,894 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surreal Chess - всё о шахматах</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Время в Сирах, Гаджетах и Загрузках</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
         
         body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="50" height="50" fill="%23f0d9b5"/><rect x="50" y="0" width="50" height="50" fill="%23b58863"/><rect x="0" y="50" width="50" height="50" fill="%23b58863"/><rect x="50" y="50" width="50" height="50" fill="%23f0d9b5"/></svg>');
-            background-size: 100px 100px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
-            color: white;
-            padding: 1rem 0;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .subtitle {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-        }
-        
-        nav {
-            background-color: #34495e;
-            padding: 0.5rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 0 10px;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 0.8rem;
-            margin: 0.2rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-            font-size: 0.9rem;
-        }
-        
-        nav a:hover, nav a.active {
-            background-color: #2c3e50;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 1.5rem auto;
-            padding: 0 15px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-        
-        @media (min-width: 768px) {
-            .container {
-                grid-template-columns: 1fr 300px;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            nav a {
-                padding: 0.5rem 1.2rem;
-                margin: 0.3rem;
-                font-size: 1rem;
-            }
-        }
-        
-        .main-content {
             background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .sidebar {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.2rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            order: -1;
-        }
-        
-        @media (min-width: 768px) {
-            .sidebar {
-                order: 1;
-            }
-        }
-        
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #eee;
-            font-size: 1.5rem;
-        }
-        
-        h3 {
-            color: #34495e;
-            margin: 1.2rem 0 0.8rem;
-            font-size: 1.2rem;
-        }
-        
-        p {
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-        
-        .chess-board {
-            width: 100%;
-            max-width: 100%;
-            margin: 1.2rem auto;
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            border: 2px solid #333;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .square {
-            aspect-ratio: 1;
+            color: black;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            transition: background-color 0.2s;
-        }
-        
-        @media (min-width: 480px) {
-            .square {
-                font-size: 2.2rem;
-            }
-        }
-        
-        .white {
-            background-color: #f0d9b5;
-        }
-        
-        .black {
-            background-color: #b58863;
-        }
-        
-        .featured {
-            background-color: #f8f9fa;
-            padding: 1.2rem;
-            border-radius: 8px;
-            margin: 1.2rem 0;
-            border-left: 4px solid #2c3e50;
-        }
-        
-        .tg-channel {
-            display: block;
-            background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
-            color: white;
-            text-decoration: none;
-            padding: 0.8rem;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 1.2rem;
-            font-weight: bold;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-size: 0.9rem;
-        }
-        
-        .tg-channel:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .article-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.2rem;
-            margin: 1.5rem 0;
-        }
-        
-        @media (min-width: 480px) {
-            .article-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-        
-        .article-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-        }
-        
-        .article-card:hover {
-            transform: translateY(-3px);
-        }
-        
-        .card-content {
-            padding: 1.2rem;
-        }
-        
-        .card-img {
-            height: 140px;
-            background-color: #ddd;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .card-1 {
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="%23f0d9b5"/><path d="M30,30 L70,30 L70,70 L30,70 Z" fill="%23b58863"/></svg>');
-        }
-        
-        .card-2 {
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="%23f0d9b5"/><circle cx="50" cy="50" r="30" fill="%23b58863"/></svg>');
-        }
-        
-        .card-3 {
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="%23f0d9b5"/><polygon points="50,20 80,80 20,80" fill="%23b58863"/></svg>');
-        }
-        
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 1.5rem 0;
-            margin-top: 2rem;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        .quote {
-            font-style: italic;
-            color: #666;
-            border-left: 3px solid #ddd;
-            padding-left: 0.8rem;
-            margin: 1.2rem 0;
-            font-size: 0.9rem;
-        }
-        
-        .rules-list {
-            list-style-type: none;
-        }
-        
-        .rules-list li {
-            margin-bottom: 0.6rem;
-            padding-left: 1.2rem;
-            position: relative;
-            font-size: 0.95rem;
-        }
-        
-        .rules-list li:before {
-            content: "♔";
-            position: absolute;
-            left: 0;
-            color: #b58863;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .player-card {
-            display: flex;
-            margin-bottom: 1.2rem;
-            align-items: flex-start;
-            background: #f9f9f9;
-            padding: 1rem;
-            border-radius: 8px;
             flex-direction: column;
-        }
-        
-        @media (min-width: 480px) {
-            .player-card {
-                flex-direction: row;
-                align-items: center;
-            }
-        }
-        
-        .player-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 0.8rem;
-            flex-shrink: 0;
-            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: #777;
-            margin-bottom: 0.8rem;
+            padding: 20px;
         }
         
-        @media (min-width: 480px) {
-            .player-img {
-                margin-bottom: 0;
-            }
-        }
-        
-        .openings-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.8rem;
-            margin: 1.2rem 0;
-        }
-        
-        @media (min-width: 480px) {
-            .openings-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-        }
-        
-        .opening-card {
-            background: #f0f0f0;
-            padding: 0.8rem;
-            border-radius: 8px;
-            border-left: 4px solid #b58863;
-            font-size: 0.9rem;
-        }
-        
-        .tournament-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.2rem 0;
-            font-size: 0.85rem;
-        }
-        
-        .tournament-table th, .tournament-table td {
-            padding: 0.6rem;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .tournament-table th {
-            background-color: #2c3e50;
-            color: white;
-        }
-        
-        .tournament-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .tactics-example {
-            background: #f8f9fa;
-            padding: 1.2rem;
-            border-radius: 8px;
-            margin: 1.2rem 0;
-        }
-        
-        .tactics-board {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            width: 100%;
-            max-width: 100%;
-            margin: 1rem auto;
-            border: 2px solid #333;
-        }
-        
-        .tactic-square {
-            aspect-ratio: 1;
+        .clock-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            width: 100%;
+            max-width: 500px;
         }
         
-        @media (min-width: 480px) {
-            .tactic-square {
-                font-size: 1.8rem;
-            }
+        .time-unit {
+            margin: 15px 0;
+            text-align: center;
+            width: 100%;
         }
         
-        .tactic-white {
-            background-color: #f0d9b5;
+        .time-value {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
         }
         
-        .tactic-black {
-            background-color: #b58863;
-        }
-        
-        .highlight {
-            background-color: rgba(255, 215, 0, 0.3);
-        }
-        
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-top: 1rem;
-        }
-        
-        .social-icons a {
-            color: white;
+        .unit-name {
             font-size: 1.2rem;
-            transition: transform 0.2s;
+            margin-top: 5px;
+            font-weight: 400;
+            color: #333;
         }
         
-        .social-icons a:hover {
-            transform: translateY(-2px);
-        }
-        
-        /* Мобильное меню */
-        @media (max-width: 767px) {
-            .nav-container {
-                flex-direction: column;
-                display: none;
-                padding: 0.5rem;
+        @media (max-width: 480px) {
+            .time-value {
+                font-size: 2.8rem;
             }
             
-            .nav-container.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                margin: 0 auto;
-            }
-            
-            nav a {
-                width: 100%;
-                text-align: center;
-                margin: 0.2rem 0;
+            .unit-name {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>Surreal Chess</h1>
-            <p class="subtitle">Погрузитесь в мир шахмат: от основ к мастерству</p>
+    <div class="clock-container">
+        <div class="time-unit">
+            <div class="time-value" id="syr">0.00</div>
+            <div class="unit-name">Сир</div>
         </div>
-    </header>
-    
-    <nav>
-        <button class="mobile-menu-btn">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="nav-container">
-            <a href="#" class="active" data-tab="home">Главная</a>
-            <a href="#" data-tab="rules">Правила</a>
-            <a href="#" data-tab="tactics">Тактики</a>
-            <a href="#" data-tab="history">История</a>
-            <a href="#" data-tab="players">Великие игроки</a>
-            <a href="#" data-tab="tournaments">Турниры</a>
-            <a href="#" data-tab="learning">Обучение</a>
-        </div>
-    </nav>
-    
-    <div class="container">
-        <main class="main-content">
-            <!-- Главная -->
-            <div class="tab-content active" id="home">
-                <h2>Добро пожаловать в мир шахмат</h2>
-                <p>Шахматы — это настольная игра, которая сочетает в себе элементы искусства, науки и спорта. Это одна из древнейших игр, которая до сих пор пользуется огромной популярностью по всему миру.</p>
-                
-                <div class="chess-board">
-                    <!-- Шахматная доска -->
-                    <div class="square black">♜</div><div class="square white">♞</div><div class="square black">♝</div><div class="square white">♛</div><div class="square black">♚</div><div class="square white">♝</div><div class="square black">♞</div><div class="square white">♜</div>
-                    
-                    <div class="square white">♟</div><div class="square black">♟</div><div class="square white">♟</div><div class="square black">♟</div><div class="square white">♟</div><div class="square black">♟</div><div class="square white">♟</div><div class="square black">♟</div>
-                    
-                    <div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div>
-                    
-                    <div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div>
-                    
-                    <div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div>
-                    
-                    <div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div><div class="square white"></div><div class="square black"></div>
-                    
-                    <div class="square black">♙</div><div class="square white">♙</div><div class="square black">♙</div><div class="square white">♙</div><div class="square black">♙</div><div class="square white">♙</div><div class="square black">♙</div><div class="square white">♙</div>
-                    
-                    <div class="square white">♖</div><div class="square black">♘</div><div class="square white">♗</div><div class="square black">♕</div><div class="square white">♔</div><div class="square black">♗</div><div class="square white">♘</div><div class="square black">♖</div>
-                </div>
-                
-                <div class="featured">
-                    <h3>Почему шахматы?</h3>
-                    <p>Шахматы развивают критическое мышление, улучшают память, способствуют концентрации внимания и творческому подходу к решению проблем. Это не просто игра, а инструмент для развития интеллектуальных способностей.</p>
-                </div>
-                
-                <h3>Основные правила шахмат</h3>
-                <ul class="rules-list">
-                    <li>Цель игры — поставить мат королю противника.</li>
-                    <li>Игра ведется на доске 8×8 клеток.</li>
-                    <li>У каждого игрока в начале партии по 16 фигур.</li>
-                    <li>Фигуры ходят по определенным правилам.</li>
-                    <li>Существуют специальные правила: рокировка, взятие на проходе, превращение пешки.</li>
-                </ul>
-                
-                <h3>Популярные разделы</h3>
-                <div class="article-grid">
-                    <div class="article-card">
-                        <div class="card-img card-1"></div>
-                        <div class="card-content">
-                            <h3>Тактические приемы</h3>
-                            <p>Изучите основные тактические приемы: вилка, связка, вскрытое нападение и другие.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="article-card">
-                        <div class="card-img card-2"></div>
-                        <div class="card-content">
-                            <h3>Великие шахматисты</h3>
-                            <p>От Капабланки до Карлсена — история великих чемпионов мира по шахматам.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="article-card">
-                        <div class="card-img card-3"></div>
-                        <div class="card-content">
-                            <h3>Дебаты о стилях</h3>
-                            <p>Тактик vs стратег: какой стиль игры更适合 для вас?</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Правила -->
-            <div class="tab-content" id="rules">
-                <h2>Правила шахмат</h2>
-                <p>Шахматы — игра с многовековой историей и четко установленными правилами. Вот основные из них:</p>
-                
-                <h3>Начальная позиция</h3>
-                <p>Шахматная партия ведется на доске, состоящей из 64 квадратов, попеременно светлых и темных. В начале игры каждый игрок имеет по 16 фигур: король, ферзь, две ладьи, два слона, два коня и восемь пешек.</p>
-                
-                <h3>Ходы фигур</h3>
-                <ul class="rules-list">
-                    <li><strong>Король</strong> ходит на одно поле в любом направлении.</li>
-                    <li><strong>Ферзь</strong> ходит на любое количество полей по вертикали, горизонтали или диагонали.</li>
-                    <li><strong>Ладья</strong> ходит на любое количество полей по вертикали или горизонтали.</li>
-                    <li><strong>Слон</strong> ходит на любое количество полей по диагонали.</li>
-                    <li><strong>Конь</strong> ходит буквой "Г" и может перепрыгивать через фигуры.</li>
-                    <li><strong>Пешка</strong> ходит вперед на одно поле, но из начального положения может пойти на два поля. Бьет пешка по диагонали на одно поле вперед.</li>
-                </ul>
-                
-                <h3>Специальные правила</h3>
-                <p><strong>Рокировка</strong> — единственный ход, при котором перемещаются две фигуры одновременно. Король перемещается на два поля toward ладьи, а ладья переносится через короля на соседнее с ним поле.</p>
-                <p><strong>Взятие на проходе</strong> — специальный ход пешки, при котором она может взять пешку противника, которая переместилась на два поля из начального положения.</p>
-                <p><strong>Превращение пешки</strong> — когда пешка достигает последней горизонтали, она должна быть заменена на ферзя, ладью, слона или коня того же цвета.</p>
-                
-                <h3>Завершение игры</h3>
-                <p>Игра заканчивается, когда король одного из игроков находится под шахом и не может избежать этого шаха. Эта ситуация называется "мат". Игра также может закончиться ничьей по нескольким причинам: пат, соглашение между игроками, троекратное повторение позиции или правило 50 ходов.</p>
-            </div>
-            
-            <!-- Тактики -->
-            <div class="tab-content" id="tactics">
-                <h2>Тактические приемы в шахматах</h2>
-                <p>Тактика — это краткосрочная последовательность ходов, часто с использованием комбинаций, которая приводит к tangible выгоде. Тактические приемы являются основой успешной шахматной игры.</p>
-                
-                <h3>Вилка</h3>
-                <div class="tactics-example">
-                    <p>Вилка — это атака одной фигурой на две или более фигур противника одновременно. Чаще всего вилки делают пешки и кони.</p>
-                    <div class="tactics-board">
-                        <div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div>
-                        <div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div>
-                        <div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div>
-                        <div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white highlight">♞</div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div>
-                        <div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white">♜</div><div class="tactic-square tactic-black"></div>
-                        <div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white">♚</div>
-                        <div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div>
-                        <div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div><div class="tactic-square tactic-black"></div><div class="tactic-square tactic-white"></div>
-                    </div>
-                    <p>В данной позиции конь атакует одновременно ладью и короля, создавая вилку. Противник вынужден спасать короля, теряя ладью.</p>
-                </div>
-                
-                <h3>Связка</h3>
-                <p>Связка — это ситуация, когда фигура не может уйти с линии атаки, потому что позади нее находится более ценная фигура. Связка часто используется для ограничения mobility фигур противника.</p>
-                
-                <h3>Открытое нападение</h3>
-                <p>Открытое нападение происходит, когда после перемещения одной фигуры, другая фигура оказывается под ударом. Это мощный тактический прием, который часто приводит к выигрышу material.</p>
-                
-                <h3>Отвлечение</h3>
-                <p>Отвлечение — это тактический прием, при котором фигура противника вынуждена покинуть свою позицию, оставляя другую фигуру или ключевое поле незащищенным.</p>
-            </div>
-            
-            <!-- История -->
-            <div class="tab-content" id="history">
-                <h2>История шахмат</h2>
-                <p>Шахматы имеют богатую историю, насчитывающую более 1500 лет. Игра зародилась в Индии в VI веке под названием "чатуранга", что означает "четыре подразделения войска" — пехота, кавалерия, слоны и колесницы, которые представлены в игре пешкой, конем, слоном и ладьей.</p>
-                
-                <h3>Распространение по миру</h3>
-                <p>Из Индии игра попала в Персию, где получила название "шатрандж". После арабского завоевания Персии шахматы распространились по исламскому миру, а затем через мавров в Испанию и остальную Европу к X веку.</p>
-                
-                <p>В Европе правила игры постепенно менялись, и к XV веку шахматы приобрели современный вид с усилением роли ферзя и слона.</p>
-                
-                <h3>Современные шахматы</h3>
-                <p>Первый официальный чемпионат мира по шахматам состоялся в 1886 году, когда Вильгельм Стейниц победил Иоганна Цукерторта. С тех пор шахматы стали признанным видом спорта с международной федерацией (FIDE), основанной в 1924 году.</p>
-                
-                <p>В XX веке шахматы пережили значительные изменения с появлением компьютерного анализа и развитием теории. В 1997 году компьютер Deep Blue впервые победил действующего чемпиона мира Гарри Каспарова в матче из шести партий.</p>
-                
-                <h3>Шахматы в цифровую эпоху</h3>
-                <p>Сегодня шахматы переживают renaissance благодаря онлайн-платформам, таким как Chess.com и Lichess, которые сделали игру доступной для миллионов людей по всему миру. Популярность шахмат также возросла благодаря streaming на платформах like Twitch и YouTube.</p>
-            </div>
-            
-            <!-- Великие игроки -->
-            <div class="tab-content" id="players">
-                <h2>Великие шахматисты</h2>
-                <p>На протяжении истории шахмат было много выдающихся игроков, которые внесли значительный вклад в развитие игры. Вот некоторые из них:</p>
-                
-                <div class="player-card">
-                    <div class="player-img">♔</div>
-                    <div>
-                        <h3>Гарри Каспаров</h3>
-                        <p>Советский и российский шахматист, 13-й чемпион мира по шахматам. Держал звание чемпиона мира с 1985 по 2000 год. Известен своими глубокими preparation и aggressive стилем игры.</p>
-                    </div>
-                </div>
-                
-                <div class="player-card">
-                    <div class="player-img">♕</div>
-                    <div>
-                        <h3>Магнус Карлсен</h3>
-                        <p>Норвежский шахматист, действующий чемпион мира. Известен своим универсальным стилем игры и ability превращать небольшие advantages в победы. Держит рекорд самого высокого рейтинга Эло в истории.</p>
-                    </div>
-                </div>
-                
-                <div class="player-card">
-                    <div class="player-img">♖</div>
-                    <div>
-                        <h3>Хосе Рауль Капабланка</h3>
-                        <p>Кубинский шахматист, третий чемпион мира по шахматам. Известен как "шахматный автомат" за свою исключительную technique и ability избегать ошибок. Его стиль характеризовался простотой и эффективностью.</p>
-                    </div>
-                </div>
-                
-                <div class="player-card">
-                    <div class="player-img">♗</div>
-                    <div>
-                        <h3>Анатолий Карпов</h3>
-                        <p>Советский и российский шахматист, 12-й чемпион мира по шахматам. Известен своим позиционным стилем и exceptional эндшпильной technique. Держал звание чемпиона мира с 1975 по 1985 год.</p>
-                    </div>
-                </div>
-                
-                <div class="player-card">
-                    <div class="player-img">♘</div>
-                    <div>
-                        <h3>Вишванатан Ананд</h3>
-                        <p>Индийский шахматист, 15-й чемпион мира по шахматам. Первый азиатский игрок, завоевавший звание чемпиона мира. Известен своей быстротой мышления и versatility в различных стилях игры.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Турниры -->
-            <div class="tab-content" id="tournaments">
-                <h2>Крупные шахматные турниры</h2>
-                <p>Шахматные турниры бывают различных форматов — круговые, швейцарские, нокаут-система. Вот некоторые из самых престижных турниров:</p>
-                
-                <h3>Чемпионат мира по шахматам</h3>
-                <p>Главное шахматное соревнование, проводимое FIDE. Современный формат включает в себя турнир претендентов для определения challenger, который затем играет матч с current чемпионом мира.</p>
-                
-                <h3>Турнир претендентов</h3>
-                <p>Турнир, победитель которого получает право сыграть матч за звание чемпиона мира против current чемпиона. В турнире участвуют 8 лучших игроков мира, отобранных по различным критериям.</p>
-                
-                <h3>Шахматная олимпиада</h3>
-                <p>Командное соревнование, проводимое раз в два года. В нем участвуют national teams со всего мира. Первая олимпиада состоялась в 1927 году, и с тех пор это событие стало одним из самых престижных в шахматном календаре.</p>
-                
-                <h3>Кубок мира FIDE</h3>
-                <p>Турнир по нокаут-системе, проводимый раз в два года. Участники играют матчи из двух партий с тай-брейками. Лучшие игроки получают право участвовать в турнире претендентов.</p>
-                
-                <h3>Крупные ежегодные турниры</h3>
-                <div style="overflow-x: auto;">
-                    <table class="tournament-table">
-                        <thead>
-                            <tr>
-                                <th>Турнир</th>
-                                <th>Место проведения</th>
-                                <th>Формат</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Tata Steel Chess</td>
-                                <td>Нидерланды</td>
-                                <td>Круговой</td>
-                            </tr>
-                            <tr>
-                                <td>Sinquefield Cup</td>
-                                <td>США</td>
-                                <td>Круговой</td>
-                            </tr>
-                            <tr>
-                                <td>Norway Chess</td>
-                                <td>Норвегия</td>
-                                <td>Круговой</td>
-                            </tr>
-                            <tr>
-                                <td>Гран-при FIDE</td>
-                                <td>Разные страны</td>
-                                <td>Серия турниров</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- Обучение -->
-            <div class="tab-content" id="learning">
-                <h2>Обучение шахматам</h2>
-                <p>Обучение шахматам — это постепенный процесс, который включает изучение основ, tactics, strategy, эндшпиля и дебютной theory. Вот некоторые рекомендации для players разных уровней:</p>
-                
-                <h3>Для начинающих</h3>
-                <ul class="rules-list">
-                    <li>Изучите правила игры и ходы фигур</li>
-                    <li>Научитесь распознавать basic тактические motifs</li>
-                    <li>Изучите основные принципы дебюта: контроль центра, развитие фигур, безопасность короля</li>
-                    <li>Практикуйтесь решать простые тактические задачи</li>
-                    <li>Играйте регулярно, анализируйте свои партии</li>
-                </ul>
-                
-                <h3>Для intermediate игроков</h3>
-                <ul class="rules-list">
-                    <li>Углубите знания тактических приемов</li>
-                    <li>Изучите basic эндшпильные позиции</li>
-                    <li>Разработайте дебютный репертуар</li>
-                    <li>Изучите positional principles и pawn structures</li>
-                    <li>Анализируйте партии grandmasters</li>
-                </ul>
-                
-                <h3>Для advanced игроков</h3>
-                <ul class="rules-list">
-                    <li>Углубленное изучение дебютной theory</li>
-                    <li>Сложные эндшпильные техники</li>
-                    <li>Психологическая preparation к турнирам</li>
-                    <li>Работа с тренером и chess engines</li>
-                    <li>Участие в турнирах для получения опыта</li>
-                </ul>
-                
-                <h3>Рекомендуемые дебюты</h3>
-                <div class="openings-grid">
-                    <div class="opening-card">
-                        <h4>Итальянская партия</h4>
-                        <p>1.e4 e5 2.Kf3 Kc6 3.Cc4</p>
-                        <p>Классический дебют, идеально подходящий для начинающих.</p>
-                    </div>
-                    <div class="opening-card">
-                        <h4>Ферзевый гамбит</h4>
-                        <p>1.d4 d5 2.c4</p>
-                        <p>Один из самых популярных дебютов в закрытых началах.</p>
-                    </div>
-                    <div class="opening-card">
-                        <h4>Сицилианская защита</h4>
-                        <p>1.e4 c5</p>
-                        <p>Самый популярный ответ на 1.e4, leading к динамичным позициям.</p>
-                    </div>
-                    <div class="opening-card">
-                        <h4>Защита Каро-Канн</h4>
-                        <p>1.e4 c6</p>
-                        <p>Солидная защита, aiming на solid pawn structure.</p>
-                    </div>
-                </div>
-            </div>
-        </main>
         
-        <aside class="sidebar">
-            <h2>О проекте</h2>
-            <p>Surreal Chess — это ресурс для всех любителей шахмат: от начинающих до опытных игроков.</p>
-            
-            <div class="featured">
-                <h3>Интересный факт</h3>
-                <p>Количество возможных уникальных шахматных партий больше, чем количество атомов в наблюдаемой вселенной.</p>
-            </div>
-            
-            <h3>Подпишитесь на наш Telegram-канал</h3>
-            <p>Будьте в курсе последних событий в мире шахмат, изучайте новые тактики и участвуйте в обсуждениях.</p>
-            
-            <a href="https://t.me/Surchess" class="tg-channel">Перейти в Surchess Telegram</a>
-            
-            <h3>Последние новости</h3>
-            <p>• Турнир претендентов 2023: результаты</p>
-            <p>• Новый рекорд по одновременной игре вслепую</p>
-            <p>• ИИ в шахматах: новые достижения</p>
-            
-            <h3>Цитата дня</h3>
-            <div class="quote">
-                "Шахматы — это не просто игра, это интеллектуальное времяпрепровождение, которое, в какой-то степени, является искусством, наукой и спортом." — Анатолий Карпов
-            </div>
-            
-            <h3>Шахматные ресурсы</h3>
-            <p>• Chess.com — играть онлайн</p>
-            <p>• Lichess.org — бесплатная платформа</p>
-            <p>• Chess24.com — уроки и трансляции</p>
-            <p>• FIDE.com — международная федерация</p>
-        </aside>
-    </div>
-    
-    <footer>
-        <div class="footer-content">
-            <p>Surreal Chess © 2023. Все права защищены.</p>
-            <p>Шахматы — это не просто игра, это целый мир возможностей.</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-telegram"></i></a>
-                <a href="#"><i class="fab fa-vk"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-            </div>
+        <div class="time-unit">
+            <div class="time-value" id="gadget">0.00</div>
+            <div class="unit-name">Гаджет</div>
         </div>
-    </footer>
+        
+        <div class="time-unit">
+            <div class="time-value" id="zagruz">0.00</div>
+            <div class="unit-name">Загруз</div>
+        </div>
+    </div>
 
     <script>
-        // JavaScript для переключения между вкладками
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('nav a');
-            const tabContents = document.querySelectorAll('.tab-content');
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navContainer = document.querySelector('.nav-container');
+        function updateTime() {
+            const now = new Date();
             
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Убираем активный класс у всех ссылок и вкладок
-                    navLinks.forEach(item => item.classList.remove('active'));
-                    tabContents.forEach(item => item.classList.remove('active'));
-                    
-                    // Добавляем активный класс к текущей ссылке
-                    this.classList.add('active');
-                    
-                    // Показываем соответствующую вкладку
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
-                    
-                    // На мобильных устройствах закрываем меню после выбора
-                    if (window.innerWidth < 768) {
-                        navContainer.classList.remove('active');
-                    }
-                });
-            });
+            // Получаем общее количество секунд с начала дня
+            const totalSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
             
-            // Обработчик для мобильного меню
-            mobileMenuBtn.addEventListener('click', function() {
-                navContainer.classList.toggle('active');
-            });
+            // Вычисляем значения в Сирах, Гаджетах и Загрузках
+            const syr = totalSeconds / 24;
+            const gadget = syr / 6;
+            const zagruz = gadget / 100;
             
-            // Закрываем меню при клике вне его области
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('nav') && window.innerWidth < 768) {
-                    navContainer.classList.remove('active');
-                }
-            });
-        });
+            // Обновляем значения на странице
+            document.getElementById('syr').textContent = syr.toFixed(2);
+            document.getElementById('gadget').textContent = gadget.toFixed(2);
+            document.getElementById('zagruz').textContent = zagruz.toFixed(2);
+        }
+        
+        // Обновляем время сразу при загрузке
+        updateTime();
+        
+        // Обновляем время каждую секунду
+        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
