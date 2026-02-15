@@ -1,511 +1,211 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Блиц-опрос по математике</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        
-        .quiz-container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .question {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .question:last-child {
-            border-bottom: none;
-        }
-        
-        .question-title {
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #2c3e50;
-            font-size: 1.1rem;
-        }
-        
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .option {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .option:hover {
-            background-color: #e9ecef;
-            transform: translateY(-2px);
-        }
-        
-        .option.selected {
-            background-color: #d1ecf1;
-            border-color: #bee5eb;
-        }
-        
-        .option.correct {
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-        
-        .option.incorrect {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-        
-        .option input {
-            margin-right: 12px;
-            cursor: pointer;
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        button {
-            padding: 12px 25px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-        
-        button:hover {
-            background-color: #2980b9;
-        }
-        
-        button:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
-        }
-        
-        #check-btn {
-            background-color: #27ae60;
-        }
-        
-        #check-btn:hover:not(:disabled) {
-            background-color: #219653;
-        }
-        
-        #reset-btn {
-            background-color: #e74c3c;
-        }
-        
-        #reset-btn:hover:not(:disabled) {
-            background-color: #c0392b;
-        }
-        
-        .result {
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            display: none;
-        }
-        
-        .result.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            display: block;
-        }
-        
-        .result.fail {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            display: block;
-        }
-        
-        .requirements {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #ffeaa7;
-            margin-top: 20px;
-            font-size: 0.95rem;
-        }
-        
-        .question-counter {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anus · torneos ocultos</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0c0a0b;
+      background-image: radial-gradient(circle at 30% 40%, rgba(55, 35, 45, 0.5) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(25, 15, 25, 0.8) 0%, transparent 50%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Times New Roman', 'Cormorant Garamond', serif;
+      padding: 1rem;
+      position: relative;
+    }
+
+    /* textura muy sutil de tablero */
+    body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(180, 140, 140, 0.02) 0px, rgba(180, 140, 140, 0.02) 2px, transparent 2px, transparent 10px);
+      pointer-events: none;
+    }
+
+    .cartel {
+      background: rgba(8, 5, 10, 0.75);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(170, 130, 120, 0.3);
+      box-shadow: 0 20px 35px -10px black, 0 0 0 1px rgba(140, 100, 90, 0.2) inset;
+      width: 100%;
+      max-width: 680px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: #e7dbd0;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-family: 'Georgia', 'Cinzel', serif;
+      font-size: 5rem;
+      font-weight: 900;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #ecdccb;
+      text-shadow: 0 0 20px #4a2a30, 0 0 40px #2f1b1f, 4px 4px 0 #0f0709;
+      margin-bottom: 1.2rem;
+      line-height: 1;
+    }
+
+    .subtle {
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #bcab9b;
+      border-top: 1px solid rgba(180, 140, 130, 0.35);
+      border-bottom: 1px solid rgba(180, 140, 130, 0.35);
+      padding: 0.8rem 0;
+      margin: 1rem 0 2.5rem 0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, transparent, rgba(100, 60, 70, 0.2), transparent);
+      font-weight: 400;
+    }
+
+    .leyenda {
+      font-family: 'Georgia', serif;
+      font-size: 1.6rem;
+      margin: 2rem 0 1rem;
+      font-weight: 400;
+      color: #dfcfbf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+
+    .leyenda span {
+      font-size: 2.2rem;
+      opacity: 0.5;
+      transform: rotate(15deg);
+    }
+
+    .mundo {
+      background: rgba(15, 10, 15, 0.7);
+      padding: 1.2rem 1.8rem;
+      font-size: 1.9rem;
+      font-style: italic;
+      border: 1px dashed rgba(190, 150, 140, 0.5);
+      color: #e4cfbc;
+      letter-spacing: 3px;
+      word-spacing: 6px;
+      margin: 2.2rem 0 1.8rem;
+      text-transform: lowercase;
+      box-shadow: inset 0 0 30px #110b0e;
+    }
+
+    .mundo small {
+      font-size: 1rem;
+      display: block;
+      color: #8e766b;
+      margin-top: 0.5rem;
+      letter-spacing: 2px;
+    }
+
+    .sigilos {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 2.5rem 0 1rem;
+      font-size: 2rem;
+      color: #6d544b;
+    }
+
+    .pie {
+      font-size: 0.9rem;
+      color: #6b5a52;
+      border-top: 1px solid rgba(150, 120, 110, 0.2);
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      text-transform: uppercase;
+    }
+
+    .desenfocar {
+      filter: blur(1px);
+      transition: 0.3s;
+    }
+
+    .desenfocar:hover {
+      filter: blur(0);
+      color: #e7cfbf;
+    }
+
+    /* solo para misterio */
+    .fantasma {
+      opacity: 0.15;
+      font-size: 3rem;
+      margin-top: 0.5rem;
+      user-select: none;
+    }
+
+    @media (max-width: 500px) {
+      h1 { font-size: 3.8rem; }
+      .leyenda { font-size: 1.3rem; }
+      .mundo { font-size: 1.5rem; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Блиц-опрос по математике</h1>
-    
-    <div class="question-counter">Вопросов: 11</div>
-    
-    <div class="quiz-container">
-        <div class="question" id="q1">
-            <div class="question-title">1. Что такое катет?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q1" value="a"> Сторона прямоугольного треугольника, прилежащая к прямому углу
-                </label>
-                <label class="option">
-                    <input type="radio" name="q1" value="b"> Самая длинная сторона треугольника
-                </label>
-                <label class="option">
-                    <input type="radio" name="q1" value="c"> Линия, делящая угол пополам
-                </label>
-                <label class="option">
-                    <input type="radio" name="q1" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q2">
-            <div class="question-title">2. Что такое гипотенуза?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q2" value="a"> Сторона прямоугольного треугольника, противолежащая прямому углу
-                </label>
-                <label class="option">
-                    <input type="radio" name="q2" value="b"> Линия, проведенная из вершины треугольника к середине противоположной стороны
-                </label>
-                <label class="option">
-                    <input type="radio" name="q2" value="c"> Отношение противолежащего катета к прилежащему
-                </label>
-                <label class="option">
-                    <input type="radio" name="q2" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q3">
-            <div class="question-title">3. Что такое синус острого угла в прямоугольном треугольнике?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q3" value="a"> Отношение прилежащего катета к гипотенузе
-                </label>
-                <label class="option">
-                    <input type="radio" name="q3" value="b"> Отношение противолежащего катета к гипотенузе
-                </label>
-                <label class="option">
-                    <input type="radio" name="q3" value="c"> Отношение противолежащего катета к прилежащему
-                </label>
-                <label class="option">
-                    <input type="radio" name="q3" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q4">
-            <div class="question-title">4. Что такое косинус острого угла в прямоугольном треугольнике?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q4" value="a"> Отношение прилежащего катета к гипотенузе
-                </label>
-                <label class="option">
-                    <input type="radio" name="q4" value="b"> Отношение противолежащего катета к гипотенузе
-                </label>
-                <label class="option">
-                    <input type="radio" name="q4" value="c"> Отношение противолежащего катета к прилежащему
-                </label>
-                <label class="option">
-                    <input type="radio" name="q4" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q5">
-            <div class="question-title">5. Что такое тангенс острого угла в прямоугольном треугольнике?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q5" value="a"> Отношение прилежащего катета к гипотенузе
-                </label>
-                <label class="option">
-                    <input type="radio" name="q5" value="b"> Отношение противолежащего катета к гипотенузе
-                </label>
-                <label class="option">
-                    <input type="radio" name="q5" value="c"> Отношение противолежащего катета к прилежащему
-                </label>
-                <label class="option">
-                    <input type="radio" name="q5" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q6">
-            <div class="question-title">6. Что такое радиус?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q6" value="a"> Отрезок, соединяющий две точки окружности и проходящий через центр
-                </label>
-                <label class="option">
-                    <input type="radio" name="q6" value="b"> Отрезок, соединяющий центр окружности с любой точкой на окружности
-                </label>
-                <label class="option">
-                    <input type="radio" name="q6" value="c"> Расстояние от центра окружности до ее хорды
-                </label>
-                <label class="option">
-                    <input type="radio" name="q6" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q7">
-            <div class="question-title">7. Что такое диаметр?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q7" value="a"> Отрезок, соединяющий центр окружности с любой точкой на окружности
-                </label>
-                <label class="option">
-                    <input type="radio" name="q7" value="b"> Отрезок, соединяющий две точки окружности и проходящий через центр
-                </label>
-                <label class="option">
-                    <input type="radio" name="q7" value="c"> Линия, касающаяся окружности в одной точке
-                </label>
-                <label class="option">
-                    <input type="radio" name="q7" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q8">
-            <div class="question-title">8. Что такое медиана треугольника?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q8" value="a"> Линия, проведенная из вершины треугольника к противоположной стороне под прямым углом
-                </label>
-                <label class="option">
-                    <input type="radio" name="q8" value="b"> Линия, делящая угол треугольника пополам
-                </label>
-                <label class="option">
-                    <input type="radio" name="q8" value="c"> Линия, проведенная из вершины треугольника к середине противоположной стороны
-                </label>
-                <label class="option">
-                    <input type="radio" name="q8" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q9">
-            <div class="question-title">9. Что такое высота треугольника?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q9" value="a"> Линия, проведенная из вершины треугольника к противоположной стороне под прямым углом
-                </label>
-                <label class="option">
-                    <input type="radio" name="q9" value="b"> Линия, проведенная из вершины треугольника к середине противоположной стороны
-                </label>
-                <label class="option">
-                    <input type="radio" name="q9" value="c"> Линия, делящая угол треугольника пополам
-                </label>
-                <label class="option">
-                    <input type="radio" name="q9" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q10">
-            <div class="question-title">10. Что утверждает теорема Пифагора?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q10" value="a"> Квадрат гипотенузы равен сумме квадратов катетов
-                </label>
-                <label class="option">
-                    <input type="radio" name="q10" value="b"> Сумма углов треугольника равна 180 градусам
-                </label>
-                <label class="option">
-                    <input type="radio" name="q10" value="c"> В прямоугольном треугольнике против угла в 30° лежит катет, равный половине гипотенузы
-                </label>
-                <label class="option">
-                    <input type="radio" name="q10" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="question" id="q11">
-            <div class="question-title">11. Что утверждает теорема Фалеса?</div>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q11" value="a"> Если параллельные прямые пересекают стороны угла, то они отсекают на них пропорциональные отрезки
-                </label>
-                <label class="option">
-                    <input type="radio" name="q11" value="b"> Через точку, не лежащую на прямой, можно провести только одну прямую, параллельную данной
-                </label>
-                <label class="option">
-                    <input type="radio" name="q11" value="c"> Вертикальные углы равны
-                </label>
-                <label class="option">
-                    <input type="radio" name="q11" value="d"> Я не знаю
-                </label>
-            </div>
-        </div>
-        
-        <div class="controls">
-            <button id="check-btn">Проверить ответы</button>
-            <button id="reset-btn">Сбросить ответы</button>
-        </div>
-        
-        <div class="result" id="result"></div>
-        
-        <div class="requirements">
-            <strong>Условия опроса:</strong> Для успешной сдачи опроса необходимо правильно ответить на все вопросы. Если хотя бы один ответ неверный, опрос не сдан.
-        </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Правильные ответы
-            const correctAnswers = {
-                q1: 'a',
-                q2: 'a',
-                q3: 'b',
-                q4: 'a',
-                q5: 'c',
-                q6: 'b',
-                q7: 'b',
-                q8: 'c',
-                q9: 'a',
-                q10: 'a',
-                q11: 'a'
-            };
-            
-            // Получаем элементы DOM
-            const checkBtn = document.getElementById('check-btn');
-            const resetBtn = document.getElementById('reset-btn');
-            const resultDiv = document.getElementById('result');
-            const allQuestions = document.querySelectorAll('.question');
-            
-            // Добавляем обработчики выбора ответов
-            document.querySelectorAll('.option input').forEach(input => {
-                input.addEventListener('change', function() {
-                    const option = this.closest('.option');
-                    const question = option.closest('.question');
-                    
-                    // Снимаем выделение со всех вариантов в этом вопросе
-                    question.querySelectorAll('.option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    // Выделяем выбранный вариант
-                    option.classList.add('selected');
-                });
-            });
-            
-            // Функция проверки ответов
-            checkBtn.addEventListener('click', function() {
-                let allCorrect = true;
-                let allAnswered = true;
-                
-                // Сбрасываем предыдущие подсветки
-                document.querySelectorAll('.option').forEach(option => {
-                    option.classList.remove('correct', 'incorrect');
-                });
-                
-                // Проверяем каждый вопрос
-                allQuestions.forEach(question => {
-                    const questionId = question.id;
-                    const selectedInput = question.querySelector('input:checked');
-                    
-                    if (!selectedInput) {
-                        allAnswered = false;
-                        return;
-                    }
-                    
-                    const selectedValue = selectedInput.value;
-                    const correctValue = correctAnswers[questionId];
-                    const selectedOption = selectedInput.closest('.option');
-                    
-                    if (selectedValue === correctValue) {
-                        selectedOption.classList.add('correct');
-                    } else {
-                        selectedOption.classList.add('incorrect');
-                        allCorrect = false;
-                        
-                        // Показываем правильный ответ
-                        const correctInput = question.querySelector(`input[value="${correctValue}"]`);
-                        if (correctInput) {
-                            correctInput.closest('.option').classList.add('correct');
-                        }
-                    }
-                });
-                
-                // Показываем результат
-                if (!allAnswered) {
-                    resultDiv.textContent = "Пожалуйста, ответьте на все вопросы!";
-                    resultDiv.className = "result fail";
-                    return;
-                }
-                
-                if (allCorrect) {
-                    resultDiv.textContent = "Поздравляем! Вы правильно ответили на все вопросы. Опрос сдан!";
-                    resultDiv.className = "result success";
-                } else {
-                    resultDiv.textContent = "К сожалению, есть неправильные ответы. Опрос не сдан.";
-                    resultDiv.className = "result fail";
-                }
-            });
-            
-            // Функция сброса ответов
-            resetBtn.addEventListener('click', function() {
-                // Сбрасываем выбор
-                document.querySelectorAll('.option input').forEach(input => {
-                    input.checked = false;
-                });
-                
-                // Сбрасываем подсветку
-                document.querySelectorAll('.option').forEach(option => {
-                    option.classList.remove('selected', 'correct', 'incorrect');
-                });
-                
-                // Скрываем результат
-                resultDiv.className = "result";
-                resultDiv.textContent = "";
-            });
-        });
-    </script>
+<div class="cartel">
+  <!-- nombre imponente -->
+  <h1>ANUS</h1>
+
+  <!-- descripción mínima: solo torneos por el mundo -->
+  <div class="subtle">orden de ajedrez</div>
+
+  <!-- información clave: torneos, ubicación desconocida -->
+  <div class="leyenda">
+    <span>♜</span>  torneos  <span>♞</span>
+  </div>
+
+  <div class="mundo">
+    se realizan torneos<br> por todo el mundo
+    <small>######</small>
+  </div>
+
+  <!-- refuerzo de la idea "no se sabe donde, pero en todas partes" -->
+  <p style="font-size: 1.3rem; margin: 1.2rem 0 2rem; font-style: italic; color: #c7b2a4;">
+    “cada ciudad es un tablero, cada jugador una sombra”
+  </p>
+
+  <!-- pequeña linea críptica con ciudades imaginarias -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.8rem; font-size: 1rem; color: #877268; margin-bottom: 1.8rem;">
+    <span class="desenfocar">###</span>
+    <span class="desenfocar">###</span>
+    <span class="desenfocar">###</span>
+    <span class="desenfocar">###</span>
+    <span class="desenfocar">###</span>
+    <span class="desenfocar">...</span>
+  </div>
+
+  <!-- símbolos de ajedrez casi borrados (solo atmósfera) -->
+  <div class="sigilos">
+    <span>♚</span><span>♛</span><span>♝</span><span>♞</span><span>♜</span><span>♟</span>
+  </div>
+
+  <!-- pie con eco de "en todas partes y en ninguna" -->
+  <div class="pie">
+    <div>✧  sede: desconocida  ✧</div>
+    <div>☯  el mundo es el club</div>
+  </div>
+
+  <!-- firma fantasmal (casi invisible) -->
+  <div class="fantasma">ANUS</div>
+</div>
+
 </body>
 </html>
