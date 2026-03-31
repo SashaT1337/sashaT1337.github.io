@@ -1,211 +1,208 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anus · torneos ocultos</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>cod33</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background: #0c0a0b;
-      background-image: radial-gradient(circle at 30% 40%, rgba(55, 35, 45, 0.5) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, rgba(25, 15, 25, 0.8) 0%, transparent 50%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Times New Roman', 'Cormorant Garamond', serif;
-      padding: 1rem;
-      position: relative;
-    }
+        body {
+            background: white;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
 
-    /* textura muy sutil de tablero */
-    body::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(45deg, rgba(180, 140, 140, 0.02) 0px, rgba(180, 140, 140, 0.02) 2px, transparent 2px, transparent 10px);
-      pointer-events: none;
-    }
+        .core {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+        }
 
-    .cartel {
-      background: rgba(8, 5, 10, 0.75);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(170, 130, 120, 0.3);
-      box-shadow: 0 20px 35px -10px black, 0 0 0 1px rgba(140, 100, 90, 0.2) inset;
-      width: 100%;
-      max-width: 680px;
-      padding: 3rem 2rem;
-      text-align: center;
-      color: #e7dbd0;
-      position: relative;
-      z-index: 2;
-    }
+        .field-label {
+            font-size: 0.85rem;
+            font-weight: 460;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #8e8e93;
+            margin-bottom: 0.5rem;
+        }
 
-    h1 {
-      font-family: 'Georgia', 'Cinzel', serif;
-      font-size: 5rem;
-      font-weight: 900;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: #ecdccb;
-      text-shadow: 0 0 20px #4a2a30, 0 0 40px #2f1b1f, 4px 4px 0 #0f0709;
-      margin-bottom: 1.2rem;
-      line-height: 1;
-    }
+        .code-input {
+            width: 100%;
+            padding: 0.9rem 0.75rem;
+            font-size: 1.4rem;
+            font-weight: 470;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            background: white;
+            border: 1px solid #d9d9df;
+            border-radius: 14px;
+            color: #000;
+            outline: none;
+            transition: border 0.2s ease;
+            letter-spacing: 0.3px;
+        }
 
-    .subtle {
-      font-size: 1.5rem;
-      font-style: italic;
-      color: #bcab9b;
-      border-top: 1px solid rgba(180, 140, 130, 0.35);
-      border-bottom: 1px solid rgba(180, 140, 130, 0.35);
-      padding: 0.8rem 0;
-      margin: 1rem 0 2.5rem 0;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, transparent, rgba(100, 60, 70, 0.2), transparent);
-      font-weight: 400;
-    }
+        .code-input:focus {
+            border-color: #007aff;
+            box-shadow: 0 0 0 2px rgba(0,122,255,0.1);
+        }
 
-    .leyenda {
-      font-family: 'Georgia', serif;
-      font-size: 1.6rem;
-      margin: 2rem 0 1rem;
-      font-weight: 400;
-      color: #dfcfbf;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.8rem;
-    }
+        .actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+            align-items: center;
+        }
 
-    .leyenda span {
-      font-size: 2.2rem;
-      opacity: 0.5;
-      transform: rotate(15deg);
-    }
+        .btn {
+            border: none;
+            background: transparent;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.7rem 1.25rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.1s linear;
+        }
 
-    .mundo {
-      background: rgba(15, 10, 15, 0.7);
-      padding: 1.2rem 1.8rem;
-      font-size: 1.9rem;
-      font-style: italic;
-      border: 1px dashed rgba(190, 150, 140, 0.5);
-      color: #e4cfbc;
-      letter-spacing: 3px;
-      word-spacing: 6px;
-      margin: 2.2rem 0 1.8rem;
-      text-transform: lowercase;
-      box-shadow: inset 0 0 30px #110b0e;
-    }
+        .btn-check {
+            background: #007aff;
+            color: white;
+        }
 
-    .mundo small {
-      font-size: 1rem;
-      display: block;
-      color: #8e766b;
-      margin-top: 0.5rem;
-      letter-spacing: 2px;
-    }
+        .btn-check:hover {
+            background: #005fc1;
+        }
 
-    .sigilos {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      margin: 2.5rem 0 1rem;
-      font-size: 2rem;
-      color: #6d544b;
-    }
+        .btn-check:active {
+            transform: scale(0.97);
+        }
 
-    .pie {
-      font-size: 0.9rem;
-      color: #6b5a52;
-      border-top: 1px solid rgba(150, 120, 110, 0.2);
-      padding-top: 1.5rem;
-      margin-top: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      text-transform: uppercase;
-    }
+        .btn-wallet {
+            background: #007aff;
+            color: white;
+        }
 
-    .desenfocar {
-      filter: blur(1px);
-      transition: 0.3s;
-    }
+        .btn-wallet:hover {
+            background: #005fc1;
+        }
 
-    .desenfocar:hover {
-      filter: blur(0);
-      color: #e7cfbf;
-    }
+        .btn-wallet:active {
+            transform: scale(0.97);
+        }
 
-    /* solo para misterio */
-    .fantasma {
-      opacity: 0.15;
-      font-size: 3rem;
-      margin-top: 0.5rem;
-      user-select: none;
-    }
-
-    @media (max-width: 500px) {
-      h1 { font-size: 3.8rem; }
-      .leyenda { font-size: 1.3rem; }
-      .mundo { font-size: 1.5rem; }
-    }
-  </style>
+        .status-line {
+            margin-top: 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 450;
+            color: #1c1c1e;
+            background: #f9f9fb;
+            padding: 0.7rem 0.9rem;
+            border-radius: 18px;
+            border: 0.5px solid #efeff4;
+            min-height: 3.2rem;
+            transition: all 0.05s linear;
+            white-space: pre-line;
+            word-break: break-word;
+        }
+    </style>
 </head>
 <body>
+<div class="core">
+    <div class="field-label">write cod33</div>
+    <input type="text" id="codeInput" class="code-input" placeholder="______" maxlength="6" inputmode="numeric" autocomplete="off">
 
-<div class="cartel">
-  <!-- nombre imponente -->
-  <h1>ANUS</h1>
+    <div class="actions">
+        <button id="checkBtn" class="btn btn-check">check</button>
+        <button id="walletBtn" class="btn btn-wallet">wal33t</button>
+    </div>
 
-  <!-- descripción mínima: solo torneos por el mundo -->
-  <div class="subtle">orden de ajedrez</div>
-
-  <!-- información clave: torneos, ubicación desconocida -->
-  <div class="leyenda">
-    <span>♜</span>  torneos  <span>♞</span>
-  </div>
-
-  <div class="mundo">
-    se realizan torneos<br> por todo el mundo
-    <small>######</small>
-  </div>
-
-  <!-- refuerzo de la idea "no se sabe donde, pero en todas partes" -->
-  <p style="font-size: 1.3rem; margin: 1.2rem 0 2rem; font-style: italic; color: #c7b2a4;">
-    “cada ciudad es un tablero, cada jugador una sombra”
-  </p>
-
-  <!-- pequeña linea críptica con ciudades imaginarias -->
-  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.8rem; font-size: 1rem; color: #877268; margin-bottom: 1.8rem;">
-    <span class="desenfocar">###</span>
-    <span class="desenfocar">###</span>
-    <span class="desenfocar">###</span>
-    <span class="desenfocar">###</span>
-    <span class="desenfocar">###</span>
-    <span class="desenfocar">...</span>
-  </div>
-
-  <!-- símbolos de ajedrez casi borrados (solo atmósfera) -->
-  <div class="sigilos">
-    <span>♚</span><span>♛</span><span>♝</span><span>♞</span><span>♜</span><span>♟</span>
-  </div>
-
-  <!-- pie con eco de "en todas partes y en ninguna" -->
-  <div class="pie">
-    <div>✧  sede: desconocida  ✧</div>
-    <div>☯  el mundo es el club</div>
-  </div>
-
-  <!-- firma fantasmal (casi invisible) -->
-  <div class="fantasma">ANUS</div>
+    <div id="statusMessage" class="status-line"></div>
 </div>
 
+<script>
+    (function() {
+        let totalBalance = 0.00;
+        const usedCodes = new Set();
+
+        const inputField = document.getElementById('codeInput');
+        const checkButton = document.getElementById('checkBtn');
+        const walletButton = document.getElementById('walletBtn');
+        const statusDiv = document.getElementById('statusMessage');
+
+        function isExactlySixDigits(str) {
+            if (!str) return false;
+            const trimmed = str.trim();
+            if (trimmed.length !== 6) return false;
+            for (let i = 0; i < trimmed.length; i++) {
+                const ch = trimmed[i];
+                if (ch < '0' || ch > '9') return false;
+            }
+            return true;
+        }
+
+        function updateBalanceAndShowSuccess() {
+            totalBalance += 0.02;
+            totalBalance = Math.round(totalBalance * 100) / 100;
+            statusDiv.textContent = "Cod33 right! +0,02";
+        }
+
+        function updateWalletDisplay() {
+            const formatted = totalBalance.toFixed(2);
+            statusDiv.textContent = `walsjj bal ${formatted}`;
+        }
+
+        function onCheck() {
+            const rawValue = inputField.value;
+            const trimmed = rawValue.trim();
+            if (trimmed.length !== 6) {
+                return;
+            }
+            let allDigits = true;
+            for (let i = 0; i < trimmed.length; i++) {
+                if (trimmed[i] < '0' || trimmed[i] > '9') {
+                    allDigits = false;
+                    break;
+                }
+            }
+            if (!allDigits) {
+                return;
+            }
+
+            if (usedCodes.has(trimmed)) {
+                return;
+            }
+
+            usedCodes.add(trimmed);
+            updateBalanceAndShowSuccess();
+        }
+
+        function onWallet() {
+            updateWalletDisplay();
+        }
+
+        checkButton.addEventListener('click', onCheck);
+        walletButton.addEventListener('click', onWallet);
+
+        inputField.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                onCheck();
+            }
+        });
+
+        statusDiv.textContent = "";
+    })();
+</script>
 </body>
 </html>
