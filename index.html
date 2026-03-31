@@ -140,55 +140,37 @@
         const walletButton = document.getElementById('walletBtn');
         const statusDiv = document.getElementById('statusMessage');
 
-        function isExactlySixDigits(str) {
-            if (!str) return false;
-            const trimmed = str.trim();
-            if (trimmed.length !== 6) return false;
-            for (let i = 0; i < trimmed.length; i++) {
-                const ch = trimmed[i];
-                if (ch < '0' || ch > '9') return false;
-            }
-            return true;
-        }
-
-        function updateBalanceAndShowSuccess() {
-            totalBalance += 0.02;
-            totalBalance = Math.round(totalBalance * 100) / 100;
-            statusDiv.textContent = "Cod33 right! +0,02";
-        }
-
-        function updateWalletDisplay() {
-            const formatted = totalBalance.toFixed(2);
-            statusDiv.textContent = `walsjj bal ${formatted}`;
-        }
+        // Убираем ограничение в 6 символов и numeric mode
+        inputField.removeAttribute('maxlength');
+        inputField.setAttribute('inputmode', 'text');
 
         function onCheck() {
             const rawValue = inputField.value;
             const trimmed = rawValue.trim();
-            if (trimmed.length !== 6) {
-                return;
-            }
-            let allDigits = true;
-            for (let i = 0; i < trimmed.length; i++) {
-                if (trimmed[i] < '0' || trimmed[i] > '9') {
-                    allDigits = false;
-                    break;
+
+            // Проверка: ровно 6 цифр (регулярное выражение)
+            const isSixDigits = /^\d{6}$/.test(trimmed);
+
+            if (isSixDigits) {
+                if (usedCodes.has(trimmed)) {
+                    statusDiv.textContent = "Already used"; // Сообщение, если код повторный
+                    return;
                 }
+                
+                // Если код верный и новый
+                usedCodes.add(trimmed);
+                totalBalance += 0.02;
+                totalBalance = Math.round(totalBalance * 100) / 100;
+                statusDiv.textContent = "Cod33 right! +0,02";
+            } else {
+                // Если введено что-то другое (буквы, или не 6 цифр)
+                statusDiv.textContent = "Try again"; 
             }
-            if (!allDigits) {
-                return;
-            }
-
-            if (usedCodes.has(trimmed)) {
-                return;
-            }
-
-            usedCodes.add(trimmed);
-            updateBalanceAndShowSuccess();
         }
 
         function onWallet() {
-            updateWalletDisplay();
+            const formatted = totalBalance.toFixed(2);
+            statusDiv.textContent = `walsjj bal ${formatted}`;
         }
 
         checkButton.addEventListener('click', onCheck);
@@ -204,5 +186,3 @@
         statusDiv.textContent = "";
     })();
 </script>
-</body>
-</html>
