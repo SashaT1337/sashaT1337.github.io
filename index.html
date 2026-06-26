@@ -1,188 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>cod33</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anus Chess</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            background: white;
-            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0d0d0d;
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 1.5rem;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        .core {
-            max-width: 400px;
+        .container {
+            max-width: 450px;
             width: 100%;
-            background: white;
+            text-align: center;
         }
 
-        .field-label {
-            font-size: 0.85rem;
-            font-weight: 460;
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #888888;
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            text-align: left;
+            margin-bottom: 35px;
+            padding-left: 15px;
+            border-left: 2px solid #333333;
+        }
+
+        .section h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            color: #8e8e93;
-            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            color: #b58863;
+            margin-bottom: 8px;
         }
 
-        .code-input {
+        .section p {
+            color: #cccccc;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .btn-tg {
+            display: block;
             width: 100%;
-            padding: 0.9rem 0.75rem;
-            font-size: 1.4rem;
-            font-weight: 470;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            background: white;
-            border: 1px solid #d9d9df;
-            border-radius: 14px;
-            color: #000;
-            outline: none;
-            transition: border 0.2s ease;
-            letter-spacing: 0.3px;
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 40px;
+            transition: opacity 0.2s ease;
         }
 
-        .code-input:focus {
-            border-color: #007aff;
-            box-shadow: 0 0 0 2px rgba(0,122,255,0.1);
+        .btn-tg:hover {
+            opacity: 0.9;
         }
 
-        .actions {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1.25rem;
-            align-items: center;
-        }
-
-        .btn {
-            border: none;
-            background: transparent;
-            font-size: 0.95rem;
-            font-weight: 500;
-            padding: 0.7rem 1.25rem;
-            border-radius: 40px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: 0.1s linear;
-        }
-
-        .btn-check {
-            background: #007aff;
-            color: white;
-        }
-
-        .btn-check:hover {
-            background: #005fc1;
-        }
-
-        .btn-check:active {
-            transform: scale(0.97);
-        }
-
-        .btn-wallet {
-            background: #007aff;
-            color: white;
-        }
-
-        .btn-wallet:hover {
-            background: #005fc1;
-        }
-
-        .btn-wallet:active {
-            transform: scale(0.97);
-        }
-
-        .status-line {
-            margin-top: 1.2rem;
-            font-size: 0.95rem;
-            font-weight: 450;
-            color: #1c1c1e;
-            background: #f9f9fb;
-            padding: 0.7rem 0.9rem;
-            border-radius: 18px;
-            border: 0.5px solid #efeff4;
-            min-height: 3.2rem;
-            transition: all 0.05s linear;
-            white-space: pre-line;
-            word-break: break-word;
+        footer {
+            margin-top: 50px;
+            font-size: 0.8rem;
+            color: #444444;
         }
     </style>
 </head>
 <body>
-<div class="core">
-    <div class="field-label">write cod33</div>
-    <input type="text" id="codeInput" class="code-input" placeholder="______" maxlength="6" inputmode="numeric" autocomplete="off">
 
-    <div class="actions">
-        <button id="checkBtn" class="btn btn-check">check</button>
-        <button id="walletBtn" class="btn btn-wallet">wal33t</button>
+    <div class="container">
+        <header>
+            <h1>Anus Chess</h1>
+            <p class="subtitle">Ajedrez. Torneo de ajedrez</p>
+        </header>
+
+        <main>
+            <div class="section">
+                <h2>Torneos</h2>
+                <p>Torneos de ajedrez regulares, anuncios de competiciones, calendarios de partidas y análisis de partidas clave.</p>
+            </div>
+
+            <div class="section">
+                <h2>Contenido</h2>
+                <p>Las últimas noticias del mundo del ajedrez, análisis de aperturas complejas, acertijos de lógica y torneos de ajedrez.</p>
+            </div>
+
+            <a href="https://t.me" class="btn-tg" target="_blank">Abrir canal de Telegram</a>
+        </main>
+
+        <footer>
+            <p>@Anuschess &bull; 2026</p>
+        </footer>
     </div>
 
-    <div id="statusMessage" class="status-line"></div>
-</div>
-
-<script>
-    (function() {
-        let totalBalance = 0.00;
-        const usedCodes = new Set();
-
-        const inputField = document.getElementById('codeInput');
-        const checkButton = document.getElementById('checkBtn');
-        const walletButton = document.getElementById('walletBtn');
-        const statusDiv = document.getElementById('statusMessage');
-
-        // Убираем ограничение в 6 символов и numeric mode
-        inputField.removeAttribute('maxlength');
-        inputField.setAttribute('inputmode', 'text');
-
-        function onCheck() {
-            const rawValue = inputField.value;
-            const trimmed = rawValue.trim();
-
-            // Проверка: ровно 6 цифр (регулярное выражение)
-            const isSixDigits = /^\d{6}$/.test(trimmed);
-
-            if (isSixDigits) {
-                if (usedCodes.has(trimmed)) {
-                    statusDiv.textContent = "Already used"; // Сообщение, если код повторный
-                    return;
-                }
-                
-                // Если код верный и новый
-                usedCodes.add(trimmed);
-                totalBalance += 0.02;
-                totalBalance = Math.round(totalBalance * 100) / 100;
-                statusDiv.textContent = "Cod33 right! +0,02";
-            } else {
-                // Если введено что-то другое (буквы, или не 6 цифр)
-                statusDiv.textContent = "Try again"; 
-            }
-        }
-
-        function onWallet() {
-            const formatted = totalBalance.toFixed(2);
-            statusDiv.textContent = `walsjj bal ${formatted}`;
-        }
-
-        checkButton.addEventListener('click', onCheck);
-        walletButton.addEventListener('click', onWallet);
-
-        inputField.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                onCheck();
-            }
-        });
-
-        statusDiv.textContent = "";
-    })();
-</script>
+</body>
+</html>
