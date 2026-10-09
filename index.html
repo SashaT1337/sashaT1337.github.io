@@ -2,118 +2,145 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anus Chess</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GOOFGOSUDAR</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        :root { --bg: #f9f9f6; --card: #ffffff; --text: #1a1a1a; --accent: #2c3e2b; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 100px; -webkit-tap-highlight-color: transparent; }
+        .container { max-width: 440px; margin: 0 auto; padding: 40px 20px; box-sizing: border-box; }
+        
+        h1 { font-family: 'Impact', 'Arial Black', sans-serif; font-size: 46px; text-transform: uppercase; margin: 0 0 30px; letter-spacing: 1px; text-align: center; }
+        
+        .product-card { background: var(--card); padding: 24px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 4px 18px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); transition: transform 0.2s; text-align: center; }
+        .product-card:active { transform: scale(0.99); }
+        .title { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+        .price { font-size: 18px; color: #767670; font-weight: 500; margin-bottom: 16px; }
+        
+        .img-box { height: 180px; background: #f2f2ed; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #9a9a90; font-size: 14px; margin-bottom: 16px; }
+        
+        .btn { background: var(--text); color: #fff; border: none; width: 100%; height: 50px; font-size: 16px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+        .btn:active { background: #333; }
+        
+        .footer-banner { font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 38px; font-weight: bold; text-align: center; margin-top: 40px; }
+        .mascot { font-size: 55px; text-align: center; margin-top: 10px; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0d0d0d;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+        /* Плашка корзины */
+        .cart-bar { display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--text); color: #fff; padding: 16px 20px; border-radius: 16px; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 99; animation: slideUp 0.3s ease; }
+        .btn-cart { background: #fff; color: var(--text); border: none; padding: 10px 18px; font-weight: 600; border-radius: 10px; font-size: 14px; }
 
-        .container {
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-        }
+        /* Модальное окно */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: flex-end; z-index: 999; backdrop-filter: blur(4px); }
+        .modal-content { background: #fff; padding: 24px; border-radius: 24px 24px 0 0; width: 100%; max-width: 440px; box-sizing: border-box; animation: slideUp 0.25s ease; }
+        .modal h3 { margin: 0 0 20px; font-size: 20px; text-align: center; }
+        
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #f0f0f0; }
+        .qty-box { display: flex; align-items: center; gap: 14px; }
+        .btn-qty { background: #f0f0ed; border: none; width: 32px; height: 32px; font-size: 18px; font-weight: 600; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        
+        .modal input { width: 100%; height: 50px; padding: 0 16px; margin: 20px 0 12px; box-sizing: border-box; border: 1px solid #e0e0d9; border-radius: 12px; font-size: 16px; background: #fafaf8; }
+        .modal input:focus { border-color: var(--text); outline: none; background: #fff; }
 
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            color: #888888;
-            font-size: 1rem;
-            margin-bottom: 40px;
-        }
-
-        .section {
-            text-align: left;
-            margin-bottom: 35px;
-            padding-left: 15px;
-            border-left: 2px solid #333333;
-        }
-
-        .section h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #b58863;
-            margin-bottom: 8px;
-        }
-
-        .section p {
-            color: #cccccc;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .btn-tg {
-            display: block;
-            width: 100%;
-            background-color: #ffffff;
-            color: #000000;
-            text-decoration: none;
-            padding: 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: 40px;
-            transition: opacity 0.2s ease;
-        }
-
-        .btn-tg:hover {
-            opacity: 0.9;
-        }
-
-        footer {
-            margin-top: 50px;
-            font-size: 0.8rem;
-            color: #444444;
-        }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <header>
-            <h1>Anus Chess</h1>
-            <p class="subtitle">Шахматы. Шахматные турниры</p>
-        </header>
+        <h1>GOOFGOSUDAR</h1>
+        
+        <div class="product-card">
+            <div class="title">Pumpkin seeds</div>
+            <div class="price">350 ₽</div>
+            <div class="img-box">IMG_20261009_225836_052.jpg</div>
+            <button class="btn" onclick="add('Pumpkin seeds', 350)">В корзину</button>
+        </div>
 
-        <main>
-            <div class="section">
-                <h2>Турниры</h2>
-                <p>Регулярные турниры, объявления о соревнованиях, расписание матчей и анализ ключевых игр.</p>
-            </div>
+        <div class="product-card">
+            <div class="title">Natural ointment</div>
+            <div class="price">590 ₽</div>
+            <div class="img-box">IMG_20261009_225844_593.jpg</div>
+            <button class="btn" onclick="add('Natural ointment', 590)">В корзину</button>
+        </div>
 
-            <div class="section">
-                <h2>Контент</h2>
-                <p>Нарезки с шахматных турниров, на которых играл автор канала, моменты из жизни автора и контент по шахматам.</p>
-            </div>
+        <div class="product-card">
+            <div class="title">Soap</div>
+            <div class="price">290 ₽</div>
+            <div class="img-box">IMG_20261009_225828_897.jpg</div>
+            <button class="btn" onclick="add('Soap', 290)">В корзину</button>
+        </div>
 
-            <a href="https://t.me/Anuschess" class="btn-tg" target="_blank">Открыть телеграмм канал.</a>
-        </main>
-
-        <footer>
-            <p>@Anuschess &bull; 2026</p>
-        </footer>
+        <div class="footer-banner">100% Natural</div>
+        <div class="mascot">🍄👍</div>
     </div>
 
+    <div class="cart-bar" id="bar">
+        <div id="bar-text" style="font-weight: 600; font-size: 17px;">0 ₽</div>
+        <button class="btn-cart" onclick="toggleM(true)">Оформить</button>
+    </div>
+
+    <div class="modal" id="modal" onclick="if(event.target===this) toggleM(false)">
+        <div class="modal-content">
+            <h3>Ваш заказ</h3>
+            <div id="list"></div>
+            <div id="total" style="text-align: right; font-weight: 700; font-size: 18px; margin-top: 16px;"></div>
+            <form onsubmit="order(event)">
+                <input type="tel" id="phone" placeholder="+7 (999) 000-00-00" required>
+                <button type="submit" class="btn">Подтвердить заказ</button>
+                <button type="button" class="btn" style="background:none; color:#767670; margin-top:8px; height:auto; font-size:14px;" onclick="toggleM(false)">Продолжить покупки</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let cart = {}, totalSum = 0;
+
+        function add(name, price) {
+            if (!cart[name]) cart[name] = { qty: 0, price: price };
+            cart[name].qty++;
+            update();
+        }
+
+        function change(name, delta) {
+            cart[name].qty += delta;
+            if (cart[name].qty <= 0) delete cart[name];
+            update();
+            if (Object.keys(cart).length === 0) toggleM(false);
+            else render();
+        }
+
+        function update() {
+            totalSum = Object.values(cart).reduce((sum, item) => sum + (item.qty * item.price), 0);
+            document.getElementById('bar').style.display = totalSum > 0 ? 'flex' : 'none';
+            document.getElementById('bar-text').innerText = `Итого: ${totalSum} ₽`;
+        }
+
+        function render() {
+            const list = document.getElementById('list');
+            list.innerHTML = '';
+            for (let name in cart) {
+                list.innerHTML += `<div class="cart-item">
+                    <div><div style="font-weight:600;">${name}</div><div style="color:#767670; font-size:14px;">${cart[name].price} ₽</div></div>
+                    <div class="qty-box">
+                        <button class="btn-qty" type="button" onclick="change('${name}', -1)">-</button>
+                        <span style="font-weight:600; min-width:16px; text-align:center;">${cart[name].qty}</span>
+                        <button class="btn-qty" type="button" onclick="change('${name}', 1)">+</button>
+                    </div>
+                </div>`;
+            }
+            document.getElementById('total').innerText = `К оплате: ${totalSum} ₽`;
+        }
+
+        function toggleM(open) {
+            if(open) render();
+            document.getElementById('modal').style.display = open ? 'flex' : 'none';
+            document.body.style.overflow = open ? 'hidden' : '';
+        }
+
+        function order(e) {
+            e.preventDefault();
+            alert(`Успешно! Заказ на сумму ${totalSum} ₽ оформлен.\nТелефон: ${document.getElementById('phone').value}`);
+            cart = {}; update(); toggleM(false); document.getElementById('phone').value = '';
+        }
+    </script>
 </body>
 </html>
