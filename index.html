@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GOOFGOSUDAR</title>
     <style>
-        :root { --bg: #f9f9f6; --card: #ffffff; --text: #1a1a1a; --accent: #2c3e2b; }
+        :root { --bg: #f9f9f6; --card: #ffffff; --text: #1a1a1a; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 100px; -webkit-tap-highlight-color: transparent; }
         .container { max-width: 440px; margin: 0 auto; padding: 40px 20px; box-sizing: border-box; }
         
@@ -16,7 +16,7 @@
         .title { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
         .price { font-size: 18px; color: #767670; font-weight: 500; margin-bottom: 16px; }
         
-        .img-box { height: 180px; background: #f2f2ed; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #9a9a90; font-size: 14px; margin-bottom: 16px; }
+        .product-card img { width: 100%; max-width: 160px; height: 160px; object-fit: contain; margin-bottom: 16px; }
         
         .btn { background: var(--text); color: #fff; border: none; width: 100%; height: 50px; font-size: 16px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: all 0.2s; }
         .btn:active { background: #333; }
@@ -51,21 +51,21 @@
         <div class="product-card">
             <div class="title">Pumpkin seeds</div>
             <div class="price">350 ₽</div>
-            <div class="img-box">IMG_20261009_225836_052.jpg</div>
+            <img src="IMG_20261009_225836_052.jpg" alt="Pumpkin seeds">
             <button class="btn" onclick="add('Pumpkin seeds', 350)">В корзину</button>
         </div>
 
         <div class="product-card">
             <div class="title">Natural ointment</div>
             <div class="price">590 ₽</div>
-            <div class="img-box">IMG_20261009_225844_593.jpg</div>
+            <img src="IMG_20261009_225844_593.jpg" alt="Natural ointment">
             <button class="btn" onclick="add('Natural ointment', 590)">В корзину</button>
         </div>
 
         <div class="product-card">
             <div class="title">Soap</div>
             <div class="price">290 ₽</div>
-            <div class="img-box">IMG_20261009_225828_897.jpg</div>
+            <img src="IMG_20261009_225828_897.jpg" alt="Soap">
             <button class="btn" onclick="add('Soap', 290)">В корзину</button>
         </div>
 
